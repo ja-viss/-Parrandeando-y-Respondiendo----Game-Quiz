@@ -182,7 +182,7 @@ export default function QuizPage() {
   const [settings, setSettings] = useState<GameSettings | null>(null);
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [loading, setLoading] = useState(true);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(-1);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const [players, setPlayers] = useState<Player[]>([]);
@@ -222,7 +222,10 @@ export default function QuizPage() {
   }, [players, settings, router, highestStreak]);
 
   const fetchNextQuestion = useCallback(async () => {
-    if (!settings) return;
+    if (!settings || (settings.mode !== 'survival' && currentQuestionIndex >= settings.numQuestions -1)) {
+        finishGame();
+        return;
+    }
     
     setLoading(true);
     setIsAnswered(false);
@@ -253,7 +256,7 @@ export default function QuizPage() {
         setLoading(false);
         setTimeLeft(70);
     }
-  }, [settings, difficultyInfo.name, finishGame, toast, questions, shouldUseAI]);
+  }, [settings, difficultyInfo.name, finishGame, toast, questions, shouldUseAI, currentQuestionIndex]);
 
 
   const handleNextTurn = useCallback(async () => {
@@ -292,13 +295,9 @@ export default function QuizPage() {
     }
 
     if (isNewRound) {
-       if (currentQuestionIndex < settings.numQuestions - 1) {
-            fetchNextQuestion();
-      } else {
-        finishGame();
-      }
+        fetchNextQuestion();
     }
-  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame, toast, fetchNextQuestion]);
+  }, [settings, currentPlayerIndex, players.length, fetchNextQuestion, toast]);
   
   const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
 
@@ -381,7 +380,7 @@ export default function QuizPage() {
         if (settings?.mode === 'survival') {
             if (usedMilagro) {
                 setUsedMilagro(false); 
-                toast({ title: "¡Salvado por el Santo!", description: "Has conservado tu vida.", duration: 2000 });
+                toast({ title: "¡Salvado por el Santo!", description: "Has conservado tu vida, pero pierdes la racha.", duration: 2000 });
                 setCurrentStreak(0);
             } else {
                 setCurrentStreak(0); 
@@ -421,31 +420,8 @@ export default function QuizPage() {
       setPlayers([{ id: 'solo-player', name: 'Tú', score: 0, powerUps: [], survivalPowerUps: {} }]);
     }
     
-    const fetchInitialQuestions = async () => {
-      setLoading(true);
-      const initialDifficulty = parsedSettings.mode === 'survival' ? getDifficulty(0).name : parsedSettings.difficulty || 'Juguete de Niño';
-      const numToFetch = 1; // Always fetch one question at a time
-      
-      try {
-        const fetchedQuestions = await getQuizQuestions(initialDifficulty, numToFetch, parsedSettings.category, false, []);
-        if (fetchedQuestions.length > 0) {
-            const polishedQuestions = await Promise.all(fetchedQuestions.map(q => polishQuestionDialect(q)));
-            setQuestions(polishedQuestions);
-            setCurrentQuestionIndex(0);
-        } else {
-            throw new Error("No questions fetched");
-        }
-      } catch(error) {
-        console.error("Failed to fetch/polish questions:", error);
-        toast({ title: "Error", description: "No se pudieron cargar las preguntas.", variant: "destructive"});
-        router.push('/');
-      } finally {
-        setLoading(false);
-        setTimeLeft(70);
-      }
-    };
+    fetchNextQuestion();
 
-    fetchInitialQuestions();
   }, [router, toast]);
 
    useEffect(() => {
@@ -471,13 +447,10 @@ export default function QuizPage() {
     if (!currentQuestion?.opciones) return [];
     
     let options = [...currentQuestion.opciones];
-    if (hiddenOptions.length > 0) {
-        options = options.filter(opt => !hiddenOptions.includes(opt));
-    }
     // No shuffling here to keep revealed answer consistent
     // return options.sort(() => Math.random() - 0.5);
     return options;
-  }, [currentQuestion, hiddenOptions]);
+  }, [currentQuestion]);
 
    const handleUseGroupPowerUp = (powerUp: GroupPowerUp) => {
     if (groupPowerUpConfig[powerUp].malus) {
@@ -556,8 +529,8 @@ export default function QuizPage() {
 
   if (loading || !settings || !currentQuestion) {
     return (
-      <div className="w-full max-w-6xl mx-auto flex flex-col items-center justify-center min-h-screen p-4">
-        <div className="w-full md:col-span-2">
+      <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-center min-h-screen p-4">
+        <div className="w-full">
            <Card className="bg-card/80 backdrop-blur-sm w-full">
             <CardHeader>
               <Skeleton className="h-4 w-1/4 mb-4" />
@@ -566,10 +539,10 @@ export default function QuizPage() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Skeleton className="h-12 w-full" />
-                <Skeleton className="h-12 w-full" />
-                <Skeleton className="h-12 w-full" />
-                <Skeleton className="h-12 w-full" />
+                <Skeleton className="h-16 w-full" />
+                <Skeleton className="h-16 w-full" />
+                <Skeleton className="h-16 w-full" />
+                <Skeleton className="h-16 w-full" />
               </div>
             </CardContent>
           </Card>
@@ -597,7 +570,7 @@ export default function QuizPage() {
               className='absolute inset-0 z-50 pointer-events-none bg-white animate-fade-in-down'
           />
       )}
-      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 items-start animate-fade-in-up">
+      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-6 items-start animate-fade-in-up">
         
         {/* Main Content */}
         <div className="md:col-span-2 order-2 md:order-1 w-full">
@@ -613,17 +586,17 @@ export default function QuizPage() {
                     </CardHeader>
                     <CardContent>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <Skeleton className="h-12 w-full" />
-                          <Skeleton className="h-12 w-full" />
-                          <Skeleton className="h-12 w-full" />
-                          <Skeleton className="h-12 w-full" />
+                          <Skeleton className="h-16 w-full" />
+                          <Skeleton className="h-16 w-full" />
+                          <Skeleton className="h-16 w-full" />
+                          <Skeleton className="h-16 w-full" />
                       </div>
                     </CardContent>
                   </Card>
               ) : (
                 <Card className="bg-card/80 backdrop-blur-sm w-full">
                   <CardHeader>
-                    {settings.mode !== 'survival' && <Progress value={((currentQuestionIndex + 1) / questions.length) * 100} className="mb-4" />}
+                    {settings.mode !== 'survival' && <Progress value={((currentQuestionIndex + 1) / settings.numQuestions) * 100} className="mb-4" />}
                      <div className="flex justify-between items-center text-sm text-muted-foreground font-body">
                           <span>
                               {settings.mode === 'survival' 
@@ -650,7 +623,7 @@ export default function QuizPage() {
                               variant="outline"
                               size="lg"
                               className={cn(
-                                "h-auto py-3 text-base whitespace-normal justify-start text-left w-full font-body",
+                                "h-auto py-4 text-base whitespace-normal justify-start text-left w-full font-body",
                                 "transition-all duration-300 transform",
                                 isAnswered && isCorrectAnswer && "bg-green-500/80 border-green-700 ring-2 ring-white text-white font-bold",
                                 isAnswered && isSelected && !isCorrectAnswer && "bg-red-500/80 border-red-700 ring-2 ring-white text-white font-bold",
@@ -694,7 +667,7 @@ export default function QuizPage() {
                     <Leaderboard players={players} currentPlayerId={currentPlayer.id} onUsePowerUp={handleUseGroupPowerUp}/>
                 </>
             ) : settings.mode === 'survival' ? (
-                 <>
+                 <div className="space-y-4 md:sticky md:top-20">
                     <Alert>
                         <Heart className="h-4 w-4" />
                         <LivesIndicator lives={lives} />
@@ -706,24 +679,24 @@ export default function QuizPage() {
                     </Alert>
                     <Card>
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2 font-headline text-2xl"><User className="text-accent" />Puntuación</CardTitle>
+                            <CardTitle className="flex items-center gap-2 font-headline text-xl"><User className="text-accent" />Puntuación</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-5xl font-bold text-primary font-body">{players[0].score} <span className="text-xl font-normal text-foreground/80">pts</span></p>
+                            <p className="text-4xl font-bold text-primary font-body">{players[0].score} <span className="text-lg font-normal text-foreground/80">pts</span></p>
                         </CardContent>
                     </Card>
-                </>
+                </div>
             ) : ( // solo mode
-                <>
+                 <div className="space-y-4 md:sticky md:top-20">
                     <Card>
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2 font-headline text-2xl"><User className="text-accent" />Puntuación</CardTitle>
+                            <CardTitle className="flex items-center gap-2 font-headline text-xl"><User className="text-accent" />Puntuación</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-5xl font-bold text-primary font-body">{players[0].score} <span className="text-xl font-normal text-foreground/80">pts</span></p>
+                            <p className="text-4xl font-bold text-primary font-body">{players[0].score} <span className="text-lg font-normal text-foreground/80">pts</span></p>
                         </CardContent>
                     </Card>
-                </>
+                </div>
             )}
              {isRapidFire && (
                 <Alert variant="destructive" className="flex items-center gap-2">

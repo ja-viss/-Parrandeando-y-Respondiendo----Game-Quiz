@@ -6,7 +6,7 @@ const Snowflake = ({ style }: { style: React.CSSProperties }) => {
   return <div className="snowflake" style={style}></div>;
 };
 
-export const Snow = ({ count = 50 }: { count?: number }) => {
+export const Snow = ({ count = 20 }: { count?: number }) => {
   const [snowflakes, setSnowflakes] = useState<React.ReactNode[]>([]);
 
   useEffect(() => {
