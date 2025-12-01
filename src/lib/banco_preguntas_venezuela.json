@@ -2609,16 +2609,16 @@
     "dificultad": "Palo 'e Ron",
     "nivel": "Medio",
     "categoria": "Música y Parrandas",
-    "pregunta": "La agrupación 'Un Solo Pueblo' tiene una canción famosísima que dice 'Viva Venezuela...'. ¿Cómo sigue el coro?",
+    "pregunta": "¿Qué agrupación famosa venezolana popularizó la canción 'La Carta' en ritmo de parranda?",
     "opciones": [
-      "...mi patria querida",
-      "...tierra de gracia",
-      "...mi tierra amada",
-      "...país de campeones"
+        "Serenata Guayanesa",
+        "Un Solo Pueblo",
+        "Guaco",
+        "Maracaibo 15"
     ],
-    "respuestaCorrecta": "...mi patria querida"
-  },
-  {
+    "respuestaCorrecta": "Un Solo Pueblo"
+},
+{
     "id": "228",
     "dificultad": "¡El Cañonazo!",
     "nivel": "Experto",
@@ -3197,14 +3197,14 @@
     "dificultad": "Juguete de Niño",
     "nivel": "Fácil",
     "categoria": "Música y Parrandas",
-    "pregunta": "¿Qué dice el coro de la canción 'Venga un Abrazo'?",
+    "pregunta": "¿Qué canción dice: 'Venga un Abrazo que ya es navidad'?",
     "opciones": [
-      "Venga un abrazo que ya es navidad",
-      "Venga un abrazo de año nuevo",
-      "Venga un abrazo que quiero bailar",
-      "Dame un abrazo pues"
+      "Venga un abrazo",
+      "Feliz Año Nuevo",
+      "El Año Viejo",
+      "Gaita y Tambora"
     ],
-    "respuestaCorrecta": "Venga un abrazo que ya es navidad"
+    "respuestaCorrecta": "Venga un abrazo"
   },
   {
     "id": "270",
@@ -3330,7 +3330,7 @@
       "Televen",
       "VTV"
     ],
-    "respuestaCorrecta": "Venevisión"
+    "respuestaCorrecta": "RCTV"
   },
   {
     "id": "279",
@@ -4830,5 +4830,4 @@
     ],
     "respuestaCorrecta": "Que esa hallaca está 'invernada' (pasó el invierno)"
   }
-  
 ]

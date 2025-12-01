@@ -23,6 +23,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 
 const groupPowerUpConfig: Record<GroupPowerUp, { name: string; icon: React.ElementType; description: string; malus: boolean }> = {
   'hallaca-de-oro': { name: "Hallaca de Oro", icon: Shield, description: "¡Duplica tus puntos en la siguiente pregunta!", malus: false },
@@ -131,31 +138,40 @@ const elCanonazoPhrases = [
 
 const SurvivalPowerUpBar = ({ powerUps, onUse }: { powerUps: Partial<Record<SurvivalPowerUp, number>>, onUse: (powerUp: SurvivalPowerUp) => void}) => {
     return (
-        <Card className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-sm bg-card/80 backdrop-blur-sm">
-            <CardContent className="p-2">
-                <div className="flex justify-around items-center">
-                    {(Object.keys(survivalPowerUpConfig) as SurvivalPowerUp[]).map(powerUpKey => {
-                        const config = survivalPowerUpConfig[powerUpKey];
-                        const count = powerUps[powerUpKey] || 0;
-                        const Icon = config.icon;
-                        return (
-                            <Button 
-                                key={powerUpKey} 
-                                variant="ghost" 
-                                size="icon"
-                                disabled={count === 0}
-                                onClick={() => onUse(powerUpKey)}
-                                className="relative flex flex-col h-16 w-16"
-                            >
-                                <Icon className={cn("h-8 w-8", count > 0 ? "text-accent" : "text-muted-foreground")} />
-                                <span className="text-xs font-body">{config.name.split(" ")[1]}</span>
-                                {count > 0 && <div className="absolute top-0 right-0 h-4 w-4 bg-primary text-primary-foreground rounded-full text-xs flex items-center justify-center">{count}</div>}
-                            </Button>
-                        )
-                    })}
-                </div>
-            </CardContent>
-        </Card>
+        <TooltipProvider>
+            <Card className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-sm bg-card/80 backdrop-blur-sm">
+                <CardContent className="p-2">
+                    <div className="flex justify-around items-center">
+                        {(Object.keys(survivalPowerUpConfig) as SurvivalPowerUp[]).map(powerUpKey => {
+                            const config = survivalPowerUpConfig[powerUpKey];
+                            const count = powerUps[powerUpKey] || 0;
+                            const Icon = config.icon;
+                            return (
+                                <Tooltip key={powerUpKey}>
+                                    <TooltipTrigger asChild>
+                                        <Button 
+                                            variant="ghost" 
+                                            size="icon"
+                                            disabled={count === 0}
+                                            onClick={() => onUse(powerUpKey)}
+                                            className={cn("relative flex flex-col h-16 w-16", count === 0 && "opacity-50 grayscale")}
+                                        >
+                                            <Icon className={cn("h-7 w-7", count > 0 ? "text-accent" : "text-muted-foreground")} />
+                                            <span className="text-xs font-body">{config.name.split(" ")[1]}</span>
+                                            {count > 0 && <div className="absolute top-0 right-0 h-4 w-4 bg-primary text-primary-foreground rounded-full text-xs flex items-center justify-center">{count}</div>}
+                                        </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p className="font-bold">{config.name}</p>
+                                        <p>{config.description}</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            )
+                        })}
+                    </div>
+                </CardContent>
+            </Card>
+        </TooltipProvider>
     );
 };
 
@@ -204,20 +220,51 @@ export default function QuizPage() {
     router.push('/results');
   }, [players, settings, router, highestStreak]);
 
-  const handleNextQuestion = useCallback(async () => {
+  const fetchNextQuestion = useCallback(async () => {
+    if (!settings) return;
+    
+    setLoading(true);
+    setIsAnswered(false);
+    setSelectedAnswer(null);
+    setRevealedAnswer(null);
+    setHiddenOptions([]);
+    setSlowTime(false);
+    setUsedMilagro(false);
+    setTimeLeft(70);
+
+    try {
+        const newQuestions = await getQuizQuestions(difficultyInfo.name, 1, settings.category);
+        if (newQuestions.length > 0) {
+            const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
+             setQuestions(prev => [...prev, polishedQuestion]);
+             setCurrentQuestionIndex(prev => prev + 1);
+        } else {
+             throw new Error("No more questions available.");
+        }
+    } catch (error) {
+        toast({ title: "Error de red", description: "No se pudo cargar la siguiente pregunta.", variant: "destructive" });
+        finishGame();
+    } finally {
+        setLoading(false);
+    }
+  }, [settings, difficultyInfo.name, finishGame, toast]);
+
+
+  const handleNextTurn = useCallback(async () => {
     if (!settings) return;
 
     setIsAnswered(false);
     setSelectedAnswer(null);
     setUsingHallacaDeOro(null);
-    setActiveMalus({}); // Clear all malus effects
-
+    setActiveMalus({});
+    
+    // Reset survival power-ups visual state for next question
     setSlowTime(false);
     setRevealedAnswer(null);
     setHiddenOptions([]);
     setUsedMilagro(false);
     
-    if (Math.random() < 0.15 && settings?.mode === 'group') { // 15% chance for rapid fire
+    if (Math.random() < 0.15 && settings?.mode === 'group') {
       setIsRapidFire(true);
       toast({ title: "¡RONDA RÁFAGA!", description: "¡3 segundos para responder! ¡El más rápido gana más!", duration: 3000 });
       setTimeLeft(3);
@@ -227,18 +274,7 @@ export default function QuizPage() {
     }
 
     if (settings.mode === 'survival') {
-        const nextIndex = currentQuestionIndex + 1;
-        setLoading(true);
-        try {
-            const newQuestions = await getQuizQuestions(difficultyInfo.name, 1, settings.category);
-            const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
-            setQuestions(prev => [...prev, polishedQuestion]);
-            setCurrentQuestionIndex(nextIndex);
-        } catch (error) {
-            toast({ title: "Error de red", description: "No se pudo cargar la siguiente pregunta. Inténtalo de nuevo.", variant: "destructive" });
-        } finally {
-            setLoading(false);
-        }
+        fetchNextQuestion();
         return;
     }
     
@@ -251,21 +287,23 @@ export default function QuizPage() {
 
     if (isNewRound) {
        if (currentQuestionIndex < settings.numQuestions - 1) {
-        setLoading(true);
         const nextQuestionIndex = currentQuestionIndex + 1;
-        const polishedQuestion = await polishQuestionDialect(questions[nextQuestionIndex]);
-        setQuestions(prev => {
-          const newQs = [...prev];
-          newQs[nextQuestionIndex] = polishedQuestion;
-          return newQs;
-        });
         setCurrentQuestionIndex(nextQuestionIndex);
-        setLoading(false);
+        
+        // Polish the next question just in time
+        if (questions[nextQuestionIndex]) {
+            const polishedQuestion = await polishQuestionDialect(questions[nextQuestionIndex]);
+            setQuestions(prev => {
+              const newQs = [...prev];
+              newQs[nextQuestionIndex] = polishedQuestion;
+              return newQs;
+            });
+        }
       } else {
         finishGame();
       }
     }
-  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame, toast, difficultyInfo.name, questions]);
+  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame, toast, questions, fetchNextQuestion]);
   
   const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
 
@@ -330,9 +368,8 @@ export default function QuizPage() {
           index === currentPlayerIndex ? { ...p, score: p.score + Math.round(scoreToAdd) } : p
         ));
 
-        // Award power-up
         if (settings?.mode === 'group' && (settings.difficulty === "Palo 'e Ron" || settings.difficulty === "¡El Cañonazo!")) {
-            if (Math.random() < 0.3) { // 30% chance
+            if (Math.random() < 0.3) { 
                 const allPowerUps: GroupPowerUp[] = ['hallaca-de-oro', 'palo-de-ciego', 'la-ladilla', 'el-estruendo'];
                 const randomPowerUp = allPowerUps[Math.floor(Math.random() * allPowerUps.length)];
                 setPlayers(prev => prev.map((p, index) => 
@@ -348,12 +385,11 @@ export default function QuizPage() {
         
         if (settings?.mode === 'survival') {
             if (usedMilagro) {
-                setUsedMilagro(false); // consume it
+                setUsedMilagro(false); 
                 toast({ title: "¡Salvado por el Santo!", description: "Has conservado tu vida.", duration: 2000 });
-                // Don't lose a life, but reset streak
                 setCurrentStreak(0);
             } else {
-                setCurrentStreak(0); // Reset streak
+                setCurrentStreak(0); 
                 const newLives = lives - 1;
                 setLives(newLives);
                 if(newLives <= 0) {
@@ -365,7 +401,7 @@ export default function QuizPage() {
     }
 
     setTimeout(() => {
-       handleNextQuestion();
+       handleNextTurn();
     }, 1500);
   };
   
@@ -388,10 +424,8 @@ export default function QuizPage() {
     else {
       setPlayers([{ id: 'solo-player', name: 'Tú', score: 0, powerUps: [], survivalPowerUps: {} }]);
     }
-
     
     setTimeLeft(70);
-    
 
     const fetchInitialQuestions = async () => {
       setLoading(true);
@@ -400,8 +434,13 @@ export default function QuizPage() {
       
       try {
         const fetchedQuestions = await getQuizQuestions(initialDifficulty, numToFetch, parsedSettings.category);
-        const polishedQuestions = await Promise.all(fetchedQuestions.map(q => polishQuestionDialect(q)));
-        setQuestions(polishedQuestions);
+        if (fetchedQuestions.length > 0) {
+            const polishedQuestions = await Promise.all(fetchedQuestions.map(q => polishQuestionDialect(q)));
+            setQuestions(polishedQuestions);
+            setCurrentQuestionIndex(0);
+        } else {
+            throw new Error("No questions fetched");
+        }
       } catch(error) {
         console.error("Failed to fetch/polish questions:", error);
         toast({ title: "Error", description: "No se pudieron cargar las preguntas.", variant: "destructive"});
@@ -440,7 +479,9 @@ export default function QuizPage() {
     if (hiddenOptions.length > 0) {
         options = options.filter(opt => !hiddenOptions.includes(opt));
     }
-    return options.sort(() => Math.random() - 0.5);
+    // No shuffling here to keep revealed answer consistent
+    // return options.sort(() => Math.random() - 0.5);
+    return options;
   }, [currentQuestion, hiddenOptions]);
 
    const handleUseGroupPowerUp = (powerUp: GroupPowerUp) => {
@@ -455,7 +496,7 @@ export default function QuizPage() {
   
     const handleUseSurvivalPowerUp = (powerUp: SurvivalPowerUp) => {
         const currentPlayer = players[0];
-        if (!currentPlayer || (currentPlayer.survivalPowerUps?.[powerUp] || 0) <= 0) {
+        if (!currentPlayer || (currentPlayer.survivalPowerUps?.[powerUp] || 0) <= 0 || isAnswered) {
             return;
         }
 
@@ -479,7 +520,8 @@ export default function QuizPage() {
                 break;
             case 'media-hallaca':
                 const wrongOptions = currentQuestion.opciones.filter(opt => opt !== currentQuestion.respuestaCorrecta);
-                const optionsToHide = wrongOptions.sort(() => 0.5 - Math.random()).slice(0, 2);
+                const shuffledWrongOptions = wrongOptions.sort(() => 0.5 - Math.random());
+                const optionsToHide = shuffledWrongOptions.slice(0, 2);
                 setHiddenOptions(optionsToHide);
                 break;
             case 'milagro-santo':
@@ -517,7 +559,7 @@ export default function QuizPage() {
   }
 
 
-  if (loading || !settings) {
+  if (loading || !settings || !currentQuestion) {
     return (
       <div className="w-full max-w-6xl mx-auto flex flex-col items-center justify-center min-h-screen p-4">
         <div className="w-full md:col-span-2">
@@ -617,11 +659,11 @@ export default function QuizPage() {
                                 "transition-all duration-300 transform",
                                 isAnswered && isCorrectAnswer && "bg-green-500/80 border-green-700 ring-2 ring-white text-white font-bold",
                                 isAnswered && isSelected && !isCorrectAnswer && "bg-red-500/80 border-red-700 ring-2 ring-white text-white font-bold",
-                                isAnswered && !isSelected && !isCorrectAnswer && "opacity-50",
+                                (isAnswered && !isSelected && !isCorrectAnswer) || (hiddenOptions.includes(option)) && "opacity-50 pointer-events-none",
                                 !isAnswered && isRevealed && "bg-yellow-500/80 border-yellow-700 ring-2 ring-white text-white font-bold"
                               )}
                               onClick={() => handleAnswer(option)}
-                              disabled={isAnswered}
+                              disabled={isAnswered || hiddenOptions.includes(option)}
                             >
                               {option}
                             </Button>
@@ -720,5 +762,3 @@ export default function QuizPage() {
     </>
   );
 }
-
-    
