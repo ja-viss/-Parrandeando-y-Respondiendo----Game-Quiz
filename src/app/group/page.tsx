@@ -138,7 +138,7 @@ export default function GroupPage() {
                   >
                     <RadioGroupItem value={cat.value} id={cat.value} className="sr-only" />
                     <cat.icon className="w-8 h-8 mb-2" />
-                    <span className="font-bold">{cat.label}</span>
+                    <span className="font-bold text-center text-sm">{cat.label}</span>
                   </Label>
                 ))}
               </RadioGroup>

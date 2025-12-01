@@ -87,10 +87,11 @@ const Leaderboard = ({ players, currentPlayerId, onUsePowerUp }: { players: Play
 );
 
 const LivesIndicator = ({ lives }: { lives: number }) => (
-    <div className="flex items-center gap-1">
-      <AnimatePresence>
-        {[...Array(3)].map((_, i) => (
-           i < lives ? (
+    <div className="flex items-center gap-2">
+        <span>Vidas:</span>
+      <div className="flex items-center gap-1">
+        <AnimatePresence>
+          {[...Array(lives)].map((_, i) => (
             <motion.div
               key={i}
               initial={{ scale: 0, rotate: -90 }}
@@ -100,12 +101,12 @@ const LivesIndicator = ({ lives }: { lives: number }) => (
             >
               <Heart className="h-6 w-6 text-red-500 fill-current" />
             </motion.div>
-           ) : null
+          ))}
+        </AnimatePresence>
+        {[...Array(Math.max(0, 3 - lives))].map((_, i) => (
+          <Heart key={`empty-${i}`} className="h-6 w-6 text-red-500 opacity-25" />
         ))}
-       </AnimatePresence>
-       {[...Array(3 - lives)].map((_, i) => (
-            <Heart key={`empty-${i}`} className="h-6 w-6 text-red-500 opacity-25" />
-        ))}
+      </div>
     </div>
 );
 
@@ -200,103 +201,8 @@ export default function QuizPage() {
       }
     }
   }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame, toast, difficultyInfo.name]);
-
-  useEffect(() => {
-    const storedSettings = sessionStorage.getItem('quizSettings');
-    if (!storedSettings) {
-      toast({ title: "Error", description: "No se encontraron configuraciones de juego. Volviendo al inicio.", variant: "destructive" });
-      router.push('/');
-      return;
-    }
-    const parsedSettings: GameSettings = JSON.parse(storedSettings);
-    parsedSettings.timeLimit = 15; // Standard time
-    setSettings(parsedSettings);
-    
-    if (parsedSettings.mode === 'group' && parsedSettings.players) {
-      setPlayers(parsedSettings.players);
-    } else if (parsedSettings.mode === 'survival') {
-      setPlayers([{ id: 'survival-player', name: 'Valiente', score: 0, powerUps: [] }]);
-      setLives(parsedSettings.lives || 3);
-    }
-    else {
-      setPlayers([{ id: 'solo-player', name: 'Tú', score: 0, powerUps: [] }]);
-    }
-
-    if(parsedSettings.timeLimit) {
-      setTimeLeft(parsedSettings.timeLimit);
-    }
-
-    const fetchInitialQuestions = async () => {
-      setLoading(true);
-      const initialDifficulty = parsedSettings.mode === 'survival' ? getDifficulty(0).name : parsedSettings.difficulty || 'Juguete de Niño';
-      const numToFetch = parsedSettings.mode === 'survival' ? 1 : parsedSettings.numQuestions;
-      const fetchedQuestions = await getQuizQuestions(initialDifficulty, numToFetch, parsedSettings.category);
-      setQuestions(fetchedQuestions);
-      setLoading(false);
-    };
-
-    fetchInitialQuestions();
-  }, [router, toast]);
-
-   useEffect(() => {
-    let timer: NodeJS.Timeout;
-    const playerMalus = activeMalus[players[currentPlayerIndex]?.id];
-    let interval = 1000;
-
-    if (playerMalus === 'la-ladilla') {
-        interval = 2000; // Time is halved, so interval is doubled
-    }
-    
-    if (timeLeft > 0 && !isAnswered) {
-      timer = setInterval(() => {
-        setTimeLeft(prev => (prev > 0 ? prev - 1 : 0));
-      }, interval);
-    } else if (timeLeft === 0 && !isAnswered) {
-        handleAnswer(""); // Time's up, count as wrong
-    }
-    return () => clearInterval(timer);
-  }, [timeLeft, isAnswered, activeMalus, players, currentPlayerIndex]);
-
+  
   const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
-  const shuffledOptions = useMemo(() => currentQuestion?.opciones ? [...currentQuestion.opciones].sort(() => Math.random() - 0.5) : [], [currentQuestion]);
-
-   const handleUsePowerUp = (powerUp: PowerUp) => {
-    if (powerUpConfig[powerUp].malus) {
-        setPowerUpToUse(powerUp);
-    } else if (powerUp === 'hallaca-de-oro') {
-        setUsingHallacaDeOro(players[currentPlayerIndex].id);
-        setPlayers(prev => prev.map(p => p.id === players[currentPlayerIndex].id ? { ...p, powerUps: p.powerUps.filter(pu => pu !== 'hallaca-de-oro') } : p));
-        toast({ title: "¡Hallaca de Oro Activada!", description: "¡Tu siguiente respuesta correcta vale el doble!" });
-    }
-  }
-
-  const applyMalus = (targetId: string) => {
-    if (!powerUpToUse) return;
-
-    setActiveMalus(prev => ({ ...prev, [targetId]: powerUpToUse }));
-
-    setPlayers(prev => prev.map(p => p.id === players[currentPlayerIndex].id ? { ...p, powerUps: p.powerUps.filter(pu => pu !== powerUpToUse) } : p));
-    
-    const malusName = powerUpConfig[powerUpToUse].name;
-    const targetName = players.find(p => p.id === targetId)?.name;
-    toast({ title: `¡Ataque a ${targetName}!`, description: `Has usado ${malusName}.`, variant: "destructive" });
-
-    // Handle 'el-estruendo' visual shake
-    if (powerUpToUse === 'el-estruendo') {
-        setShake(targetId);
-        setTimeout(() => setShake(null), 1000);
-    }
-
-    if (powerUpToUse === 'palo-de-ciego') {
-        setTimeout(() => setActiveMalus(prev => ({ ...prev, [targetId]: null })), 3000);
-    }
-     if (powerUpToUse === 'la-ladilla') {
-        setTimeout(() => setActiveMalus(prev => ({...prev, [targetId]: null})), 5000);
-    }
-
-    setPowerUpToUse(null);
-  }
-
 
   const handleAnswer = (answer: string) => {
     if (isAnswered) return;
@@ -364,6 +270,102 @@ export default function QuizPage() {
     }, 1500);
   };
   
+  useEffect(() => {
+    const storedSettings = sessionStorage.getItem('quizSettings');
+    if (!storedSettings) {
+      toast({ title: "Error", description: "No se encontraron configuraciones de juego. Volviendo al inicio.", variant: "destructive" });
+      router.push('/');
+      return;
+    }
+    const parsedSettings: GameSettings = JSON.parse(storedSettings);
+    parsedSettings.timeLimit = 15; // Standard time
+    setSettings(parsedSettings);
+    
+    if (parsedSettings.mode === 'group' && parsedSettings.players) {
+      setPlayers(parsedSettings.players);
+    } else if (parsedSettings.mode === 'survival') {
+      setPlayers([{ id: 'survival-player', name: 'Valiente', score: 0, powerUps: [] }]);
+      setLives(parsedSettings.lives || 3);
+    }
+    else {
+      setPlayers([{ id: 'solo-player', name: 'Tú', score: 0, powerUps: [] }]);
+    }
+
+    if(parsedSettings.timeLimit) {
+      setTimeLeft(parsedSettings.timeLimit);
+    }
+
+    const fetchInitialQuestions = async () => {
+      setLoading(true);
+      const initialDifficulty = parsedSettings.mode === 'survival' ? getDifficulty(0).name : parsedSettings.difficulty || 'Juguete de Niño';
+      const numToFetch = parsedSettings.mode === 'survival' ? 1 : parsedSettings.numQuestions;
+      const fetchedQuestions = await getQuizQuestions(initialDifficulty, numToFetch, parsedSettings.category);
+      setQuestions(fetchedQuestions);
+      setLoading(false);
+    };
+
+    fetchInitialQuestions();
+  }, [router, toast]);
+
+   useEffect(() => {
+    let timer: NodeJS.Timeout;
+    const playerMalus = activeMalus[players[currentPlayerIndex]?.id];
+    let interval = 1000;
+
+    if (playerMalus === 'la-ladilla') {
+        interval = 2000; // Time is halved, so interval is doubled
+    }
+    
+    if (timeLeft > 0 && !isAnswered) {
+      timer = setInterval(() => {
+        setTimeLeft(prev => (prev > 0 ? prev - 1 : 0));
+      }, interval);
+    } else if (timeLeft === 0 && !isAnswered) {
+        handleAnswer(""); // Time's up, count as wrong
+    }
+    return () => clearInterval(timer);
+  }, [timeLeft, isAnswered, activeMalus, players, currentPlayerIndex, handleAnswer]);
+
+  const shuffledOptions = useMemo(() => currentQuestion?.opciones ? [...currentQuestion.opciones].sort(() => Math.random() - 0.5) : [], [currentQuestion]);
+
+   const handleUsePowerUp = (powerUp: PowerUp) => {
+    if (powerUpConfig[powerUp].malus) {
+        setPowerUpToUse(powerUp);
+    } else if (powerUp === 'hallaca-de-oro') {
+        setUsingHallacaDeOro(players[currentPlayerIndex].id);
+        setPlayers(prev => prev.map(p => p.id === players[currentPlayerIndex].id ? { ...p, powerUps: p.powerUps.filter(pu => pu !== 'hallaca-de-oro') } : p));
+        toast({ title: "¡Hallaca de Oro Activada!", description: "¡Tu siguiente respuesta correcta vale el doble!" });
+    }
+  }
+
+  const applyMalus = (targetId: string) => {
+    if (!powerUpToUse) return;
+
+    setActiveMalus(prev => ({ ...prev, [targetId]: powerUpToUse }));
+
+    setPlayers(prev => prev.map(p => p.id === players[currentPlayerIndex].id ? { ...p, powerUps: p.powerUps.filter(pu => pu !== powerUpToUse) } : p));
+    
+    const malusName = powerUpConfig[powerUpToUse].name;
+    const targetName = players.find(p => p.id === targetId)?.name;
+    toast({ title: `¡Ataque a ${targetName}!`, description: `Has usado ${malusName}.`, variant: "destructive" });
+
+    // Handle 'el-estruendo' visual shake
+    if (powerUpToUse === 'el-estruendo') {
+        setShake(targetId);
+        setTimeout(() => setShake(null), 1000);
+    }
+
+    if (powerUpToUse === 'palo-de-ciego') {
+        setTimeout(() => setActiveMalus(prev => ({ ...prev, [targetId]: null })), 3000);
+    }
+     if (powerUpToUse === 'la-ladilla') {
+        setTimeout(() => setActiveMalus(prev => ({...prev, [targetId]: null})), 5000);
+    }
+
+    setPowerUpToUse(null);
+  }
+
+
   if (loading || !settings || !currentQuestion) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen p-4 space-y-4">
@@ -392,9 +394,9 @@ export default function QuizPage() {
         <PowerUpSelector players={players} onSelect={applyMalus} ownId={currentPlayer.id} powerUp={powerUpToUse} />
     )}
     <div className={cn("container mx-auto p-4 min-h-screen flex flex-col items-center justify-center transition-all duration-500", shake === currentPlayer.id && 'shake', isRapidFire && 'ring-4 ring-red-500 ring-inset')}>
-       <Button variant="ghost" className="absolute top-4 left-4" asChild>
+       <Button variant="ghost" className="absolute top-4 left-4 z-30" asChild>
         <Link href="/">
-          <ArrowLeft className="mr-2 h-4 w-4" /> Salir del Juego
+          <ArrowLeft className="mr-2 h-4 w-4" /> Salir
         </Link>
       </Button>
       <AnimatePresence>
@@ -407,7 +409,9 @@ export default function QuizPage() {
             />
         )}
       </AnimatePresence>
-      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-8 items-start animate-fade-in-up">
+      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 items-start animate-fade-in-up">
+        
+        {/* Main Content */}
         <div className="md:col-span-2 order-2 md:order-1 w-full">
           <AnimatePresence mode="wait">
             <motion.div
@@ -429,7 +433,7 @@ export default function QuizPage() {
                         </span>
                         {currentQuestion.categoria !== "Error" && <span className='font-bold'>Categoría: {currentQuestion.categoria}</span>}
                     </div>
-                  <CardTitle className="font-headline text-2xl md:text-3xl !mt-2">{currentQuestion.pregunta}</CardTitle>
+                  <CardTitle className="font-headline text-2xl md:text-3xl lg:text-4xl !mt-2">{currentQuestion.pregunta}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -447,7 +451,7 @@ export default function QuizPage() {
                             variant="outline"
                             size="lg"
                             className={cn(
-                              "h-auto py-4 text-base whitespace-normal justify-start text-left w-full",
+                              "h-auto py-3 text-base whitespace-normal justify-start text-left w-full",
                               "transition-all duration-300 transform",
                               isAnswered && isCorrectAnswer && "bg-green-500/80 border-green-700 ring-2 ring-white text-white font-bold",
                               isAnswered && isSelected && !isCorrectAnswer && "bg-red-500/80 border-red-700 ring-2 ring-white text-white font-bold",
@@ -467,6 +471,8 @@ export default function QuizPage() {
             </motion.div>
           </AnimatePresence>
         </div>
+
+        {/* Sidebar */}
         <div className="w-full space-y-4 order-1 md:order-2">
            <motion.div 
               className="sticky top-4 z-20"
@@ -475,7 +481,7 @@ export default function QuizPage() {
             <Alert className={cn("bg-background/80 backdrop-blur-sm", isRapidFire && "bg-red-500/20")}>
                 <Clock className="h-4 w-4" />
                 <AlertTitle className="font-bold">Tiempo:</AlertTitle>
-                <AlertDescription className="text-2xl text-primary font-mono">{timeLeft}s</AlertDescription>
+                <AlertDescription className="text-3xl text-primary font-mono">{timeLeft}s</AlertDescription>
             </Alert>
           </motion.div>
 
@@ -484,27 +490,26 @@ export default function QuizPage() {
                     <Alert>
                         <Users className="h-4 w-4" />
                         <AlertTitle className="font-bold">Turno de:</AlertTitle>
-                        <AlertDescription className="text-lg text-primary">{currentPlayer.name}</AlertDescription>
+                        <AlertDescription className="text-xl text-primary">{currentPlayer.name}</AlertDescription>
                     </Alert>
                     <Leaderboard players={players} currentPlayerId={currentPlayer.id} onUsePowerUp={handleUsePowerUp}/>
                 </>
             ) : settings.mode === 'survival' ? (
                  <>
-                    <Alert>
+                    <Alert className="flex items-center gap-4">
                         <LivesIndicator lives={lives} />
-                        <AlertTitle className="font-bold ml-10 -mt-5">Vidas Restantes</AlertTitle>
                     </Alert>
                      <Alert className={cn("relative overflow-hidden transition-all duration-300", levelUp && "ring-2 ring-accent confetti-pop")}>
                         <Zap className="h-4 w-4" />
                         <AlertTitle className="font-bold">Nivel de Dificultad</AlertTitle>
-                        <AlertDescription className="text-lg text-primary">{difficultyInfo.label}</AlertDescription>
+                        <AlertDescription className="text-xl text-primary">{difficultyInfo.label}</AlertDescription>
                     </Alert>
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2 font-headline text-2xl"><User className="text-accent" />Puntuación</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-4xl font-bold text-primary">{players[0].score} <span className="text-lg font-normal text-foreground/80">pts</span></p>
+                            <p className="text-5xl font-bold text-primary">{players[0].score} <span className="text-xl font-normal text-foreground/80">pts</span></p>
                         </CardContent>
                     </Card>
                 </>
@@ -515,7 +520,7 @@ export default function QuizPage() {
                             <CardTitle className="flex items-center gap-2 font-headline text-2xl"><User className="text-accent" />Puntuación</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-4xl font-bold text-primary">{players[0].score} <span className="text-lg font-normal text-foreground/80">pts</span></p>
+                            <p className="text-5xl font-bold text-primary">{players[0].score} <span className="text-xl font-normal text-foreground/80">pts</span></p>
                         </CardContent>
                     </Card>
                 </>
