@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 
 const categories: { value: GameCategory | 'all'; label: string; icon: React.ElementType }[] = [
   { value: "all", label: "Todas", icon: Globe },
-  { value: "Gastronomía", label: "Gastronomía", icon: Utensils },
+  { value: "Gastronomía", label: "Comida", icon: Utensils },
   { value: "Música y Parrandas", label: "Música", icon: Music },
   { value: "Tradiciones y Costumbres", label: "Costumbres", icon: Gift },
 ];
@@ -92,20 +92,20 @@ export default function GroupPage() {
           <ArrowLeft className="mr-2 h-4 w-4" /> Volver
         </Link>
       </Button>
-      <Card className="w-full max-w-2xl bg-card/80 backdrop-blur-sm">
+      <Card className="w-full max-w-md md:max-w-2xl bg-card/80 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle className="font-headline text-4xl text-center text-primary">Competencia Grupal</CardTitle>
+          <CardTitle className="font-headline text-3xl md:text-4xl text-center text-primary">Competencia Grupal</CardTitle>
           <CardDescription className="text-center font-body">Añadan sus nombres, elijan categoría y ¡que comience la parranda!</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
-          <CardContent className="space-y-8">
-            <div className="space-y-4">
+          <CardContent className="space-y-6">
+            <div className="space-y-3">
               <Label className="text-lg font-semibold font-body">Jugadores</Label>
               {players.map((player, index) => (
                 <div key={index} className="flex items-center gap-2">
                   <Input
                     type="text"
-                    placeholder={`Nombre del Jugador ${index + 1}`}
+                    placeholder={`Jugador ${index + 1}`}
                     value={player}
                     onChange={(e) => handlePlayerChange(index, e.target.value)}
                     required
@@ -125,21 +125,21 @@ export default function GroupPage() {
               )}
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               <Label className="text-lg font-semibold font-body">Categoría</Label>
-              <RadioGroup value={category} onValueChange={(value: GameCategory | 'all') => setCategory(value)} className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <RadioGroup value={category} onValueChange={(value: GameCategory | 'all') => setCategory(value)} className="grid grid-cols-2 md:grid-cols-4 gap-2">
                 {categories.map((cat) => (
                    <Label
                     key={cat.value}
                     htmlFor={cat.value}
                     className={cn(
-                        `flex flex-col items-center justify-center rounded-md border-2 p-4 cursor-pointer transition-colors`,
+                        `flex flex-col items-center justify-center rounded-md border-2 p-3 cursor-pointer transition-colors`,
                         category === cat.value ? 'border-primary bg-primary/10 ring-2 ring-primary' : 'border-muted hover:border-accent'
                     )}
                   >
                     <RadioGroupItem value={cat.value} id={cat.value} className="sr-only" />
-                    <cat.icon className="w-8 h-8 mb-2" />
-                    <span className="font-bold text-center text-sm font-body">{cat.label}</span>
+                    <cat.icon className="w-7 h-7 mb-1" />
+                    <span className="font-bold text-center text-xs md:text-sm font-body">{cat.label}</span>
                   </Label>
                 ))}
               </RadioGroup>
@@ -147,7 +147,7 @@ export default function GroupPage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                    <Label htmlFor="num-questions" className="text-lg font-semibold font-body">Número de Preguntas</Label>
+                    <Label htmlFor="num-questions" className="text-lg font-semibold font-body">Preguntas</Label>
                     <Select value={String(numQuestions)} onValueChange={(val) => setNumQuestions(Number(val))}>
                         <SelectTrigger id="num-questions" className="w-full font-body">
                             <SelectValue placeholder="Selecciona el número de preguntas" />

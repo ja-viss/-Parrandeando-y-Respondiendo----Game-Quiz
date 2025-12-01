@@ -23,10 +23,10 @@ const HIGH_SCORE_KEY = 'parrandeando-highscore';
 const BEST_STREAK_KEY = 'parrandeando-beststreak';
 
 const streakAchievements = [
-  { name: 'El Maestro', description: 'Alcanzar una racha de 100. ¡El Vencedor del Cañonazo!', threshold: 100, icon: <Trophy className="w-8 h-8" /> },
-  { name: 'El Inmortal', description: 'Alcanzar una racha de 50. ¡Cazador de Hallacas!', threshold: 50, icon: <Award className="w-8 h-8" /> },
-  { name: 'Fogonazo', description: 'Alcanzar una racha de 25. ¡El Ciclón Decembrino!', threshold: 25, icon: <Star className="w-8 h-8" /> },
-  { name: 'Parrandita', description: 'Alcanzar una racha de 10. ¡Aprendiz de Racha!', threshold: 10, icon: <Star className="w-8 h-8 opacity-70" /> },
+  { name: 'El Maestro', description: 'Racha de 100. ¡El Vencedor!', threshold: 100, icon: <Trophy className="w-6 h-6" /> },
+  { name: 'El Inmortal', description: 'Racha de 50. ¡Cazador de Hallacas!', threshold: 50, icon: <Award className="w-6 h-6" /> },
+  { name: 'Fogonazo', description: 'Racha de 25. ¡Ciclón Decembrino!', threshold: 25, icon: <Star className="w-6 h-6" /> },
+  { name: 'Parrandita', description: 'Racha de 10. ¡Aprendiz!', threshold: 10, icon: <Star className="w-6 h-6 opacity-70" /> },
 ];
 
 
@@ -98,20 +98,27 @@ export default function ResultsPage() {
       }
     }
     
-    // Using navigator.clipboard to copy text to clipboard
-    navigator.clipboard.writeText(shareText).then(() => {
-        toast({
-            title: "¡Logro Copiado!",
-            description: "¡Pega el mensaje en WhatsApp y presume tu título!",
+    if (navigator.share) {
+        navigator.share({
+            title: '¡Parrandeando y Respondiendo!',
+            text: shareText,
+            url: window.location.origin,
+        }).catch(err => console.error('Error sharing:', err));
+    } else {
+        navigator.clipboard.writeText(shareText).then(() => {
+            toast({
+                title: "¡Logro Copiado!",
+                description: "¡Pega el mensaje en WhatsApp y presume tu título!",
+            });
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+            toast({
+                title: "Error",
+                description: "No se pudo copiar el texto.",
+                variant: "destructive",
+            });
         });
-    }).catch(err => {
-        console.error('Failed to copy: ', err);
-        toast({
-            title: "Error",
-            description: "No se pudo copiar el texto.",
-            variant: "destructive",
-        });
-    });
+    }
   };
 
   if (!results) {
@@ -135,22 +142,22 @@ export default function ResultsPage() {
   return (
     <>
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
-      <Card className="w-full max-w-2xl text-center bg-card/80 backdrop-blur-sm">
+      <Card className="w-full max-w-md md:max-w-2xl text-center bg-card/80 backdrop-blur-sm">
         <CardHeader>
           <div className="flex justify-center mb-4">
-            <Trophy className="w-20 h-20 text-accent" />
+            <Trophy className="w-16 h-16 text-accent" />
           </div>
-          <CardTitle className="font-headline text-5xl">
+          <CardTitle className="font-headline text-4xl md:text-5xl">
             {results.mode === 'group' ? `¡Felicidades, ${winner.name}!` : '¡Juego Terminado!'}
           </CardTitle>
-          <CardDescription className="text-lg font-body">
-            {results.mode === 'group' ? `¡Son los reyes (o reinas) de la parranda en la categoría ${categoryLabels[results.category]}!` : `Resultados de tu partida de ${results.mode === 'survival' ? 'Supervivencia' : 'Solitario'}.`}
+          <CardDescription className="text-md md:text-lg font-body">
+            {results.mode === 'group' ? `¡Son los reyes de la parranda!` : `Resultados de tu partida de ${results.mode === 'survival' ? 'Supervivencia' : 'Solitario'}.`}
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4">
           {results.mode === 'group' ? (
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold font-headline">Clasificación Final</h3>
+              <h3 className="text-xl font-bold font-headline">Clasificación Final</h3>
               <ul className="space-y-2 text-left">
                 {sortedScores.map((player, index) => (
                   <li
@@ -167,9 +174,9 @@ export default function ResultsPage() {
             </div>
           ) : (
             <div className="space-y-4">
-                <div className="p-6 rounded-lg bg-muted/80">
-                    <p className="text-xl font-body">Tu puntuación final</p>
-                    <p className="text-6xl font-bold text-primary my-2 font-body">{winner.score}</p>
+                <div className="p-4 rounded-lg bg-muted/80">
+                    <p className="text-lg font-body">Tu puntuación final</p>
+                    <p className="text-5xl font-bold text-primary my-1 font-body">{winner.score}</p>
                     <p className="text-muted-foreground font-body">puntos</p>
                 </div>
                 {isNewHighScore && (
@@ -178,7 +185,7 @@ export default function ResultsPage() {
                         ¡Nuevo récord personal!
                     </div>
                 )}
-                <p className="text-lg font-body">Tu mejor puntuación: <span className="font-bold text-primary">{highScore} pts</span></p>
+                <p className="text-md font-body">Mejor puntuación: <span className="font-bold text-primary">{highScore} pts</span></p>
             </div>
           )}
 
@@ -186,18 +193,18 @@ export default function ResultsPage() {
              <div className="space-y-4">
                 <div className="p-4 rounded-lg bg-muted/80">
                     <p className="text-lg font-body">Mejor racha de tu vida</p>
-                    <p className="text-4xl font-bold text-primary my-1 font-body">{bestStreak}</p>
+                    <p className="text-3xl font-bold text-primary my-1 font-body">{bestStreak}</p>
                     <p className="text-muted-foreground font-body">respuestas correctas</p>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold mb-4 font-headline">Insignias de Racha</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <h3 className="text-lg font-bold mb-2 font-headline">Insignias de Racha</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                     {streakAchievements.map(ach => (
-                      <div key={ach.name} className={cn("flex flex-col items-center justify-start p-3 rounded-lg border-2 text-center", bestStreak >= ach.threshold ? 'border-accent bg-accent/10' : 'border-muted bg-muted/50 opacity-60')}>
-                          <div className={cn("mb-2", bestStreak >= ach.threshold ? 'text-accent' : 'text-muted-foreground')}>
+                      <div key={ach.name} className={cn("flex flex-col items-center justify-start p-2 rounded-lg border-2 text-center", bestStreak >= ach.threshold ? 'border-accent bg-accent/10' : 'border-muted bg-muted/50 opacity-60')}>
+                          <div className={cn("mb-1", bestStreak >= ach.threshold ? 'text-accent' : 'text-muted-foreground')}>
                             {ach.icon}
                           </div>
-                          <p className="font-bold text-sm leading-tight font-body">{ach.name}</p>
+                          <p className="font-bold text-xs leading-tight font-body">{ach.name}</p>
                            <p className="text-xs text-muted-foreground mt-1 font-body">{ach.description}</p>
                       </div>
                     ))}

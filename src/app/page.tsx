@@ -9,23 +9,23 @@ import { HallacaIcon } from "@/components/icons/hallaca-icon";
 
 export default function Home() {
   return (
-    <main className="relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 text-center">
+    <main className="relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 text-center overflow-x-hidden">
       <div 
-        className="z-10 flex flex-col items-center p-6 md:p-10 rounded-xl bg-card/90 shadow-2xl backdrop-blur-sm animate-fade-in-down"
+        className="z-10 flex flex-col items-center p-4 md:p-10 rounded-xl bg-card/90 shadow-2xl backdrop-blur-sm animate-fade-in-down w-full max-w-sm md:max-w-6xl"
       >
         <h1 
-          className="font-brand text-6xl md:text-8xl font-bold text-primary title-pulse"
+          className="font-brand text-5xl md:text-8xl font-bold text-primary title-pulse"
         >
           ¡Parrandeando y Respondiendo!
         </h1>
         <p 
-          className="mt-4 max-w-2xl text-lg text-foreground/90 font-body"
+          className="mt-4 max-w-2xl text-base md:text-lg text-foreground/90 font-body"
         >
           Pon a prueba tus conocimientos sobre las tradiciones navideñas de Venezuela. Juega solo o compite con amigos en esta divertida parranda de preguntas.
         </p>
 
         <div 
-          className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl animate-fade-in-up"
+          className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 w-full animate-fade-in-up"
         >
           <Link href="/solo" passHref className="flex">
             <div
@@ -34,14 +34,14 @@ export default function Home() {
               <Card className="flex flex-col h-full cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group hover:shadow-lg hover:shadow-accent/30">
                 <CardHeader className="flex-grow">
                   <div className="flex justify-center mb-4">
-                    <MaracaIcon className="w-20 h-20 text-primary" />
+                    <MaracaIcon className="w-16 h-16 text-primary" />
                   </div>
-                  <CardTitle className="font-headline text-3xl text-center text-foreground font-bold">Juego Individual</CardTitle>
-                  <CardDescription className="text-center text-foreground/80 font-body min-h-[40px]">
+                  <CardTitle className="font-headline text-2xl text-center text-foreground font-bold">Juego Individual</CardTitle>
+                  <CardDescription className="text-center text-foreground/80 font-body min-h-[40px] px-2">
                     Compite contra el reloj y establece tu récord personal.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="flex justify-center mt-auto p-6 pt-0">
+                <CardContent className="flex justify-center mt-auto p-4 pt-0">
                   <div className="w-full">
                      <Button variant="default" size="lg" className="w-full font-bold text-lg bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
                       Modo Solitario
@@ -58,14 +58,14 @@ export default function Home() {
               <Card className="flex flex-col h-full cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group hover:shadow-lg hover:shadow-accent/30">
                 <CardHeader className="flex-grow">
                   <div className="flex justify-center mb-4">
-                    <CuatroIcon className="w-20 h-20 text-primary" />
+                    <CuatroIcon className="w-16 h-16 text-primary" />
                   </div>
-                  <CardTitle className="font-headline text-3xl text-center text-foreground font-bold">Competencia Grupal</CardTitle>
-                  <CardDescription className="text-center text-foreground/80 font-body min-h-[40px]">
+                  <CardTitle className="font-headline text-2xl text-center text-foreground font-bold">Competencia Grupal</CardTitle>
+                  <CardDescription className="text-center text-foreground/80 font-body min-h-[40px] px-2">
                     Reta hasta 3 amigos y vean quién es el rey de la parranda.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="flex justify-center mt-auto p-6 pt-0">
+                <CardContent className="flex justify-center mt-auto p-4 pt-0">
                    <div className="w-full">
                     <Button variant="default" size="lg" className="w-full font-bold text-lg bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
                       Modo Grupal
@@ -82,17 +82,17 @@ export default function Home() {
               <Card className="flex flex-col h-full cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group hover:shadow-lg hover:shadow-accent/30">
                 <CardHeader className="flex-grow">
                   <div className="flex justify-center mb-4">
-                    <HallacaIcon className="w-20 h-20 text-primary" />
+                    <HallacaIcon className="w-16 h-16 text-primary" />
                   </div>
-                  <CardTitle className="font-headline text-3xl text-center text-foreground font-bold">Supervivencia</CardTitle>
-                  <CardDescription className="text-center text-foreground/80 font-body min-h-[40px]">
+                  <CardTitle className="font-headline text-2xl text-center text-foreground font-bold">Supervivencia</CardTitle>
+                  <CardDescription className="text-center text-foreground/80 font-body min-h-[40px] px-2">
                     ¿Cuánto puedes resistir? Una vida, una pregunta.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="flex justify-center mt-auto p-6 pt-0">
+                <CardContent className="flex justify-center mt-auto p-4 pt-0">
                   <div className="w-full">
                     <Button variant="default" size="lg" className="w-full font-bold text-lg bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
-                      Modo Supervivencia
+                      Supervivencia
                     </Button>
                   </div>
                 </CardContent>

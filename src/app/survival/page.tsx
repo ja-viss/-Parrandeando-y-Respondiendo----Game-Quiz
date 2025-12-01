@@ -28,12 +28,12 @@ export default function SurvivalPage() {
           <ArrowLeft className="mr-2 h-4 w-4" /> Volver
         </Link>
       </Button>
-      <Card className="w-full max-w-lg bg-card/80 backdrop-blur-sm">
+      <Card className="w-full max-w-md bg-card/80 backdrop-blur-sm">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4 text-primary">
             <Zap size={64} />
           </div>
-          <CardTitle className="font-headline text-4xl text-primary">Supervivencia Parrandera</CardTitle>
+          <CardTitle className="font-headline text-3xl md:text-4xl text-primary">Supervivencia Parrandera</CardTitle>
           <CardDescription className="text-lg font-body">
             Responde preguntas sin parar. La dificultad aumenta, pero solo tienes 3 vidas. ¡A ver hasta dónde llegas!
           </CardDescription>
@@ -45,7 +45,7 @@ export default function SurvivalPage() {
             </p>
         </CardContent>
         <CardFooter>
-          <Button onClick={handleStartSurvival} size="lg" className="w-full font-bold text-lg bg-primary text-primary-foreground">
+          <Button onClick={handleStartSurvival} size="lg" className="w-full font-bold text-lg bg-primary text-primary-foreground button-pulse">
             Empezar la Racha
           </Button>
         </CardFooter>

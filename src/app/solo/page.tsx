@@ -61,9 +61,9 @@ export default function SoloPage() {
           <ArrowLeft className="mr-2 h-4 w-4" /> Volver
         </Link>
       </Button>
-      <Card className="w-full max-w-4xl bg-card/80 backdrop-blur-sm">
+      <Card className="w-full max-w-md md:max-w-4xl bg-card/80 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle className="font-headline text-4xl text-center text-primary">Modo Solitario</CardTitle>
+          <CardTitle className="font-headline text-3xl md:text-4xl text-center text-primary">Modo Solitario</CardTitle>
           <CardDescription className="text-center font-body">Elige el nivel de picante para tus preguntas.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -78,8 +78,8 @@ export default function SoloPage() {
                 onClick={() => setDifficulty(d.value)}
               >
                 <d.icon className={cn("w-12 h-12 mb-3", difficulty === d.value ? 'text-primary-foreground' : 'text-primary')} />
-                <p className="font-headline text-xl font-bold">{d.label}</p>
-                <p className={cn("font-body text-xs mt-1 whitespace-normal min-h-[70px]", difficulty === d.value ? 'text-primary-foreground/90' : 'text-muted-foreground')}>{d.description}</p>
+                <p className="font-headline text-lg md:text-xl font-bold">{d.label}</p>
+                <p className={cn("font-body text-xs md:text-sm mt-1 whitespace-normal min-h-[70px]", difficulty === d.value ? 'text-primary-foreground/90' : 'text-muted-foreground')}>{d.description}</p>
               </div>
             ))}
           </div>
