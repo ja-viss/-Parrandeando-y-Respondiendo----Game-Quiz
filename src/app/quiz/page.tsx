@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Trophy, Clock, Users, User, ArrowLeft, Heart, Zap, Shield, Bomb, Turtle, Gift, Cross, HelpCircle, FastForward } from 'lucide-react';
+import { Trophy, Clock, Users, User, ArrowLeft, Heart, Zap, Bomb, Turtle, Gift, Cross, HelpCircle, FastForward } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -32,7 +32,7 @@ import {
 
 
 const groupPowerUpConfig: Record<GroupPowerUp, { name: string; icon: React.ElementType; description: string; malus: boolean }> = {
-  'hallaca-de-oro': { name: "Hallaca de Oro", icon: Shield, description: "¡Duplica tus puntos en la siguiente pregunta!", malus: false },
+  'hallaca-de-oro': { name: "Hallaca de Oro", icon: Zap, description: "¡Duplica tus puntos en la siguiente pregunta!", malus: false },
   'palo-de-ciego': { name: "Palo de Ciego", icon: Bomb, description: "¡Oscurece las opciones de un oponente por 3s!", malus: true },
   'la-ladilla': { name: "La Ladilla", icon: Clock, description: "¡Reduce a la mitad el tiempo de un oponente!", malus: true },
   'el-estruendo': { name: "El Estruendo", icon: Zap, description: "¡Lanza una distracción visual a un oponente!", malus: true }
@@ -745,6 +745,8 @@ export default function QuizPage() {
     </>
   );
 }
+
+    
 
     
 
