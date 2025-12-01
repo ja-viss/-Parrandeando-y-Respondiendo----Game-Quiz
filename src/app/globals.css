@@ -2,14 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: 'PT Sans', sans-serif;
-}
-
 @layer base {
   :root {
     --background: 210 40% 9%; /* deep night blue */
-    --foreground: 0 0% 98%;
+    --foreground: 0 0% 100%;
     --card: 210 40% 12%;
     --card-foreground: 0 0% 98%;
     --popover: 210 40% 9%;

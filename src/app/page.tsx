@@ -14,7 +14,7 @@ export default function Home() {
         className="z-10 flex flex-col items-center p-6 md:p-10 rounded-xl bg-card/90 shadow-2xl backdrop-blur-sm animate-fade-in-down"
       >
         <h1 
-          className="font-headline text-5xl md:text-7xl font-bold text-primary title-pulse"
+          className="font-brand text-6xl md:text-8xl font-bold text-primary title-pulse"
         >
           ¡Parrandeando y Respondiendo!
         </h1>
@@ -36,7 +36,7 @@ export default function Home() {
                   <div className="flex justify-center mb-4">
                     <GingerbreadManIcon className="w-20 h-20 text-primary" />
                   </div>
-                  <CardTitle className="font-body text-3xl text-center text-foreground font-bold">Juego Individual</CardTitle>
+                  <CardTitle className="font-headline text-3xl text-center text-foreground font-bold">Juego Individual</CardTitle>
                   <CardDescription className="text-center text-foreground/80 font-body min-h-[40px]">
                     Compite contra el reloj y establece tu récord personal.
                   </CardDescription>
@@ -60,7 +60,7 @@ export default function Home() {
                   <div className="flex justify-center mb-4">
                     <CarolersIcon className="w-20 h-20 text-primary" />
                   </div>
-                  <CardTitle className="font-body text-3xl text-center text-foreground font-bold">Competencia Grupal</CardTitle>
+                  <CardTitle className="font-headline text-3xl text-center text-foreground font-bold">Competencia Grupal</CardTitle>
                   <CardDescription className="text-center text-foreground/80 font-body min-h-[40px]">
                     Reta hasta 3 amigos y vean quién es el rey de la parranda.
                   </CardDescription>
@@ -84,7 +84,7 @@ export default function Home() {
                   <div className="flex justify-center mb-4">
                     <HallacaIcon className="w-20 h-20 text-primary" />
                   </div>
-                  <CardTitle className="font-body text-3xl text-center text-foreground font-bold">Supervivencia</CardTitle>
+                  <CardTitle className="font-headline text-3xl text-center text-foreground font-bold">Supervivencia</CardTitle>
                   <CardDescription className="text-center text-foreground/80 font-body min-h-[40px]">
                     ¿Cuánto puedes resistir? Una vida, una pregunta.
                   </CardDescription>
