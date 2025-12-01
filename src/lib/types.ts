@@ -11,15 +11,16 @@ export type Player = {
 export type GameCategory = 'gastronomy' | 'music' | 'customs';
 
 export type GameSettings = {
-  mode: 'solo' | 'group';
+  mode: 'solo' | 'group' | 'survival';
   category: GameCategory;
   numQuestions: number;
   players?: Player[];
   timeLimit?: number; // in seconds for solo mode
+  lives?: number; // for survival mode
 };
 
 export type GameResults = {
   scores: Player[];
   category: GameCategory;
-  mode: 'solo' | 'group';
+  mode: 'solo' | 'group' | 'survival';
 };
