@@ -23,4 +23,5 @@ export type GameResults = {
   scores: Player[];
   category: GameCategory;
   mode: 'solo' | 'group' | 'survival';
+  survivalStreak?: number;
 };

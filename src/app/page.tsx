@@ -33,8 +33,8 @@ export default function Home() {
                   Compite contra el reloj y establece tu récord personal.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="flex justify-center mt-auto">
-                <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
+              <CardContent className="flex justify-center mt-auto p-6 pt-0">
+                <Button variant="default" size="lg" className="w-full font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
                   Modo Solitario
                 </Button>
               </CardContent>
@@ -54,8 +54,8 @@ export default function Home() {
                   Reta hasta 3 amigos y vean quién es el rey de la parranda.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="flex justify-center mt-auto">
-                <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
+              <CardContent className="flex justify-center mt-auto p-6 pt-0">
+                <Button variant="default" size="lg" className="w-full font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
                   Modo Grupal
                 </Button>
               </CardContent>
@@ -75,8 +75,8 @@ export default function Home() {
                   ¿Cuánto puedes resistir? Una vida, una pregunta.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="flex justify-center mt-auto">
-                <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
+              <CardContent className="flex justify-center mt-auto p-6 pt-0">
+                <Button variant="default" size="lg" className="w-full font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
                   Modo Supervivencia
                 </Button>
               </CardContent>

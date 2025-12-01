@@ -31,7 +31,7 @@ const Leaderboard = ({ players }: { players: Player[] }) => (
     <CardContent>
       <ul className="space-y-2">
         {players.sort((a, b) => b.score - a.score).map((player, index) => (
-          <li key={player.id} className={cn("flex justify-between items-center p-2 rounded-md bg-muted/50", index === 0 && "pulse")}>
+          <li key={player.id} className={cn("flex justify-between items-center p-2 rounded-md bg-muted/50", index === 0 && "ring-2 ring-accent")}>
             <div className="flex items-center gap-2">
               <span className={`font-bold ${index === 0 ? 'text-accent' : ''}`}>{index + 1}. {player.name}</span>
             </div>
@@ -68,6 +68,9 @@ export default function QuizPage() {
   const [isGameOver, setIsGameOver] = useState(false);
   const [shake, setShake] = useState(false);
   const [confetti, setConfetti] = useState(false);
+  const [currentStreak, setCurrentStreak] = useState(0);
+  const [highestStreak, setHighestStreak] = useState(0);
+
 
   const getDifficulty = (questionIndex: number): GameCategory => {
     if (questionIndex < 5) return 'gastronomy'; // Easy proxy
@@ -81,21 +84,30 @@ export default function QuizPage() {
         scores: players,
         category: settings.category,
         mode: settings.mode,
+        survivalStreak: highestStreak
     };
     sessionStorage.setItem('quizResults', JSON.stringify(results));
     router.push('/results');
-  }, [players, settings, router]);
+  }, [players, settings, router, highestStreak]);
 
   const handleNextQuestion = useCallback(async () => {
     setIsAnswered(false);
     setSelectedAnswer(null);
 
     if (settings?.mode === 'survival') {
+        setLoading(true);
         const nextIndex = currentQuestionIndex + 1;
-        setCurrentQuestionIndex(nextIndex);
         const newDifficulty = getDifficulty(nextIndex);
-        const newQuestions = await getQuizQuestions(newDifficulty, 1);
-        setQuestions(prev => [...prev, ...newQuestions]);
+        try {
+            const newQuestions = await getQuizQuestions(newDifficulty, 1);
+            setQuestions(prev => [...prev, ...newQuestions]);
+            setCurrentQuestionIndex(nextIndex);
+        } catch (error) {
+            toast({ title: "Error de red", description: "No se pudo cargar la siguiente pregunta. Inténtalo de nuevo.", variant: "destructive" });
+            // Optionally, allow user to retry
+        } finally {
+            setLoading(false);
+        }
         return;
     }
 
@@ -117,7 +129,7 @@ export default function QuizPage() {
         finishGame();
       }
     }
-  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame]);
+  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame, toast]);
 
   useEffect(() => {
     const storedSettings = sessionStorage.getItem('quizSettings');
@@ -167,7 +179,7 @@ export default function QuizPage() {
   }, [timeLeft, settings, isAnswered, handleNextQuestion]);
 
   const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
-  const shuffledOptions = useMemo(() => currentQuestion?.options.sort(() => Math.random() - 0.5), [currentQuestion]);
+  const shuffledOptions = useMemo(() => currentQuestion?.options ? [...currentQuestion.options].sort(() => Math.random() - 0.5) : [], [currentQuestion]);
 
   const handleAnswer = (answer: string) => {
     if (isAnswered) return;
@@ -180,21 +192,29 @@ export default function QuizPage() {
         setConfetti(true);
         setTimeout(() => setConfetti(false), 2000);
         let scoreToAdd = 10;
-        if(settings?.mode === 'survival') {
+        
+        if (settings?.mode === 'survival') {
+            const newStreak = currentStreak + 1;
+            setCurrentStreak(newStreak);
+            if (newStreak > highestStreak) {
+                setHighestStreak(newStreak);
+            }
             const difficulty = getDifficulty(currentQuestionIndex);
             if (difficulty === 'music') scoreToAdd *= 1.5;
             if (difficulty === 'customs') scoreToAdd *= 2;
-        }
-        else if (settings?.mode === 'solo' && timeLeft) {
+        } else if (settings?.mode === 'solo' && timeLeft) {
             scoreToAdd += Math.floor(timeLeft / (settings.timeLimit! / settings.numQuestions!) * 5); // Bonus time
         }
+        
         setPlayers(prevPlayers => prevPlayers.map((p, index) => 
           index === currentPlayerIndex ? { ...p, score: p.score + scoreToAdd } : p
         ));
     } else {
         setShake(true);
         setTimeout(() => setShake(false), 500);
+        
         if (settings?.mode === 'survival') {
+            setCurrentStreak(0); // Reset streak
             const newLives = lives - 1;
             setLives(newLives);
             if(newLives <= 0) {
@@ -205,7 +225,11 @@ export default function QuizPage() {
     }
 
     setTimeout(() => {
-      handleNextQuestion();
+      if (settings?.mode === 'survival' && lives > 1) {
+        handleNextQuestion();
+      } else if (settings?.mode !== 'survival') {
+        handleNextQuestion();
+      }
     }, 1500);
   };
   
@@ -216,9 +240,9 @@ export default function QuizPage() {
           <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin"></div>
           <span className="text-xl font-semibold">Cargando pregunta...</span>
         </div>
-        <Skeleton className="h-12 w-3/4" />
+        <Skeleton className="h-12 w-full max-w-md" />
         <Skeleton className="h-64 w-full max-w-2xl" />
-        <div className="grid grid-cols-2 gap-4 w-full max-w-2xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl">
           <Skeleton className="h-16 w-full" />
           <Skeleton className="h-16 w-full" />
           <Skeleton className="h-16 w-full" />
@@ -239,12 +263,14 @@ export default function QuizPage() {
         </Link>
       </Button>
       <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-8 items-start animate-fade-in-up">
-        <div className="md:col-span-2 order-2 md:order-1">
-          <Card className="bg-card/80 backdrop-blur-sm">
+        <div className="md:col-span-2 order-2 md:order-1 w-full">
+          <Card className="bg-card/80 backdrop-blur-sm w-full">
             <CardHeader>
-              <Progress value={((currentQuestionIndex + 1) / settings.numQuestions) * 100} className="mb-4" />
-              <CardDescription>Pregunta {currentQuestionIndex + 1}</CardDescription>
-              <CardTitle className="font-headline text-3xl md:text-4xl !mt-2">{currentQuestion.question}</CardTitle>
+              {settings.mode !== 'survival' && <Progress value={((currentQuestionIndex + 1) / settings.numQuestions) * 100} className="mb-4" />}
+              <CardDescription>
+                {settings.mode === 'survival' ? `Racha actual: ${currentStreak}` : `Pregunta ${currentQuestionIndex + 1}`}
+              </CardDescription>
+              <CardTitle className="font-headline text-2xl md:text-3xl !mt-2">{currentQuestion.question}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -258,7 +284,7 @@ export default function QuizPage() {
                       variant="outline"
                       size="lg"
                       className={cn(
-                        "h-auto py-4 text-base whitespace-normal justify-start text-left transition-all duration-300",
+                        "h-auto py-4 text-base whitespace-normal justify-start text-left transition-all duration-300 transform hover:scale-105",
                         isAnswered && isCorrectAnswer && "bg-green-500/80 border-green-500 text-white confetti-pop",
                         isAnswered && isSelected && !isCorrectAnswer && "bg-red-500/80 border-red-500 text-white shake",
                         isAnswered && !isSelected && "opacity-60"
@@ -301,11 +327,20 @@ export default function QuizPage() {
                 </>
             ) : (
                 <>
-                    <Alert>
-                        <Clock className="h-4 w-4" />
-                        <AlertTitle className="font-bold">Tiempo Restante</AlertTitle>
-                        <AlertDescription className="text-2xl text-primary font-mono">{timeLeft}s</AlertDescription>
-                    </Alert>
+                     <div className="md:hidden sticky top-4 z-20">
+                      <Alert className="bg-background/80 backdrop-blur-sm">
+                          <Clock className="h-4 w-4" />
+                          <AlertTitle className="font-bold">Tiempo:</AlertTitle>
+                          <AlertDescription className="text-2xl text-primary font-mono">{timeLeft}s</AlertDescription>
+                      </Alert>
+                    </div>
+                    <div className="hidden md:block">
+                      <Alert>
+                          <Clock className="h-4 w-4" />
+                          <AlertTitle className="font-bold">Tiempo Restante</AlertTitle>
+                          <AlertDescription className="text-2xl text-primary font-mono">{timeLeft}s</AlertDescription>
+                      </Alert>
+                    </div>
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2 font-headline text-2xl"><User className="text-accent" />Puntuación</CardTitle>
@@ -325,7 +360,7 @@ export default function QuizPage() {
           <AlertDialogTitle className="font-headline text-3xl">¡Fin de la Parranda!</AlertDialogTitle>
           <AlertDialogDescription>
             ¡Te has quedado sin vidas! Pero no te preocupes, siempre puedes intentarlo de nuevo.
-            Tu puntuación final fue de {players[0]?.score} puntos.
+            Tu puntuación final fue de <span className="font-bold text-primary">{players[0]?.score}</span> puntos y tu mejor racha fue de <span className="font-bold text-primary">{highestStreak}</span>.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
