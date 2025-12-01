@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { getQuizQuestions } from '@/app/actions';
 import type { GameSettings, QuizQuestion, Player, GameResults } from '@/lib/types';
@@ -48,6 +48,41 @@ export default function QuizPage() {
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
 
+  const finishGame = useCallback(() => {
+     const results: GameResults = {
+        scores: players,
+        category: settings!.category,
+        mode: settings!.mode,
+    };
+    sessionStorage.setItem('quizResults', JSON.stringify(results));
+    router.push('/results');
+  }, [players, settings, router]);
+
+  const handleNextQuestion = useCallback(() => {
+    setIsAnswered(false);
+    setSelectedAnswer(null);
+
+    if (settings?.mode === 'group') {
+      const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
+      setCurrentPlayerIndex(nextPlayerIndex);
+
+      // If we are back to the first player, move to the next question
+      if (nextPlayerIndex === 0) {
+        if (currentQuestionIndex < settings.numQuestions - 1) {
+          setCurrentQuestionIndex(prev => prev + 1);
+        } else {
+          finishGame();
+        }
+      }
+    } else { // Solo mode
+      if (settings && currentQuestionIndex < settings.numQuestions - 1) {
+        setCurrentQuestionIndex(prev => prev + 1);
+      } else {
+        finishGame();
+      }
+    }
+  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame]);
+
   useEffect(() => {
     const storedSettings = sessionStorage.getItem('quizSettings');
     if (!storedSettings) {
@@ -77,15 +112,16 @@ export default function QuizPage() {
   }, [router, toast]);
 
    useEffect(() => {
+    let timer: NodeJS.Timeout;
     if (settings?.mode === 'solo' && timeLeft !== null && timeLeft > 0 && !isAnswered) {
-      const timer = setInterval(() => {
+      timer = setInterval(() => {
         setTimeLeft(prev => (prev! > 0 ? prev! - 1 : 0));
       }, 1000);
-      return () => clearInterval(timer);
     } else if (timeLeft === 0) {
       handleNextQuestion();
     }
-  }, [timeLeft, settings, isAnswered]);
+    return () => clearInterval(timer);
+  }, [timeLeft, settings, isAnswered, handleNextQuestion]);
 
   const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
   const shuffledOptions = useMemo(() => currentQuestion?.options.sort(() => Math.random() - 0.5), [currentQuestion]);
@@ -106,43 +142,12 @@ export default function QuizPage() {
     setPlayers(prevPlayers => prevPlayers.map((p, index) => 
       index === currentPlayerIndex ? { ...p, score: p.score + scoreToAdd } : p
     ));
-  };
 
-  const handleNextQuestion = () => {
-    setIsAnswered(false);
-    setSelectedAnswer(null);
-
-    if (settings?.mode === 'group') {
-      const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
-      setCurrentPlayerIndex(nextPlayerIndex);
-
-      // If we are back to the first player, move to the next question
-      if (nextPlayerIndex === 0) {
-        if (currentQuestionIndex < settings.numQuestions - 1) {
-          setCurrentQuestionIndex(prev => prev + 1);
-        } else {
-          finishGame();
-        }
-      }
-    } else { // Solo mode
-      if (currentQuestionIndex < settings!.numQuestions - 1) {
-        setCurrentQuestionIndex(prev => prev + 1);
-      } else {
-        finishGame();
-      }
-    }
+    setTimeout(() => {
+      handleNextQuestion();
+    }, 1500); // Wait 1.5 seconds before going to the next question
   };
   
-  const finishGame = () => {
-     const results: GameResults = {
-        scores: players,
-        category: settings!.category,
-        mode: settings!.mode,
-    };
-    sessionStorage.setItem('quizResults', JSON.stringify(results));
-    router.push('/results');
-  }
-
   if (loading || !settings) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen p-4 space-y-4">
@@ -202,13 +207,6 @@ export default function QuizPage() {
               </div>
             </CardContent>
           </Card>
-           {isAnswered && (
-            <div className="mt-4 flex justify-end">
-              <Button onClick={handleNextQuestion} size="lg" className="font-bold">
-                {currentQuestionIndex === settings.numQuestions - 1 && (settings.mode === 'solo' || (settings.mode === 'group' && currentPlayerIndex === players.length -1)) ? 'Ver Resultados' : 'Siguiente'}
-              </Button>
-            </div>
-          )}
         </div>
         <div className="w-full space-y-4 order-1 md:order-2">
             {settings.mode === 'group' ? (
