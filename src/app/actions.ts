@@ -1,3 +1,4 @@
+
 "use server";
 
 import type { QuizQuestion, Difficulty, GameCategory } from "@/lib/types";
@@ -74,7 +75,7 @@ export async function getQuizQuestions(
         pregunta: "No se pudo cargar la pregunta desde el archivo local. Por favor, intenta de nuevo.",
         respuestaCorrecta: "Error",
         opciones: ["Error", "Intentar de nuevo", "Volver", "Ayuda"],
-        dificultad: "Juguete de Niño",
+        dificultad: "Juguete de Niño" as Difficulty,
         nivel: "Fácil",
         categoria: "Error"
       },

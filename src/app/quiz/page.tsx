@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Trophy, Clock, Users, User, ArrowLeft, Heart, Zap, Shield, Bomb, FastForward, Turtle, Gift, Cross, HelpCircle } from 'lucide-react';
+import { Trophy, Clock, Users, User, ArrowLeft, Heart, Zap, Shield, Bomb, Turtle, Gift, Cross, HelpCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -243,7 +243,8 @@ export default function QuizPage() {
 
     try {
         const existingIds = questions.map(q => q.id);
-        const newQuestions = await getQuizQuestions(difficultyInfo.name, 1, settings.category, shouldUseAI, existingIds);
+        const difficultyName = settings.mode === 'survival' ? difficultyInfo.name : settings.difficulty || 'Juguete de Niño';
+        const newQuestions = await getQuizQuestions(difficultyName, 1, settings.category, shouldUseAI, existingIds);
         
         setShouldUseAI(prev => !prev);
         
@@ -261,7 +262,7 @@ export default function QuizPage() {
         setLoading(false);
         setTimeLeft(isRapidFire ? 3 : 70);
     }
-  }, [settings, difficultyInfo.name, finishGame, toast, questions, shouldUseAI, currentQuestionIndex, isRapidFire]);
+  }, [settings, finishGame, toast, questions, shouldUseAI, currentQuestionIndex, isRapidFire, difficultyInfo.name]);
 
 
   const handleNextTurn = useCallback(async () => {
@@ -399,6 +400,7 @@ export default function QuizPage() {
     }, 1500);
   }, [isAnswered, currentQuestion, isRapidFire, settings, timeLeft, usingHallacaDeOro, players, currentPlayerIndex, currentStreak, difficultyInfo.label, highestStreak, usedMilagro, lives, handleNextTurn, toast]);
   
+  // Initial setup effect
   useEffect(() => {
     const storedSettings = sessionStorage.getItem('quizSettings');
     if (!storedSettings) {
@@ -408,7 +410,6 @@ export default function QuizPage() {
     }
     
     const parsedSettings: GameSettings = JSON.parse(storedSettings);
-    setSettings(parsedSettings);
     setShouldUseAI(false); // Start with a bank question
     
     if (parsedSettings.mode === 'group' && parsedSettings.players) {
@@ -416,35 +417,22 @@ export default function QuizPage() {
     } else if (parsedSettings.mode === 'survival') {
       setPlayers([{ id: 'survival-player', name: 'Valiente', score: 0, powerUps: [], survivalPowerUps: { 'chiguire-lento': 1, 'soplon': 1, 'media-hallaca': 1, 'milagro-santo': 1 } }]);
       setLives(parsedSettings.lives || 3);
-    }
-    else {
+    } else {
       setPlayers([{ id: 'solo-player', name: 'Tú', score: 0, powerUps: [], survivalPowerUps: {} }]);
     }
-    
-    // Initial fetch, need to pass settings directly
-    (async () => {
-        setLoading(true);
-        try {
-            const existingIds: string[] = [];
-            const newQuestions = await getQuizQuestions(getDifficulty(0).name, 1, parsedSettings.category, false, existingIds);
-            
-            if (newQuestions.length > 0) {
-                const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
-                setQuestions([polishedQuestion]);
-                setCurrentQuestionIndex(0);
-            } else {
-                throw new Error("No more questions available.");
-            }
-        } catch (error) {
-            toast({ title: "Error de red", description: "No se pudo cargar la primera pregunta.", variant: "destructive" });
-            router.push('/');
-        } finally {
-            setLoading(false);
-            setTimeLeft(70);
-        }
-    })();
+
+    setSettings(parsedSettings);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, toast]);
+
+
+  // Initial fetch effect, runs only when settings are available
+  useEffect(() => {
+    if (settings && currentQuestionIndex === -1) {
+        fetchNextQuestion(true);
+    }
+  }, [settings, currentQuestionIndex, fetchNextQuestion]);
+
 
    useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -466,7 +454,6 @@ export default function QuizPage() {
 
   const shuffledOptions = useMemo(() => {
     if (!currentQuestion?.opciones) return [];
-    // Options are not shuffled anymore to keep revealed answer consistent
     return [...currentQuestion.opciones];
   }, [currentQuestion]);
 
