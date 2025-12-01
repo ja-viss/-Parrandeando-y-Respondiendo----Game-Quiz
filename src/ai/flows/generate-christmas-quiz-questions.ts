@@ -38,11 +38,7 @@ const prompt = ai.definePrompt({
   name: 'generateChristmasQuizQuestionsPrompt',
   input: {schema: GenerateChristmasQuizQuestionsInputSchema},
   output: {schema: GenerateChristmasQuizQuestionsOutputSchema},
-  prompt: `You are an expert in Venezuelan Christmas traditions. Your task is to generate {{numQuestions}} quiz questions focused on {{category}}.\n\nEach question should have a question, a correct answer, and a list of possible answer options (including the correct answer). The output should be a JSON array of quiz questions, each with the fields \"question\", \"answer\", and \"options\".  Make sure that there are no duplicates and there are exactly {{numQuestions}} questions generated.\n\nExample:\n[{
-  \"question\": \"What is a traditional Venezuelan Christmas dish made of cornmeal? (English)\",
-  \"answer\": \"Hallaca\",
-  \"options\": [\"Hallaca\", \"Arepa\", \"Empanada\", \"Cachapa\" ]
-}]`,
+  prompt: `You are an expert in Venezuelan Christmas traditions. Your task is to generate {{numQuestions}} quiz questions in Spanish about the {{category}}.\n\nEach question should have a question, a correct answer, and a list of possible answer options (including the correct answer), all in Spanish. The output should be a JSON array of quiz questions, each with the fields \"question\", \"answer\", and \"options\". Make sure that there are no duplicates and there are exactly {{numQuestions}} questions generated.\n\nExample:\n[{\n  \"question\": \"¿Cuál es el plato navideño venezolano por excelencia, hecho de masa de maíz rellena de un guiso?\",\n  \"answer\": \"Hallaca\",\n  \"options\": [\"Hallaca\", \"Arepa\", \"Empanada\", \"Cachapa\" ]\n}]`,
 });
 
 const generateChristmasQuizQuestionsFlow = ai.defineFlow(
