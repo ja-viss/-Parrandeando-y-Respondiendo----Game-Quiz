@@ -48,7 +48,7 @@ export default function SoloPage() {
       category: "all",
       numQuestions: 10,
       difficulty: difficulty,
-      timeLimit: 70,
+      timeLimit: 35,
     };
     sessionStorage.setItem("quizSettings", JSON.stringify(settings));
     router.push("/quiz");

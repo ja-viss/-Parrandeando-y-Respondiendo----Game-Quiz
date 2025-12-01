@@ -23,7 +23,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
-import { GingerbreadManIcon } from '@/components/icons/gingerbread-man-icon';
 
 const powerUpConfig = {
   'hallaca-de-oro': { name: "Hallaca de Oro", icon: Shield, description: "¡Duplica tus puntos en la siguiente pregunta!", malus: false },
@@ -121,12 +120,12 @@ export default function QuizPage() {
   const [isAnswered, setIsAnswered] = useState(false);
   const [players, setPlayers] = useState<Player[]>([]);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
-  const [timeLeft, setTimeLeft] = useState<number>(70);
+  const [timeLeft, setTimeLeft] = useState<number>(35);
   const [lives, setLives] = useState(3);
   const [isGameOver, setIsGameOver] = useState(false);
   const [shake, setShake] = useState<string | null>(null);
   const [currentStreak, setCurrentStreak] = useState(0);
-  const [highestStreak, setHighestStreak] = useState(0);
+  const [highestStreak, setHighestStreak]_useState(0);
   const [levelUp, setLevelUp] = useState(false);
   
   const [isRapidFire, setIsRapidFire] = useState(false);
@@ -163,7 +162,7 @@ export default function QuizPage() {
       setTimeLeft(3);
     } else {
       setIsRapidFire(false);
-      setTimeLeft(70);
+      setTimeLeft(35);
     }
 
     if (settings.mode === 'survival') {
@@ -205,7 +204,7 @@ export default function QuizPage() {
         finishGame();
       }
     }
-  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame, toast, difficultyInfo.name, questions, polishQuestionDialect, getQuizQuestions]);
+  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame, toast, difficultyInfo.name, questions]);
   
   const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
 
@@ -241,7 +240,7 @@ export default function QuizPage() {
             }
             scoreToAdd *= newDifficultyInfo.multiplier;
         } else {
-            scoreToAdd += Math.floor(timeLeft / 70 * 5); // Bonus time
+            scoreToAdd += Math.floor(timeLeft / 35 * 5); // Bonus time
         }
 
         if (usingHallacaDeOro === players[currentPlayerIndex].id) {
@@ -305,7 +304,7 @@ export default function QuizPage() {
     }
 
     
-    setTimeLeft(70);
+    setTimeLeft(35);
     
 
     const fetchInitialQuestions = async () => {
@@ -388,12 +387,25 @@ export default function QuizPage() {
   }
 
 
-  if (loading || !settings || !currentQuestion) {
+  if (loading || !settings) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen p-4 space-y-4">
-        <div className="flex items-center space-x-2 text-primary">
-          <GingerbreadManIcon className="w-12 h-12 animate-spin text-primary" />
-          <span className="text-xl font-semibold font-body">Cargando y puliendo pregunta...</span>
+      <div className="w-full max-w-6xl mx-auto flex flex-col items-center justify-center min-h-screen p-4">
+        <div className="w-full md:col-span-2">
+           <Card className="bg-card/80 backdrop-blur-sm w-full">
+            <CardHeader>
+              <Skeleton className="h-4 w-1/4 mb-4" />
+              <Skeleton className="h-8 w-3/4" />
+              <Skeleton className="h-6 w-1/2 mt-1" />
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Skeleton className="h-12 w-full" />
+                <Skeleton className="h-12 w-full" />
+                <Skeleton className="h-12 w-full" />
+                <Skeleton className="h-12 w-full" />
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     );
@@ -425,51 +437,69 @@ export default function QuizPage() {
             <div
               className={cn(playerMalus === 'palo-de-ciego' && "blur-sm transition-all duration-300", "animate-fade-in-down")}
             >
-              <Card className="bg-card/80 backdrop-blur-sm w-full">
-                <CardHeader>
-                  {settings.mode !== 'survival' && <Progress value={((currentQuestionIndex + 1) / settings.numQuestions) * 100} className="mb-4" />}
-                   <div className="flex justify-between items-center text-sm text-muted-foreground font-body">
-                        <span>
-                            {settings.mode === 'survival' 
-                                ? `Racha actual: ${currentStreak}` 
-                                : `Pregunta ${currentQuestionIndex + 1} de ${settings.numQuestions}`}
-                        </span>
-                        {currentQuestion.categoria !== "Error" && <span className='font-bold'>Categoría: {currentQuestion.categoria}</span>}
-                    </div>
-                  <CardTitle className="font-body text-2xl md:text-3xl lg:text-4xl !mt-2">{currentQuestion.pregunta}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {shuffledOptions.map((option, index) => {
-                      const isCorrectAnswer = option === currentQuestion.respuestaCorrecta;
-                      const isSelected = option === selectedAnswer;
-                      
-                      return (
-                        <div
-                          key={index}
-                           className="transition-transform transform hover:scale-105"
-                        >
-                          <Button
-                            variant="outline"
-                            size="lg"
-                            className={cn(
-                              "h-auto py-3 text-base whitespace-normal justify-start text-left w-full font-body",
-                              "transition-all duration-300 transform",
-                              isAnswered && isCorrectAnswer && "bg-green-500/80 border-green-700 ring-2 ring-white text-white font-bold",
-                              isAnswered && isSelected && !isCorrectAnswer && "bg-red-500/80 border-red-700 ring-2 ring-white text-white font-bold",
-                              isAnswered && !isSelected && !isCorrectAnswer && "opacity-50"
-                            )}
-                            onClick={() => handleAnswer(option)}
-                            disabled={isAnswered}
+              {!currentQuestion ? (
+                  <Card className="bg-card/80 backdrop-blur-sm w-full">
+                    <CardHeader>
+                        <Skeleton className="h-4 w-1/4 mb-4" />
+                        <Skeleton className="h-8 w-3/4" />
+                        <Skeleton className="h-6 w-1/2 mt-1" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <Skeleton className="h-12 w-full" />
+                          <Skeleton className="h-12 w-full" />
+                          <Skeleton className="h-12 w-full" />
+                          <Skeleton className="h-12 w-full" />
+                      </div>
+                    </CardContent>
+                  </Card>
+              ) : (
+                <Card className="bg-card/80 backdrop-blur-sm w-full">
+                  <CardHeader>
+                    {settings.mode !== 'survival' && <Progress value={((currentQuestionIndex + 1) / settings.numQuestions) * 100} className="mb-4" />}
+                     <div className="flex justify-between items-center text-sm text-muted-foreground font-body">
+                          <span>
+                              {settings.mode === 'survival' 
+                                  ? `Racha actual: ${currentStreak}` 
+                                  : `Pregunta ${currentQuestionIndex + 1} de ${settings.numQuestions}`}
+                          </span>
+                          {currentQuestion.categoria !== "Error" && <span className='font-bold'>Categoría: {currentQuestion.categoria}</span>}
+                      </div>
+                    <CardTitle className="font-body text-2xl md:text-3xl lg:text-4xl !mt-2">{currentQuestion.pregunta}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {shuffledOptions.map((option, index) => {
+                        const isCorrectAnswer = option === currentQuestion.respuestaCorrecta;
+                        const isSelected = option === selectedAnswer;
+                        
+                        return (
+                          <div
+                            key={index}
+                             className="transition-transform transform hover:scale-105"
                           >
-                            {option}
-                          </Button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </CardContent>
-              </Card>
+                            <Button
+                              variant="outline"
+                              size="lg"
+                              className={cn(
+                                "h-auto py-3 text-base whitespace-normal justify-start text-left w-full font-body",
+                                "transition-all duration-300 transform",
+                                isAnswered && isCorrectAnswer && "bg-green-500/80 border-green-700 ring-2 ring-white text-white font-bold",
+                                isAnswered && isSelected && !isCorrectAnswer && "bg-red-500/80 border-red-700 ring-2 ring-white text-white font-bold",
+                                isAnswered && !isSelected && !isCorrectAnswer && "opacity-50"
+                              )}
+                              onClick={() => handleAnswer(option)}
+                              disabled={isAnswered}
+                            >
+                              {option}
+                            </Button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </div>
         </div>
 
