@@ -34,12 +34,12 @@ export default function SurvivalPage() {
             <Zap size={64} />
           </div>
           <CardTitle className="font-headline text-4xl text-primary">Supervivencia Parrandera</CardTitle>
-          <CardDescription className="text-lg">
+          <CardDescription className="text-lg font-body">
             Responde preguntas sin parar. La dificultad aumenta, pero solo tienes 3 vidas. ¡A ver hasta dónde llegas!
           </CardDescription>
         </CardHeader>
         <CardContent>
-            <p className="text-center text-muted-foreground">
+            <p className="text-center text-muted-foreground font-body">
                 Cada respuesta correcta aumenta tu puntuación. <br/>
                 ¡No te equivoques o perderás una vida!
             </p>

@@ -64,7 +64,7 @@ export default function SoloPage() {
       <Card className="w-full max-w-4xl bg-card/80 backdrop-blur-sm">
         <CardHeader>
           <CardTitle className="font-headline text-4xl text-center text-primary">Modo Solitario</CardTitle>
-          <CardDescription className="text-center">Elige el nivel de picante para tus preguntas.</CardDescription>
+          <CardDescription className="text-center font-body">Elige el nivel de picante para tus preguntas.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

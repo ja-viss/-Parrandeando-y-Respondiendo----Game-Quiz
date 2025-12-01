@@ -95,12 +95,12 @@ export default function GroupPage() {
       <Card className="w-full max-w-2xl bg-card/80 backdrop-blur-sm">
         <CardHeader>
           <CardTitle className="font-headline text-4xl text-center text-primary">Competencia Grupal</CardTitle>
-          <CardDescription className="text-center">Añadan sus nombres, elijan categoría y ¡que comience la parranda!</CardDescription>
+          <CardDescription className="text-center font-body">Añadan sus nombres, elijan categoría y ¡que comience la parranda!</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-8">
             <div className="space-y-4">
-              <Label className="text-lg font-semibold">Jugadores</Label>
+              <Label className="text-lg font-semibold font-body">Jugadores</Label>
               {players.map((player, index) => (
                 <div key={index} className="flex items-center gap-2">
                   <Input
@@ -109,6 +109,7 @@ export default function GroupPage() {
                     value={player}
                     onChange={(e) => handlePlayerChange(index, e.target.value)}
                     required
+                    className="font-body"
                   />
                   {players.length > 2 && (
                     <Button variant="ghost" size="icon" type="button" onClick={() => removePlayer(index)}>
@@ -125,7 +126,7 @@ export default function GroupPage() {
             </div>
 
             <div className="space-y-4">
-              <Label className="text-lg font-semibold">Categoría</Label>
+              <Label className="text-lg font-semibold font-body">Categoría</Label>
               <RadioGroup value={category} onValueChange={(value: GameCategory | 'all') => setCategory(value)} className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {categories.map((cat) => (
                    <Label
@@ -138,7 +139,7 @@ export default function GroupPage() {
                   >
                     <RadioGroupItem value={cat.value} id={cat.value} className="sr-only" />
                     <cat.icon className="w-8 h-8 mb-2" />
-                    <span className="font-bold text-center text-sm">{cat.label}</span>
+                    <span className="font-bold text-center text-sm font-body">{cat.label}</span>
                   </Label>
                 ))}
               </RadioGroup>
@@ -146,9 +147,9 @@ export default function GroupPage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                    <Label htmlFor="num-questions" className="text-lg font-semibold">Número de Preguntas</Label>
+                    <Label htmlFor="num-questions" className="text-lg font-semibold font-body">Número de Preguntas</Label>
                     <Select value={String(numQuestions)} onValueChange={(val) => setNumQuestions(Number(val))}>
-                        <SelectTrigger id="num-questions" className="w-full">
+                        <SelectTrigger id="num-questions" className="w-full font-body">
                             <SelectValue placeholder="Selecciona el número de preguntas" />
                         </SelectTrigger>
                         <SelectContent>
@@ -159,9 +160,9 @@ export default function GroupPage() {
                     </Select>
                 </div>
                  <div className="space-y-2">
-                    <Label htmlFor="difficulty" className="text-lg font-semibold">Dificultad</Label>
+                    <Label htmlFor="difficulty" className="text-lg font-semibold font-body">Dificultad</Label>
                      <Select value={difficulty} onValueChange={(val: Difficulty) => setDifficulty(val)}>
-                        <SelectTrigger id="difficulty" className="w-full">
+                        <SelectTrigger id="difficulty" className="w-full font-body">
                             <SelectValue placeholder="Selecciona la dificultad" />
                         </SelectTrigger>
                         <SelectContent>

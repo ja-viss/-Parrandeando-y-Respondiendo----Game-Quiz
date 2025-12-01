@@ -143,24 +143,24 @@ export default function ResultsPage() {
           <CardTitle className="font-headline text-5xl">
             {results.mode === 'group' ? `¡Felicidades, ${winner.name}!` : '¡Juego Terminado!'}
           </CardTitle>
-          <CardDescription className="text-lg">
+          <CardDescription className="text-lg font-body">
             {results.mode === 'group' ? `¡Son los reyes (o reinas) de la parranda en la categoría ${categoryLabels[results.category]}!` : `Resultados de tu partida de ${results.mode === 'survival' ? 'Supervivencia' : 'Solitario'}.`}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {results.mode === 'group' ? (
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold">Clasificación Final</h3>
+              <h3 className="text-2xl font-bold font-headline">Clasificación Final</h3>
               <ul className="space-y-2 text-left">
                 {sortedScores.map((player, index) => (
                   <li
                     key={player.id}
                     className={cn("flex justify-between items-center p-3 rounded-lg bg-muted/80", index === 0 && "ring-2 ring-accent")}
                   >
-                    <span className="text-lg font-semibold">
+                    <span className="text-lg font-semibold font-body">
                       {index + 1}. {player.name}
                     </span>
-                    <span className="text-lg font-bold text-primary">{player.score} pts</span>
+                    <span className="text-lg font-bold text-primary font-body">{player.score} pts</span>
                   </li>
                 ))}
               </ul>
@@ -168,37 +168,37 @@ export default function ResultsPage() {
           ) : (
             <div className="space-y-4">
                 <div className="p-6 rounded-lg bg-muted/80">
-                    <p className="text-xl">Tu puntuación final</p>
-                    <p className="text-6xl font-bold text-primary my-2">{winner.score}</p>
-                    <p className="text-muted-foreground">puntos</p>
+                    <p className="text-xl font-body">Tu puntuación final</p>
+                    <p className="text-6xl font-bold text-primary my-2 font-body">{winner.score}</p>
+                    <p className="text-muted-foreground font-body">puntos</p>
                 </div>
                 {isNewHighScore && (
-                    <div className="flex items-center justify-center gap-2 p-3 rounded-lg bg-accent/20 text-accent-foreground font-semibold">
+                    <div className="flex items-center justify-center gap-2 p-3 rounded-lg bg-accent/20 text-accent-foreground font-semibold font-body">
                         <Star className="text-accent" />
                         ¡Nuevo récord personal!
                     </div>
                 )}
-                <p className="text-lg">Tu mejor puntuación: <span className="font-bold text-primary">{highScore} pts</span></p>
+                <p className="text-lg font-body">Tu mejor puntuación: <span className="font-bold text-primary">{highScore} pts</span></p>
             </div>
           )}
 
           {results.mode === 'survival' && (
              <div className="space-y-4">
                 <div className="p-4 rounded-lg bg-muted/80">
-                    <p className="text-lg">Mejor racha de tu vida</p>
-                    <p className="text-4xl font-bold text-primary my-1">{bestStreak}</p>
-                    <p className="text-muted-foreground">respuestas correctas</p>
+                    <p className="text-lg font-body">Mejor racha de tu vida</p>
+                    <p className="text-4xl font-bold text-primary my-1 font-body">{bestStreak}</p>
+                    <p className="text-muted-foreground font-body">respuestas correctas</p>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold mb-4">Insignias de Racha</h3>
+                  <h3 className="text-xl font-bold mb-4 font-headline">Insignias de Racha</h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {streakAchievements.map(ach => (
                       <div key={ach.name} className={cn("flex flex-col items-center justify-start p-3 rounded-lg border-2 text-center", bestStreak >= ach.threshold ? 'border-accent bg-accent/10' : 'border-muted bg-muted/50 opacity-60')}>
                           <div className={cn("mb-2", bestStreak >= ach.threshold ? 'text-accent' : 'text-muted-foreground')}>
                             {ach.icon}
                           </div>
-                          <p className="font-bold text-sm leading-tight">{ach.name}</p>
-                           <p className="text-xs text-muted-foreground mt-1">{ach.description}</p>
+                          <p className="font-bold text-sm leading-tight font-body">{ach.name}</p>
+                           <p className="text-xs text-muted-foreground mt-1 font-body">{ach.description}</p>
                       </div>
                     ))}
                   </div>
@@ -222,7 +222,7 @@ export default function ResultsPage() {
             <AlertDialogHeader className="items-center">
                 <div className="text-accent mb-4 scale-150">{newlyUnlockedAchievement?.icon}</div>
                 <AlertDialogTitle className="font-headline text-3xl text-center">¡Insignia Desbloqueada!</AlertDialogTitle>
-                <AlertDialogDescription className="text-center text-lg">
+                <AlertDialogDescription className="text-center text-lg font-body">
                     ¡Felicidades! Has ganado la insignia:
                     <br />
                     <span className="font-bold text-accent text-xl">{newlyUnlockedAchievement?.name}</span>

@@ -63,9 +63,9 @@ const Leaderboard = ({ players, currentPlayerId, onUsePowerUp }: { players: Play
           <li key={player.id} className={cn("flex flex-col p-2 rounded-md bg-muted/50", index === 0 && "ring-2 ring-accent")}>
             <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
-                <span className={`font-bold ${index === 0 ? 'text-accent' : ''}`}>{index + 1}. {player.name}</span>
+                <span className={`font-bold font-body ${index === 0 ? 'text-accent' : ''}`}>{index + 1}. {player.name}</span>
                 </div>
-                <span className="font-bold text-primary">{player.score} pts</span>
+                <span className="font-bold text-primary font-body">{player.score} pts</span>
             </div>
              {player.powerUps.length > 0 && player.id === currentPlayerId && (
                 <div className="mt-2 flex gap-2">
@@ -87,22 +87,19 @@ const Leaderboard = ({ players, currentPlayerId, onUsePowerUp }: { players: Play
 );
 
 const LivesIndicator = ({ lives }: { lives: number }) => (
-    <div className="flex items-center gap-2">
-        <AlertTitle className="font-bold">Vidas:</AlertTitle>
-        <div className="flex items-center gap-1">
-            {[...Array(lives)].map((_, i) => (
-                <div
-                key={i}
-                className="animate-fade-in-down"
-                >
-                <Heart className="h-6 w-6 text-red-500 fill-current" />
-                </div>
-            ))}
-            {[...Array(Math.max(0, 3 - lives))].map((_, i) => (
-            <Heart key={`empty-${i}`} className="h-6 w-6 text-red-500 opacity-25" />
-            ))}
+  <div className="flex items-center gap-2">
+    <AlertTitle className="font-bold font-body">Vidas:</AlertTitle>
+    <div className="flex items-center gap-1">
+      {[...Array(lives)].map((_, i) => (
+        <div key={i} className="animate-fade-in-down">
+          <Heart className="h-6 w-6 text-red-500 fill-current" />
         </div>
+      ))}
+      {[...Array(Math.max(0, 3 - lives))].map((_, i) => (
+        <Heart key={`empty-${i}`} className="h-6 w-6 text-red-500 opacity-25" />
+      ))}
     </div>
+  </div>
 );
 
 
@@ -207,7 +204,7 @@ export default function QuizPage() {
         finishGame();
       }
     }
-  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame, toast, difficultyInfo.name, questions]);
+  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame, toast, difficultyInfo.name, questions, polishQuestionDialect, getQuizQuestions]);
   
   const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
 
@@ -395,7 +392,7 @@ export default function QuizPage() {
       <div className="flex flex-col items-center justify-center min-h-screen p-4 space-y-4">
         <div className="flex items-center space-x-2 text-primary">
           <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin"></div>
-          <span className="text-xl font-semibold">Cargando y puliendo pregunta...</span>
+          <span className="text-xl font-semibold font-body">Cargando y puliendo pregunta...</span>
         </div>
         <Skeleton className="h-12 w-full max-w-md" />
         <Skeleton className="h-64 w-full max-w-2xl" />
@@ -438,7 +435,7 @@ export default function QuizPage() {
               <Card className="bg-card/80 backdrop-blur-sm w-full">
                 <CardHeader>
                   {settings.mode !== 'survival' && <Progress value={((currentQuestionIndex + 1) / settings.numQuestions) * 100} className="mb-4" />}
-                   <div className="flex justify-between items-center text-sm text-muted-foreground">
+                   <div className="flex justify-between items-center text-sm text-muted-foreground font-body">
                         <span>
                             {settings.mode === 'survival' 
                                 ? `Racha actual: ${currentStreak}` 
@@ -463,7 +460,7 @@ export default function QuizPage() {
                             variant="outline"
                             size="lg"
                             className={cn(
-                              "h-auto py-3 text-base whitespace-normal justify-start text-left w-full",
+                              "h-auto py-3 text-base whitespace-normal justify-start text-left w-full font-body",
                               "transition-all duration-300 transform",
                               isAnswered && isCorrectAnswer && "bg-green-500/80 border-green-700 ring-2 ring-white text-white font-bold",
                               isAnswered && isSelected && !isCorrectAnswer && "bg-red-500/80 border-red-700 ring-2 ring-white text-white font-bold",
@@ -490,7 +487,7 @@ export default function QuizPage() {
             >
             <Alert className={cn("bg-background/80 backdrop-blur-sm", isRapidFire && "bg-red-500/20", timeLeft <= 5 && "animate-pulse")}>
                 <Clock className="h-4 w-4" />
-                <AlertTitle className="font-bold">Tiempo:</AlertTitle>
+                <AlertTitle className="font-bold font-body">Tiempo:</AlertTitle>
                 <AlertDescription className="text-3xl text-primary font-mono">{timeLeft}s</AlertDescription>
             </Alert>
           </div>
@@ -499,8 +496,8 @@ export default function QuizPage() {
                 <>
                     <Alert>
                         <Users className="h-4 w-4" />
-                        <AlertTitle className="font-bold">Turno de:</AlertTitle>
-                        <AlertDescription className="text-xl text-primary">{currentPlayer.name}</AlertDescription>
+                        <AlertTitle className="font-bold font-body">Turno de:</AlertTitle>
+                        <AlertDescription className="text-xl text-primary font-body">{currentPlayer.name}</AlertDescription>
                     </Alert>
                     <Leaderboard players={players} currentPlayerId={currentPlayer.id} onUsePowerUp={handleUsePowerUp}/>
                 </>
@@ -512,15 +509,15 @@ export default function QuizPage() {
                     </Alert>
                      <Alert className={cn("relative overflow-hidden transition-all duration-300", levelUp && "ring-2 ring-accent confetti-pop")}>
                         <Zap className="h-4 w-4" />
-                        <AlertTitle className="font-bold">Nivel de Dificultad</AlertTitle>
-                        <AlertDescription className="text-xl text-primary">{difficultyInfo.label}</AlertDescription>
+                        <AlertTitle className="font-bold font-body">Nivel de Dificultad</AlertTitle>
+                        <AlertDescription className="text-xl text-primary font-body">{difficultyInfo.label}</AlertDescription>
                     </Alert>
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2 font-headline text-2xl"><User className="text-accent" />Puntuación</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-5xl font-bold text-primary">{players[0].score} <span className="text-xl font-normal text-foreground/80">pts</span></p>
+                            <p className="text-5xl font-bold text-primary font-body">{players[0].score} <span className="text-xl font-normal text-foreground/80">pts</span></p>
                         </CardContent>
                     </Card>
                 </>
@@ -531,7 +528,7 @@ export default function QuizPage() {
                             <CardTitle className="flex items-center gap-2 font-headline text-2xl"><User className="text-accent" />Puntuación</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-5xl font-bold text-primary">{players[0].score} <span className="text-xl font-normal text-foreground/80">pts</span></p>
+                            <p className="text-5xl font-bold text-primary font-body">{players[0].score} <span className="text-xl font-normal text-foreground/80">pts</span></p>
                         </CardContent>
                     </Card>
                 </>
@@ -540,8 +537,8 @@ export default function QuizPage() {
                 <Alert variant="destructive" className="flex items-center gap-2">
                     <FastForward className="h-6 w-6 animate-pulse" />
                     <div>
-                        <AlertTitle className="font-bold">¡FUEGO RÁPIDO!</AlertTitle>
-                        <AlertDescription>¡Responde lo más rápido que puedas!</AlertDescription>
+                        <AlertTitle className="font-bold font-body">¡FUEGO RÁPIDO!</AlertTitle>
+                        <AlertDescription className="font-body">¡Responde lo más rápido que puedas!</AlertDescription>
                     </div>
                 </Alert>
             )}
@@ -552,7 +549,7 @@ export default function QuizPage() {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle className="font-headline text-3xl">¡Fin de la Parranda!</AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogDescription className="font-body">
             ¡Te has quedado sin vidas! Pero no te preocupes, siempre puedes intentarlo de nuevo.
             Tu puntuación final fue de <span className="font-bold text-primary">{players[0]?.score}</span> puntos y tu mejor racha fue de <span className="font-bold text-primary">{highestStreak}</span>.
           </AlertDialogDescription>
