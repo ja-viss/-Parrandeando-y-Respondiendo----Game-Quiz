@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -9,68 +8,32 @@ import { CarolersIcon } from "@/components/icons/carolers-icon";
 import { HallacaIcon } from "@/components/icons/hallaca-icon";
 import { Stars } from "@/components/stars";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.3,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: { type: "spring", stiffness: 100 },
-  },
-};
-
-const cardHover = {
-  scale: 1.05,
-  boxShadow: "0px 10px 30px -5px hsla(var(--accent), 0.3)",
-  transition: { type: "spring", stiffness: 400, damping: 10 }
-};
-
 export default function Home() {
   return (
     <main className="relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 text-center overflow-hidden">
       <Stars />
-      <motion.div 
-        className="z-10 flex flex-col items-center p-6 md:p-10 rounded-xl bg-card/90 shadow-2xl backdrop-blur-sm"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+      <div 
+        className="z-10 flex flex-col items-center p-6 md:p-10 rounded-xl bg-card/90 shadow-2xl backdrop-blur-sm animate-fade-in-down"
       >
-        <motion.h1 
+        <h1 
           className="font-headline text-5xl md:text-7xl font-bold text-primary title-pulse"
-          variants={itemVariants}
         >
           ¡Parrandeando y Respondiendo!
-        </motion.h1>
-        <motion.p 
+        </h1>
+        <p 
           className="mt-4 max-w-2xl text-lg text-foreground/90 font-body"
-          variants={itemVariants}
         >
           Pon a prueba tus conocimientos sobre las tradiciones navideñas de Venezuela. Juega solo o compite con amigos en esta divertida parranda de preguntas.
-        </motion.p>
+        </p>
 
-        <motion.div 
-          className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
+        <div 
+          className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl animate-fade-in-up"
         >
           <Link href="/solo" passHref className="flex">
-            <motion.div
-              className="w-full"
-              variants={itemVariants}
-              whileHover={cardHover}
+            <div
+              className="w-full transition-transform transform hover:scale-105"
             >
-              <Card className="flex flex-col h-full cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group">
+              <Card className="flex flex-col h-full cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group hover:shadow-lg hover:shadow-accent/30">
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary origin-bottom-left rotate-45" />
                 <div className="absolute top-1 right-5 w-px h-20 bg-accent/50" />
                 <div className="absolute top-5 right-1 w-20 h-px bg-accent/50" />
@@ -84,22 +47,20 @@ export default function Home() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex justify-center mt-auto p-6 pt-0">
-                  <motion.div whileTap={{ scale: 0.95 }} className="w-full">
+                  <div className="w-full">
                      <Button variant="default" size="lg" className="w-full font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
                       Modo Solitario
                     </Button>
-                  </motion.div>
+                  </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           </Link>
           <Link href="/group" passHref className="flex">
-             <motion.div
-              className="w-full"
-              variants={itemVariants}
-              whileHover={cardHover}
+             <div
+              className="w-full transition-transform transform hover:scale-105"
             >
-              <Card className="flex flex-col h-full cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group">
+              <Card className="flex flex-col h-full cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group hover:shadow-lg hover:shadow-accent/30">
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary origin-bottom-left rotate-45" />
                 <div className="absolute top-1 right-5 w-px h-20 bg-accent/50" />
                 <div className="absolute top-5 right-1 w-20 h-px bg-accent/50" />
@@ -113,22 +74,20 @@ export default function Home() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex justify-center mt-auto p-6 pt-0">
-                   <motion.div whileTap={{ scale: 0.95 }} className="w-full">
+                   <div className="w-full">
                     <Button variant="default" size="lg" className="w-full font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
                       Modo Grupal
                     </Button>
-                   </motion.div>
+                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           </Link>
           <Link href="/survival" passHref className="flex">
-            <motion.div
-              className="w-full"
-              variants={itemVariants}
-              whileHover={cardHover}
+            <div
+              className="w-full transition-transform transform hover:scale-105"
             >
-              <Card className="flex flex-col h-full cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group">
+              <Card className="flex flex-col h-full cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group hover:shadow-lg hover:shadow-accent/30">
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary origin-bottom-left rotate-45" />
                 <div className="absolute top-1 right-5 w-px h-20 bg-accent/50" />
                 <div className="absolute top-5 right-1 w-20 h-px bg-accent/50" />
@@ -142,17 +101,17 @@ export default function Home() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex justify-center mt-auto p-6 pt-0">
-                  <motion.div whileTap={{ scale: 0.95 }} className="w-full">
+                  <div className="w-full">
                     <Button variant="default" size="lg" className="w-full font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
                       Modo Supervivencia
                     </Button>
-                  </motion.div>
+                  </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           </Link>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </main>
   );
 }

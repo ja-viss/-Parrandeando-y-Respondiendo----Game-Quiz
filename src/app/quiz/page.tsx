@@ -14,7 +14,6 @@ import { Trophy, Clock, Users, User, ArrowLeft, Heart, Zap, Shield, Bomb, FastFo
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -91,19 +90,14 @@ const LivesIndicator = ({ lives }: { lives: number }) => (
     <div className="flex items-center gap-2">
         <AlertTitle className="font-bold">Vidas:</AlertTitle>
         <div className="flex items-center gap-1">
-            <AnimatePresence>
             {[...Array(lives)].map((_, i) => (
-                <motion.div
+                <div
                 key={i}
-                initial={{ scale: 0, rotate: -90 }}
-                animate={{ scale: 1, rotate: 0 }}
-                exit={{ scale: 0.5, opacity: 0, rotate: 90, transition: { duration: 0.3 } }}
-                transition={{ type: 'spring', stiffness: 500, damping: 20 }}
+                className="animate-fade-in-down"
                 >
                 <Heart className="h-6 w-6 text-red-500 fill-current" />
-                </motion.div>
+                </div>
             ))}
-            </AnimatePresence>
             {[...Array(Math.max(0, 3 - lives))].map((_, i) => (
             <Heart key={`empty-${i}`} className="h-6 w-6 text-red-500 opacity-25" />
             ))}
@@ -179,17 +173,9 @@ export default function QuizPage() {
         setLoading(true);
         try {
             const newQuestions = await getQuizQuestions(difficultyInfo.name, 1, settings.category);
-            setQuestions(prev => [...prev, newQuestions[0]]); // Set raw question first
-            setCurrentQuestionIndex(nextIndex);
-            
-            // Now polish it, this will cause a re-render when done
             const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
-            setQuestions(prev => {
-                const newArr = [...prev];
-                newArr[nextIndex] = polishedQuestion;
-                return newArr;
-            });
-
+            setQuestions(prev => [...prev, polishedQuestion]);
+            setCurrentQuestionIndex(nextIndex);
         } catch (error) {
             toast({ title: "Error de red", description: "No se pudo cargar la siguiente pregunta. Inténtalo de nuevo.", variant: "destructive" });
         } finally {
@@ -207,12 +193,21 @@ export default function QuizPage() {
 
     if (isNewRound) {
        if (currentQuestionIndex < settings.numQuestions - 1) {
-        setCurrentQuestionIndex(prev => prev + 1);
+        setLoading(true);
+        const nextQuestionIndex = currentQuestionIndex + 1;
+        const polishedQuestion = await polishQuestionDialect(questions[nextQuestionIndex]);
+        setQuestions(prev => {
+          const newQs = [...prev];
+          newQs[nextQuestionIndex] = polishedQuestion;
+          return newQs;
+        });
+        setCurrentQuestionIndex(nextQuestionIndex);
+        setLoading(false);
       } else {
         finishGame();
       }
     }
-  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame, toast, difficultyInfo.name]);
+  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame, toast, difficultyInfo.name, questions]);
   
   const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
 
@@ -429,28 +424,17 @@ export default function QuizPage() {
           <ArrowLeft className="mr-2 h-4 w-4" /> Salir
         </Link>
       </Button>
-      <AnimatePresence>
-        {playerMalus === 'el-estruendo' && (
-            <motion.div 
-                className='absolute inset-0 z-50 pointer-events-none bg-white'
-                initial={{opacity: 0}}
-                animate={{ opacity: [0, 0.8, 0, 0.7, 0] }}
-                transition={{ duration: 0.5, times: [0, 0.2, 0.4, 0.6, 1]}}
-            />
-        )}
-      </AnimatePresence>
+      {playerMalus === 'el-estruendo' && (
+          <div 
+              className='absolute inset-0 z-50 pointer-events-none bg-white animate-fade-in-down'
+          />
+      )}
       <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 items-start animate-fade-in-up">
         
         {/* Main Content */}
         <div className="md:col-span-2 order-2 md:order-1 w-full">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentQuestionIndex}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -50 }}
-              transition={{ duration: 0.5 }}
-              className={cn(playerMalus === 'palo-de-ciego' && "blur-sm transition-all duration-300")}
+            <div
+              className={cn(playerMalus === 'palo-de-ciego' && "blur-sm transition-all duration-300", "animate-fade-in-down")}
             >
               <Card className="bg-card/80 backdrop-blur-sm w-full">
                 <CardHeader>
@@ -472,10 +456,9 @@ export default function QuizPage() {
                       const isSelected = option === selectedAnswer;
                       
                       return (
-                        <motion.div
+                        <div
                           key={index}
-                          whileHover={{ scale: !isAnswered ? 1.05 : 1, boxShadow: !isAnswered ? "0px 5px 15px hsla(var(--ring), 0.2)" : "" }}
-                          whileTap={{ scale: !isAnswered ? 0.98 : 1 }}
+                           className="transition-transform transform hover:scale-105"
                         >
                           <Button
                             variant="outline"
@@ -492,28 +475,26 @@ export default function QuizPage() {
                           >
                             {option}
                           </Button>
-                        </motion.div>
+                        </div>
                       );
                     })}
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
-          </AnimatePresence>
+            </div>
         </div>
 
         {/* Sidebar */}
         <div className="w-full space-y-4 order-1 md:order-2">
-           <motion.div 
+           <div 
               className="sticky top-4 z-20"
-              animate={timeLeft <= 5 ? { scale: [1, 1.1, 1], transition: { duration: 0.5, repeat: Infinity } } : {}}
             >
-            <Alert className={cn("bg-background/80 backdrop-blur-sm", isRapidFire && "bg-red-500/20")}>
+            <Alert className={cn("bg-background/80 backdrop-blur-sm", isRapidFire && "bg-red-500/20", timeLeft <= 5 && "animate-pulse")}>
                 <Clock className="h-4 w-4" />
                 <AlertTitle className="font-bold">Tiempo:</AlertTitle>
                 <AlertDescription className="text-3xl text-primary font-mono">{timeLeft}s</AlertDescription>
             </Alert>
-          </motion.div>
+          </div>
 
             {settings.mode === 'group' ? (
                 <>
