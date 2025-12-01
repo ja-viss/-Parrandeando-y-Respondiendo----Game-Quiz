@@ -11,7 +11,7 @@ export default function Home() {
     <main className="relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 text-center overflow-hidden">
       <Stars />
       <div className="z-10 flex flex-col items-center p-6 md:p-10 rounded-xl bg-card/90 shadow-2xl backdrop-blur-sm animate-fade-in-down">
-        <h1 className="font-headline text-5xl md:text-7xl font-bold text-primary [text-shadow:2px_2px_4px_rgba(255,255,255,0.6)]">
+        <h1 className="font-headline text-5xl md:text-7xl font-bold text-primary title-pulse">
           ¡Parrandeando y Respondiendo!
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-foreground/90 font-body">
@@ -29,12 +29,12 @@ export default function Home() {
                   <GingerbreadManIcon className="w-20 h-20 text-primary" />
                 </div>
                 <CardTitle className="font-body text-3xl text-center text-foreground font-bold">Juego Individual</CardTitle>
-                <CardDescription className="text-center text-foreground/80 font-body">
+                <CardDescription className="text-center text-foreground/80 font-body min-h-[40px]">
                   Compite contra el reloj y establece tu récord personal.
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex justify-center mt-auto">
-                <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow pulse">
+                <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
                   Modo Solitario
                 </Button>
               </CardContent>
@@ -50,12 +50,12 @@ export default function Home() {
                   <CarolersIcon className="w-20 h-20 text-primary" />
                 </div>
                 <CardTitle className="font-body text-3xl text-center text-foreground font-bold">Competencia Grupal</CardTitle>
-                <CardDescription className="text-center text-foreground/80 font-body">
+                <CardDescription className="text-center text-foreground/80 font-body min-h-[40px]">
                   Reta hasta 3 amigos y vean quién es el rey de la parranda.
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex justify-center mt-auto">
-                <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow pulse">
+                <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
                   Modo Grupal
                 </Button>
               </CardContent>
@@ -71,12 +71,12 @@ export default function Home() {
                   <HallacaIcon className="w-20 h-20 text-primary" />
                 </div>
                 <CardTitle className="font-body text-3xl text-center text-foreground font-bold">Supervivencia</CardTitle>
-                <CardDescription className="text-center text-foreground/80 font-body">
+                <CardDescription className="text-center text-foreground/80 font-body min-h-[40px]">
                   ¿Cuánto puedes resistir? Una vida, una pregunta.
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex justify-center mt-auto">
-                <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow pulse">
+                <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
                   Modo Supervivencia
                 </Button>
               </CardContent>

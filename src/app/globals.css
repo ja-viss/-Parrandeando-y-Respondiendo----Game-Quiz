@@ -138,7 +138,7 @@ body {
      opacity: 0;
   }
   
-  .pulse {
+  .button-pulse {
     animation: pulse 1.5s infinite;
   }
 
@@ -152,6 +152,20 @@ body {
       box-shadow: 0 0 20px 10px hsla(var(--accent), 0);
     }
   }
+
+  .title-pulse {
+    animation: title-pulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes title-pulse {
+    0%, 100% {
+      text-shadow: 2px 2px 4px hsla(var(--accent), 0.4);
+    }
+    50% {
+      text-shadow: 2px 2px 12px hsla(var(--accent), 0.8);
+    }
+  }
+
 
    @keyframes fade-in-down {
     from {
