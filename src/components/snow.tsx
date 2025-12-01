@@ -28,5 +28,5 @@ export const Snow = ({ count = 20 }: { count?: number }) => {
     createSnowflakes();
   }, [count]);
 
-  return <div className="absolute top-0 left-0 w-full h-full pointer-events-none">{snowflakes}</div>;
+  return <div className="fixed top-0 left-0 w-full h-full pointer-events-none">{snowflakes}</div>;
 };

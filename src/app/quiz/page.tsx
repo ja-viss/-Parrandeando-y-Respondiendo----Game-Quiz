@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useEffect, useState, useMemo, useCallback, memo } from 'react';
 import { useRouter } from 'next/navigation';
 import { getQuizQuestions, polishQuestionDialect } from '@/app/actions';
 import type { GameSettings, QuizQuestion, Player, GameResults, Difficulty, PowerUp, GroupPowerUp, SurvivalPowerUp } from '@/lib/types';
@@ -67,7 +67,7 @@ const PowerUpSelector = ({ players, onSelect, ownId, powerUp }: { players: Playe
 )
 
 
-const Leaderboard = ({ players, currentPlayerId, onUsePowerUp }: { players: Player[], currentPlayerId: string, onUsePowerUp: (powerUp: GroupPowerUp) => void }) => (
+const Leaderboard = memo(({ players, currentPlayerId, onUsePowerUp }: { players: Player[], currentPlayerId: string, onUsePowerUp: (powerUp: GroupPowerUp) => void }) => (
   <Card className="w-full">
     <CardHeader>
       <CardTitle className="flex items-center gap-2 font-headline text-2xl"><Trophy className="text-accent" />Puntuación</CardTitle>
@@ -99,7 +99,9 @@ const Leaderboard = ({ players, currentPlayerId, onUsePowerUp }: { players: Play
       </ul>
     </CardContent>
   </Card>
-);
+));
+Leaderboard.displayName = 'Leaderboard';
+
 
 const LivesIndicator = ({ lives }: { lives: number }) => (
   <div className="flex items-center gap-2">
@@ -136,7 +138,7 @@ const elCanonazoPhrases = [
 ];
 
 
-const SurvivalPowerUpBar = ({ powerUps, onUse }: { powerUps: Partial<Record<SurvivalPowerUp, number>>, onUse: (powerUp: SurvivalPowerUp) => void}) => {
+const SurvivalPowerUpBar = memo(({ powerUps, onUse }: { powerUps: Partial<Record<SurvivalPowerUp, number>>, onUse: (powerUp: SurvivalPowerUp) => void}) => {
     return (
         <TooltipProvider>
             <Card className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-sm bg-card/80 backdrop-blur-sm">
@@ -173,7 +175,8 @@ const SurvivalPowerUpBar = ({ powerUps, onUse }: { powerUps: Partial<Record<Surv
             </Card>
         </TooltipProvider>
     );
-};
+});
+SurvivalPowerUpBar.displayName = 'SurvivalPowerUpBar';
 
 
 export default function QuizPage() {
@@ -208,6 +211,7 @@ export default function QuizPage() {
   const [shouldUseAI, setShouldUseAI] = useState(false);
 
   const difficultyInfo = useMemo(() => getDifficulty(currentStreak), [currentStreak]);
+  const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
 
   const finishGame = useCallback(() => {
      if (!settings) return;
@@ -221,10 +225,12 @@ export default function QuizPage() {
     router.push('/results');
   }, [players, settings, router, highestStreak]);
 
-  const fetchNextQuestion = useCallback(async () => {
-    if (!settings || (settings.mode !== 'survival' && currentQuestionIndex >= settings.numQuestions -1)) {
-        finishGame();
-        return;
+ const fetchNextQuestion = useCallback(async (isInitial = false) => {
+    if (!settings) return;
+
+    if (!isInitial && settings.mode !== 'survival' && currentQuestionIndex >= settings.numQuestions - 1) {
+      finishGame();
+      return;
     }
     
     setLoading(true);
@@ -239,7 +245,6 @@ export default function QuizPage() {
         const existingIds = questions.map(q => q.id);
         const newQuestions = await getQuizQuestions(difficultyInfo.name, 1, settings.category, shouldUseAI, existingIds);
         
-        // Alternate AI for next question
         setShouldUseAI(prev => !prev);
         
         if (newQuestions.length > 0) {
@@ -254,9 +259,9 @@ export default function QuizPage() {
         finishGame();
     } finally {
         setLoading(false);
-        setTimeLeft(70);
+        setTimeLeft(isRapidFire ? 3 : 70);
     }
-  }, [settings, difficultyInfo.name, finishGame, toast, questions, shouldUseAI, currentQuestionIndex]);
+  }, [settings, difficultyInfo.name, finishGame, toast, questions, shouldUseAI, currentQuestionIndex, isRapidFire]);
 
 
   const handleNextTurn = useCallback(async () => {
@@ -266,8 +271,6 @@ export default function QuizPage() {
     setSelectedAnswer(null);
     setUsingHallacaDeOro(null);
     setActiveMalus({});
-    
-    // Reset survival power-ups visual state for next question
     setSlowTime(false);
     setRevealedAnswer(null);
     setHiddenOptions([]);
@@ -283,25 +286,22 @@ export default function QuizPage() {
     }
 
     if (settings.mode === 'survival') {
-        fetchNextQuestion();
+        await fetchNextQuestion();
         return;
     }
     
-    const nextPlayerIndex = settings.mode === 'group' ? (currentPlayerIndex + 1) % players.length : 0;
+    const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
     const isNewRound = nextPlayerIndex === 0;
 
-    if (settings.mode === 'group') {
-      setCurrentPlayerIndex(nextPlayerIndex);
-    }
+    setCurrentPlayerIndex(nextPlayerIndex);
 
     if (isNewRound) {
-        fetchNextQuestion();
+        await fetchNextQuestion();
     }
   }, [settings, currentPlayerIndex, players.length, fetchNextQuestion, toast]);
   
-  const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
 
-  const handleAnswer = (answer: string) => {
+  const handleAnswer = useCallback((answer: string) => {
     if (isAnswered || !currentQuestion) return;
     setIsAnswered(true);
     setSelectedAnswer(answer);
@@ -397,7 +397,7 @@ export default function QuizPage() {
     setTimeout(() => {
        handleNextTurn();
     }, 1500);
-  };
+  }, [isAnswered, currentQuestion, isRapidFire, settings, timeLeft, usingHallacaDeOro, players, currentPlayerIndex, currentStreak, difficultyInfo.label, highestStreak, usedMilagro, lives, handleNextTurn, toast]);
   
   useEffect(() => {
     const storedSettings = sessionStorage.getItem('quizSettings');
@@ -406,6 +406,7 @@ export default function QuizPage() {
       router.push('/');
       return;
     }
+    
     const parsedSettings: GameSettings = JSON.parse(storedSettings);
     setSettings(parsedSettings);
     setShouldUseAI(false); // Start with a bank question
@@ -420,36 +421,53 @@ export default function QuizPage() {
       setPlayers([{ id: 'solo-player', name: 'Tú', score: 0, powerUps: [], survivalPowerUps: {} }]);
     }
     
-    fetchNextQuestion();
-
+    // Initial fetch, need to pass settings directly
+    (async () => {
+        setLoading(true);
+        try {
+            const existingIds: string[] = [];
+            const newQuestions = await getQuizQuestions(getDifficulty(0).name, 1, parsedSettings.category, false, existingIds);
+            
+            if (newQuestions.length > 0) {
+                const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
+                setQuestions([polishedQuestion]);
+                setCurrentQuestionIndex(0);
+            } else {
+                throw new Error("No more questions available.");
+            }
+        } catch (error) {
+            toast({ title: "Error de red", description: "No se pudo cargar la primera pregunta.", variant: "destructive" });
+            router.push('/');
+        } finally {
+            setLoading(false);
+            setTimeLeft(70);
+        }
+    })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, toast]);
 
    useEffect(() => {
     let timer: NodeJS.Timeout;
-    const playerMalus = activeMalus[players[currentPlayerIndex]?.id];
-    let interval = 1000;
-
-    if (playerMalus === 'la-ladilla' || slowTime) {
-        interval = 2000; // Time is halved, so interval is doubled
-    }
-    
-    if (timeLeft > 0 && !isAnswered && !loading) {
-      timer = setInterval(() => {
-        setTimeLeft(prev => (prev > 0 ? prev - 1 : 0));
-      }, interval);
-    } else if (timeLeft === 0 && !isAnswered && !loading) {
+    if (timeLeft > 0 && !isAnswered && !loading && currentQuestion) {
+        const playerMalus = activeMalus[players[currentPlayerIndex]?.id];
+        let interval = 1000;
+        if (playerMalus === 'la-ladilla' || slowTime) {
+            interval = 2000;
+        }
+        
+        timer = setInterval(() => {
+            setTimeLeft(prev => (prev > 0 ? prev - 1 : 0));
+        }, interval);
+    } else if (timeLeft === 0 && !isAnswered && !loading && currentQuestion) {
         handleAnswer(""); // Time's up, count as wrong
     }
     return () => clearInterval(timer);
-  }, [timeLeft, isAnswered, activeMalus, players, currentPlayerIndex, slowTime, handleAnswer, loading]);
+  }, [timeLeft, isAnswered, loading, currentQuestion, activeMalus, players, currentPlayerIndex, slowTime, handleAnswer]);
 
   const shuffledOptions = useMemo(() => {
     if (!currentQuestion?.opciones) return [];
-    
-    let options = [...currentQuestion.opciones];
-    // No shuffling here to keep revealed answer consistent
-    // return options.sort(() => Math.random() - 0.5);
-    return options;
+    // Options are not shuffled anymore to keep revealed answer consistent
+    return [...currentQuestion.opciones];
   }, [currentQuestion]);
 
    const handleUseGroupPowerUp = (powerUp: GroupPowerUp) => {
@@ -464,7 +482,7 @@ export default function QuizPage() {
   
     const handleUseSurvivalPowerUp = (powerUp: SurvivalPowerUp) => {
         const currentPlayer = players[0];
-        if (!currentPlayer || (currentPlayer.survivalPowerUps?.[powerUp] || 0) <= 0 || isAnswered) {
+        if (!currentPlayer || (currentPlayer.survivalPowerUps?.[powerUp] || 0) <= 0 || isAnswered || !currentQuestion) {
             return;
         }
 
@@ -527,7 +545,7 @@ export default function QuizPage() {
   }
 
 
-  if (loading || !settings || !currentQuestion) {
+  if (loading && !currentQuestion) {
     return (
       <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-center min-h-screen p-4">
         <div className="w-full">
@@ -596,12 +614,12 @@ export default function QuizPage() {
               ) : (
                 <Card className="bg-card/80 backdrop-blur-sm w-full">
                   <CardHeader>
-                    {settings.mode !== 'survival' && <Progress value={((currentQuestionIndex + 1) / settings.numQuestions) * 100} className="mb-4" />}
+                    {settings?.mode !== 'survival' && <Progress value={((currentQuestionIndex + 1) / settings.numQuestions) * 100} className="mb-4" />}
                      <div className="flex justify-between items-center text-sm text-muted-foreground font-body">
                           <span>
-                              {settings.mode === 'survival' 
+                              {settings?.mode === 'survival' 
                                   ? `Racha actual: ${currentStreak}` 
-                                  : `Pregunta ${currentQuestionIndex + 1} de ${settings.numQuestions}`}
+                                  : `Pregunta ${currentQuestionIndex + 1} de ${settings?.numQuestions || 10}`}
                           </span>
                           {currentQuestion.categoria !== "Error" && <span className='font-bold'>Categoría: {currentQuestion.categoria}</span>}
                       </div>
@@ -657,7 +675,7 @@ export default function QuizPage() {
             </Alert>
           </div>
 
-            {settings.mode === 'group' ? (
+            {settings?.mode === 'group' && players.length > 0 ? (
                 <>
                     <Alert>
                         <Users className="h-4 w-4" />
@@ -666,7 +684,7 @@ export default function QuizPage() {
                     </Alert>
                     <Leaderboard players={players} currentPlayerId={currentPlayer.id} onUsePowerUp={handleUseGroupPowerUp}/>
                 </>
-            ) : settings.mode === 'survival' ? (
+            ) : settings?.mode === 'survival' && players.length > 0 ? (
                  <div className="space-y-4 md:sticky md:top-20">
                     <Alert>
                         <Heart className="h-4 w-4" />
@@ -686,7 +704,7 @@ export default function QuizPage() {
                         </CardContent>
                     </Card>
                 </div>
-            ) : ( // solo mode
+            ) : settings?.mode === 'solo' && players.length > 0 ? ( 
                  <div className="space-y-4 md:sticky md:top-20">
                     <Card>
                         <CardHeader>
@@ -697,7 +715,7 @@ export default function QuizPage() {
                         </CardContent>
                     </Card>
                 </div>
-            )}
+            ) : null}
              {isRapidFire && (
                 <Alert variant="destructive" className="flex items-center gap-2">
                     <FastForward className="h-6 w-6 animate-pulse" />
@@ -709,7 +727,7 @@ export default function QuizPage() {
             )}
         </div>
       </div>
-       {settings.mode === 'survival' && players[0] && (
+       {settings?.mode === 'survival' && players[0] && (
           <SurvivalPowerUpBar powerUps={players[0].survivalPowerUps || {}} onUse={handleUseSurvivalPowerUp} />
       )}
     </div>
