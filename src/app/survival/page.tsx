@@ -13,7 +13,7 @@ export default function SurvivalPage() {
   const handleStartSurvival = () => {
     const settings: GameSettings = {
       mode: "survival",
-      category: "customs", // Or any default, it will be dynamic
+      category: "all",
       numQuestions: 99, // A high number for endless play
       lives: 3
     };
@@ -33,7 +33,7 @@ export default function SurvivalPage() {
           <div className="flex justify-center mb-4 text-primary">
             <Zap size={64} />
           </div>
-          <CardTitle className="font-headline text-4xl">Supervivencia Parrandera</CardTitle>
+          <CardTitle className="font-headline text-4xl text-primary">Supervivencia Parrandera</CardTitle>
           <CardDescription className="text-lg">
             Responde preguntas sin parar. La dificultad aumenta, pero solo tienes 3 vidas. ¡A ver hasta dónde llegas!
           </CardDescription>
@@ -45,7 +45,7 @@ export default function SurvivalPage() {
             </p>
         </CardContent>
         <CardFooter>
-          <Button onClick={handleStartSurvival} size="lg" className="w-full font-bold text-lg">
+          <Button onClick={handleStartSurvival} size="lg" className="w-full font-bold text-lg bg-primary text-primary-foreground">
             Empezar la Racha
           </Button>
         </CardFooter>

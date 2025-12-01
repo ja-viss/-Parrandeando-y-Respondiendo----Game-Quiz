@@ -6,7 +6,7 @@ const Star = ({ style }: { style: React.CSSProperties }) => {
   return <div className="star" style={style}></div>;
 };
 
-export const Stars = ({ count = 50 }: { count?: number }) => {
+export const Stars = ({ count = 25 }: { count?: number }) => {
   const [stars, setStars] = useState<React.ReactNode[]>([]);
 
   useEffect(() => {

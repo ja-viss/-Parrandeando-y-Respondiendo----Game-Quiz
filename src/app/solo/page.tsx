@@ -4,9 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import { GameSettings, Difficulty } from "@/lib/types";
-import { ArrowLeft, Plus } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { MaracaIcon } from "@/components/icons/maraca-icon";
 import { CuatroIcon } from "@/components/icons/cuatro-icon";
@@ -64,7 +63,7 @@ export default function SoloPage() {
       </Button>
       <Card className="w-full max-w-4xl bg-card/80 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle className="font-headline text-4xl text-center">Modo Solitario</CardTitle>
+          <CardTitle className="font-headline text-4xl text-center text-primary">Modo Solitario</CardTitle>
           <CardDescription className="text-center">Elige el nivel de picante para tus preguntas.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -86,7 +85,7 @@ export default function SoloPage() {
           </div>
         </CardContent>
         <CardFooter>
-          <Button onClick={handleStart} size="lg" className="w-full font-bold text-lg button-pulse">
+          <Button onClick={handleStart} size="lg" className="w-full font-bold text-lg button-pulse bg-primary text-primary-foreground">
             ¡A Jugar!
           </Button>
         </CardFooter>

@@ -34,9 +34,6 @@ export default function Home() {
               className="w-full transition-transform transform hover:scale-105"
             >
               <Card className="flex flex-col h-full cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group hover:shadow-lg hover:shadow-accent/30">
-                <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary origin-bottom-left rotate-45" />
-                <div className="absolute top-1 right-5 w-px h-20 bg-accent/50" />
-                <div className="absolute top-5 right-1 w-20 h-px bg-accent/50" />
                 <CardHeader className="flex-grow">
                   <div className="flex justify-center mb-4">
                     <GingerbreadManIcon className="w-20 h-20 text-primary" />
@@ -48,7 +45,7 @@ export default function Home() {
                 </CardHeader>
                 <CardContent className="flex justify-center mt-auto p-6 pt-0">
                   <div className="w-full">
-                     <Button variant="default" size="lg" className="w-full font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
+                     <Button variant="default" size="lg" className="w-full font-bold text-lg bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
                       Modo Solitario
                     </Button>
                   </div>
@@ -61,9 +58,6 @@ export default function Home() {
               className="w-full transition-transform transform hover:scale-105"
             >
               <Card className="flex flex-col h-full cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group hover:shadow-lg hover:shadow-accent/30">
-                <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary origin-bottom-left rotate-45" />
-                <div className="absolute top-1 right-5 w-px h-20 bg-accent/50" />
-                <div className="absolute top-5 right-1 w-20 h-px bg-accent/50" />
                 <CardHeader className="flex-grow">
                   <div className="flex justify-center mb-4">
                     <CarolersIcon className="w-20 h-20 text-primary" />
@@ -75,7 +69,7 @@ export default function Home() {
                 </CardHeader>
                 <CardContent className="flex justify-center mt-auto p-6 pt-0">
                    <div className="w-full">
-                    <Button variant="default" size="lg" className="w-full font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
+                    <Button variant="default" size="lg" className="w-full font-bold text-lg bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
                       Modo Grupal
                     </Button>
                    </div>
@@ -88,9 +82,6 @@ export default function Home() {
               className="w-full transition-transform transform hover:scale-105"
             >
               <Card className="flex flex-col h-full cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group hover:shadow-lg hover:shadow-accent/30">
-                <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary origin-bottom-left rotate-45" />
-                <div className="absolute top-1 right-5 w-px h-20 bg-accent/50" />
-                <div className="absolute top-5 right-1 w-20 h-px bg-accent/50" />
                 <CardHeader className="flex-grow">
                   <div className="flex justify-center mb-4">
                     <HallacaIcon className="w-20 h-20 text-primary" />
@@ -102,7 +93,7 @@ export default function Home() {
                 </CardHeader>
                 <CardContent className="flex justify-center mt-auto p-6 pt-0">
                   <div className="w-full">
-                    <Button variant="default" size="lg" className="w-full font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
+                    <Button variant="default" size="lg" className="w-full font-bold text-lg bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
                       Modo Supervivencia
                     </Button>
                   </div>

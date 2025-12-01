@@ -94,7 +94,7 @@ export default function GroupPage() {
       </Button>
       <Card className="w-full max-w-2xl bg-card/80 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle className="font-headline text-4xl text-center">Competencia Grupal</CardTitle>
+          <CardTitle className="font-headline text-4xl text-center text-primary">Competencia Grupal</CardTitle>
           <CardDescription className="text-center">Añadan sus nombres, elijan categoría y ¡que comience la parranda!</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
@@ -175,7 +175,7 @@ export default function GroupPage() {
 
           </CardContent>
           <CardFooter>
-            <Button type="submit" size="lg" className="w-full font-bold text-lg button-pulse">
+            <Button type="submit" size="lg" className="w-full font-bold text-lg button-pulse bg-primary text-primary-foreground">
               ¡A Parrandear!
             </Button>
           </CardFooter>
