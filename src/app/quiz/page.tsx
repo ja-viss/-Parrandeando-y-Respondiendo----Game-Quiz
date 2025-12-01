@@ -130,11 +130,8 @@ const elCanonazoPhrases = [
 
 
 const SurvivalPowerUpBar = ({ powerUps, onUse }: { powerUps: Partial<Record<SurvivalPowerUp, number>>, onUse: (powerUp: SurvivalPowerUp) => void}) => {
-    const availablePowerUps = Object.entries(powerUps).filter(([, count]) => count > 0);
-    if (availablePowerUps.length === 0) return null;
-
     return (
-        <Card className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-md bg-card/80 backdrop-blur-sm">
+        <Card className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-sm bg-card/80 backdrop-blur-sm">
             <CardContent className="p-2">
                 <div className="flex justify-around items-center">
                     {(Object.keys(survivalPowerUpConfig) as SurvivalPowerUp[]).map(powerUpKey => {
@@ -151,7 +148,7 @@ const SurvivalPowerUpBar = ({ powerUps, onUse }: { powerUps: Partial<Record<Surv
                                 className="relative flex flex-col h-16 w-16"
                             >
                                 <Icon className={cn("h-8 w-8", count > 0 ? "text-accent" : "text-muted-foreground")} />
-                                <span className="text-xs font-body">{config.name}</span>
+                                <span className="text-xs font-body">{config.name.split(" ")[1]}</span>
                                 {count > 0 && <div className="absolute top-0 right-0 h-4 w-4 bg-primary text-primary-foreground rounded-full text-xs flex items-center justify-center">{count}</div>}
                             </Button>
                         )
@@ -723,3 +720,5 @@ export default function QuizPage() {
     </>
   );
 }
+
+    
