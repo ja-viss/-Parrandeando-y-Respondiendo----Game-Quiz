@@ -38,7 +38,26 @@ const prompt = ai.definePrompt({
   name: 'generateChristmasQuizQuestionsPrompt',
   input: {schema: GenerateChristmasQuizQuestionsInputSchema},
   output: {schema: GenerateChristmasQuizQuestionsOutputSchema},
-  prompt: `You are an expert in Venezuelan Christmas traditions. Your task is to generate {{numQuestions}} quiz questions in Spanish about the {{category}}.\n\nEach question should have a question, a correct answer, and a list of possible answer options (including the correct answer), all in Spanish. The output should be a JSON array of quiz questions, each with the fields \"question\", \"answer\", and \"options\". Make sure that there are no duplicates and there are exactly {{numQuestions}} questions generated.\n\nExample:\n[{\n  \"question\": \"¿Cuál es el plato navideño venezolano por excelencia, hecho de masa de maíz rellena de un guiso?\",\n  \"answer\": \"Hallaca\",\n  \"options\": [\"Hallaca\", \"Arepa\", \"Empanada\", \"Cachapa\" ]\n}]`,
+  prompt: `You are an expert historian specializing in Venezuelan Christmas traditions. Your task is to generate {{numQuestions}} challenging quiz questions in Spanish about the {{category}}.
+
+The questions must be difficult and require deep knowledge. They should cover:
+- Historical origins, specific dates, and key figures (composers, creators, etc.).
+- Regional variations (e.g., differences in hallacas between Andean and Eastern regions, unique traditions from Zulia).
+- Specific details that go beyond common knowledge.
+
+For the category '{{category}}', focus on these topics:
+- **gastronomy**: Ask about controversial or optional hallaca ingredients (like chickpeas), the origin of the pan de jamón recipe, or names of artisanal Christmas liquors.
+- **music**: Ask about composers of famous gaitas, specific verses of aguinaldos, technical differences between 'parranda' and 'aguinaldo', or the specific function of instruments like the 'furruco'.
+- **customs**: Ask about 'patinatas' (schedules, historical prohibitions), the exact origin of the 'Cañonazo' in Caracas, or specific details of the 'Paseo del Niño'.
+
+Each question must have exactly four answer options. The output must be a JSON array of quiz questions, each with "question", "answer", and "options" fields, all in Spanish. Ensure there are no duplicates and exactly {{numQuestions}} questions are generated.
+
+Example for 'gastronomy':
+[{
+  "question": "¿Qué ingrediente, considerado controversial por puristas, se incluye a veces en la hallaca andina?",
+  "answer": "Garbanzos",
+  "options": ["Alcaparras", "Garbanzos", "Pasas", "Aceitunas rellenas"]
+}]`,
 });
 
 const generateChristmasQuizQuestionsFlow = ai.defineFlow(
