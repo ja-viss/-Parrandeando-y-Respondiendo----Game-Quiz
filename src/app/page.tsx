@@ -3,8 +3,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { GingerbreadManIcon } from "@/components/icons/gingerbread-man-icon";
-import { CarolersIcon } from "@/components/icons/carolers-icon";
+import { MaracaIcon } from "@/components/icons/maraca-icon";
+import { CuatroIcon } from "@/components/icons/cuatro-icon";
 import { HallacaIcon } from "@/components/icons/hallaca-icon";
 
 export default function Home() {
@@ -34,7 +34,7 @@ export default function Home() {
               <Card className="flex flex-col h-full cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group hover:shadow-lg hover:shadow-accent/30">
                 <CardHeader className="flex-grow">
                   <div className="flex justify-center mb-4">
-                    <GingerbreadManIcon className="w-20 h-20 text-primary" />
+                    <MaracaIcon className="w-20 h-20 text-primary" />
                   </div>
                   <CardTitle className="font-headline text-3xl text-center text-foreground font-bold">Juego Individual</CardTitle>
                   <CardDescription className="text-center text-foreground/80 font-body min-h-[40px]">
@@ -58,7 +58,7 @@ export default function Home() {
               <Card className="flex flex-col h-full cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group hover:shadow-lg hover:shadow-accent/30">
                 <CardHeader className="flex-grow">
                   <div className="flex justify-center mb-4">
-                    <CarolersIcon className="w-20 h-20 text-primary" />
+                    <CuatroIcon className="w-20 h-20 text-primary" />
                   </div>
                   <CardTitle className="font-headline text-3xl text-center text-foreground font-bold">Competencia Grupal</CardTitle>
                   <CardDescription className="text-center text-foreground/80 font-body min-h-[40px]">
