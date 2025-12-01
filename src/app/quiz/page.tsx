@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState, useMemo, useCallback } from 'react';
@@ -157,6 +158,8 @@ export default function QuizPage() {
   }, [players, settings, router, highestStreak]);
 
   const handleNextQuestion = useCallback(async () => {
+    if (!settings) return;
+
     setIsAnswered(false);
     setSelectedAnswer(null);
     setUsingHallacaDeOro(null);
@@ -171,15 +174,22 @@ export default function QuizPage() {
       setTimeLeft(settings?.timeLimit || 35);
     }
 
-
-    if (settings?.mode === 'survival') {
-        setLoading(true);
+    if (settings.mode === 'survival') {
         const nextIndex = currentQuestionIndex + 1;
+        setLoading(true);
         try {
             const newQuestions = await getQuizQuestions(difficultyInfo.name, 1, settings.category);
-            const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
-            setQuestions(prev => [...prev, polishedQuestion]);
+            setQuestions(prev => [...prev, newQuestions[0]]); // Set raw question first
             setCurrentQuestionIndex(nextIndex);
+            
+            // Now polish it, this will cause a re-render when done
+            const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
+            setQuestions(prev => {
+                const newArr = [...prev];
+                newArr[nextIndex] = polishedQuestion;
+                return newArr;
+            });
+
         } catch (error) {
             toast({ title: "Error de red", description: "No se pudo cargar la siguiente pregunta. Inténtalo de nuevo.", variant: "destructive" });
         } finally {
@@ -188,10 +198,10 @@ export default function QuizPage() {
         return;
     }
     
-    const nextPlayerIndex = settings?.mode === 'group' ? (currentPlayerIndex + 1) % players.length : 0;
+    const nextPlayerIndex = settings.mode === 'group' ? (currentPlayerIndex + 1) % players.length : 0;
     const isNewRound = nextPlayerIndex === 0;
 
-    if (settings?.mode === 'group') {
+    if (settings.mode === 'group') {
       setCurrentPlayerIndex(nextPlayerIndex);
     }
 
@@ -207,7 +217,7 @@ export default function QuizPage() {
   const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
 
   const handleAnswer = (answer: string) => {
-    if (isAnswered) return;
+    if (isAnswered || !currentQuestion) return;
     setIsAnswered(true);
     setSelectedAnswer(answer);
 
@@ -310,12 +320,18 @@ export default function QuizPage() {
       setLoading(true);
       const initialDifficulty = parsedSettings.mode === 'survival' ? getDifficulty(0).name : parsedSettings.difficulty || 'Juguete de Niño';
       const numToFetch = parsedSettings.mode === 'survival' ? 1 : parsedSettings.numQuestions;
-      const fetchedQuestions = await getQuizQuestions(initialDifficulty, numToFetch, parsedSettings.category);
       
-      const polishedQuestions = await Promise.all(fetchedQuestions.map(q => polishQuestionDialect(q)));
-
-      setQuestions(polishedQuestions);
-      setLoading(false);
+      try {
+        const fetchedQuestions = await getQuizQuestions(initialDifficulty, numToFetch, parsedSettings.category);
+        const polishedQuestions = await Promise.all(fetchedQuestions.map(q => polishQuestionDialect(q)));
+        setQuestions(polishedQuestions);
+      } catch(error) {
+        console.error("Failed to fetch/polish questions:", error);
+        toast({ title: "Error", description: "No se pudieron cargar las preguntas.", variant: "destructive"});
+        router.push('/');
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchInitialQuestions();
@@ -385,7 +401,7 @@ export default function QuizPage() {
       <div className="flex flex-col items-center justify-center min-h-screen p-4 space-y-4">
         <div className="flex items-center space-x-2 text-primary">
           <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin"></div>
-          <span className="text-xl font-semibold">Cargando pregunta...</span>
+          <span className="text-xl font-semibold">Cargando y puliendo pregunta...</span>
         </div>
         <Skeleton className="h-12 w-full max-w-md" />
         <Skeleton className="h-64 w-full max-w-2xl" />
@@ -569,5 +585,8 @@ export default function QuizPage() {
     </>
   );
 }
+
+    
+
 
     
