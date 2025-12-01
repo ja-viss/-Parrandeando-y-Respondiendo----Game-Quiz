@@ -12,9 +12,9 @@ export async function getQuizQuestions(category: GameCategory, numQuestions: num
     // Return a fallback question in case of an error
     return [
       {
-        question: "Failed to load question. Please try again.",
+        question: "No se pudo cargar la pregunta. Por favor, intenta de nuevo.",
         answer: "Error",
-        options: ["Error", "Try Again", "Go Back", "Help"],
+        options: ["Error", "Intentar de nuevo", "Volver", "Ayuda"],
       },
     ];
   }

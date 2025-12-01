@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Trophy, Clock, Users, User, ArrowLeft, Heart } from 'lucide-react';
+import { Trophy, Clock, Users, User, ArrowLeft, Heart, Zap } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -51,6 +51,11 @@ const LivesIndicator = ({ lives }: { lives: number }) => (
     </div>
 );
 
+const getDifficulty = (streak: number): { name: GameCategory; multiplier: number; label: string } => {
+    if (streak <= 5) return { name: 'gastronomy', multiplier: 1.0, label: "Juguete de Niño" }; // Proxy for Easy
+    if (streak <= 15) return { name: 'music', multiplier: 1.2, label: "Palo 'e Ron" }; // Proxy for Medium
+    return { name: 'customs', multiplier: 1.5, label: "¡El Cañonazo!" }; // Proxy for Expert
+};
 
 export default function QuizPage() {
   const router = useRouter();
@@ -70,13 +75,19 @@ export default function QuizPage() {
   const [confetti, setConfetti] = useState(false);
   const [currentStreak, setCurrentStreak] = useState(0);
   const [highestStreak, setHighestStreak] = useState(0);
+  const [levelUp, setLevelUp] = useState(false);
 
+  const difficultyInfo = useMemo(() => getDifficulty(currentStreak), [currentStreak]);
 
-  const getDifficulty = (questionIndex: number): GameCategory => {
-    if (questionIndex < 5) return 'gastronomy'; // Easy proxy
-    if (questionIndex < 15) return 'music'; // Medium proxy
-    return 'customs'; // Hard proxy
-  }
+  useEffect(() => {
+    const prevDifficulty = getDifficulty(currentStreak - 1);
+    const currentDifficulty = getDifficulty(currentStreak);
+    if (settings?.mode === 'survival' && prevDifficulty.name !== currentDifficulty.name && currentStreak > 0) {
+      setLevelUp(true);
+      setTimeout(() => setLevelUp(false), 1500); // Animation duration
+    }
+  }, [currentStreak, settings?.mode]);
+
 
   const finishGame = useCallback(() => {
      if (!settings) return;
@@ -97,9 +108,9 @@ export default function QuizPage() {
     if (settings?.mode === 'survival') {
         setLoading(true);
         const nextIndex = currentQuestionIndex + 1;
-        const newDifficulty = getDifficulty(nextIndex);
+        // The difficulty is now derived from the streak, so we use difficultyInfo
         try {
-            const newQuestions = await getQuizQuestions(newDifficulty, 1);
+            const newQuestions = await getQuizQuestions(difficultyInfo.name, 1);
             setQuestions(prev => [...prev, ...newQuestions]);
             setCurrentQuestionIndex(nextIndex);
         } catch (error) {
@@ -129,7 +140,7 @@ export default function QuizPage() {
         finishGame();
       }
     }
-  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame, toast]);
+  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame, toast, difficultyInfo.name, currentQuestionIndex]);
 
   useEffect(() => {
     const storedSettings = sessionStorage.getItem('quizSettings');
@@ -156,7 +167,7 @@ export default function QuizPage() {
 
     const fetchInitialQuestions = async () => {
       setLoading(true);
-      const initialDifficulty = parsedSettings.mode === 'survival' ? getDifficulty(0) : parsedSettings.category;
+      const initialDifficulty = parsedSettings.mode === 'survival' ? getDifficulty(0).name : parsedSettings.category;
       const numToFetch = parsedSettings.mode === 'survival' ? 1 : parsedSettings.numQuestions;
       const fetchedQuestions = await getQuizQuestions(initialDifficulty, numToFetch);
       setQuestions(fetchedQuestions);
@@ -204,9 +215,7 @@ export default function QuizPage() {
             if (newStreak > highestStreak) {
                 setHighestStreak(newStreak);
             }
-            const difficulty = getDifficulty(currentQuestionIndex);
-            if (difficulty === 'music') scoreToAdd *= 1.5;
-            if (difficulty === 'customs') scoreToAdd *= 2;
+            scoreToAdd *= difficultyInfo.multiplier;
         } else if (settings?.mode === 'solo' && timeLeft) {
             scoreToAdd += Math.floor(timeLeft / (settings.timeLimit! / settings.numQuestions!) * 5); // Bonus time
         }
@@ -230,7 +239,7 @@ export default function QuizPage() {
     }
 
     setTimeout(() => {
-      if (settings?.mode === 'survival' && lives > 1) {
+      if (settings?.mode === 'survival' && lives > 0) {
         handleNextQuestion();
       } else if (settings?.mode !== 'survival') {
         handleNextQuestion();
@@ -320,6 +329,11 @@ export default function QuizPage() {
                     <Alert>
                         <LivesIndicator lives={lives} />
                         <AlertTitle className="font-bold ml-10">Vidas Restantes</AlertTitle>
+                    </Alert>
+                     <Alert className={cn("relative overflow-hidden transition-all duration-300", levelUp && "ring-2 ring-accent confetti-pop")}>
+                        <Zap className="h-4 w-4" />
+                        <AlertTitle className="font-bold">Nivel de Dificultad</AlertTitle>
+                        <AlertDescription className="text-lg text-primary">{difficultyInfo.label}</AlertDescription>
                     </Alert>
                     <Card>
                         <CardHeader>
