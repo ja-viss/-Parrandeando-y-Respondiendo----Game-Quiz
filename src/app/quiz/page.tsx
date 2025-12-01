@@ -285,7 +285,7 @@ export default function QuizPage() {
               toast({ title: "¡Subiste de Nivel!", description: `Dificultad aumentada a: ${newDifficultyInfo.label}`});
               setTimeout(() => setLevelUp(false), 1000);
             }
-            if (newStreak % 10 === 0 && newStreak > 0) {
+            if (newStreak % 5 === 0 && newStreak > 0) {
                  const allPowerUps: SurvivalPowerUp[] = ['chiguire-lento', 'soplon', 'media-hallaca', 'milagro-santo'];
                  const randomPowerUp = allPowerUps[Math.floor(Math.random() * allPowerUps.length)];
                  setPlayers(prev => prev.map(p => ({
