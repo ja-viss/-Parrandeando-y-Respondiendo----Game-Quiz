@@ -117,6 +117,18 @@ const getDifficulty = (streak: number): { name: Difficulty; multiplier: number; 
     return { name: "¡El Cañonazo!", multiplier: 1.5, label: "¡El Cañonazo!" };
 };
 
+const paloERonPhrases = [
+    "¡Na' Guará! Ahora la vaina se puso seria. ¡A ver si te la sabes!",
+    "¡Fino! Ya dejaste de ser un zamuro cuidando carne. ¡Demuestra que eres un duro!",
+    "¡Chévere! Se acabó el bostezo. Ahora es que empieza la parranda de verdad."
+];
+const elCanonazoPhrases = [
+    "¡Qué molleja, chamo! Llegaste al nivel de los que batean de jonrón. ¡No te me achicopales ahora!",
+    "¡Arrecho! Eres más criollo que una arepa. ¡Ahora es que hay candela!",
+    "¡Burda de bueno! Estás en la candela. ¡A ver si eres de los que masca el agua!"
+];
+
+
 const SurvivalPowerUpBar = ({ powerUps, onUse }: { powerUps: Partial<Record<SurvivalPowerUp, number>>, onUse: (powerUp: SurvivalPowerUp) => void}) => {
     const availablePowerUps = Object.entries(powerUps).filter(([, count]) => count > 0);
     if (availablePowerUps.length === 0) return null;
@@ -282,7 +294,13 @@ export default function QuizPage() {
             
             if (newDifficultyInfo.label !== prevDifficulty) {
               setLevelUp(true);
-              toast({ title: "¡Subiste de Nivel!", description: `Dificultad aumentada a: ${newDifficultyInfo.label}`});
+              let phrase = "";
+              if (newDifficultyInfo.label === "Palo 'e Ron") {
+                  phrase = paloERonPhrases[Math.floor(Math.random() * paloERonPhrases.length)];
+              } else if (newDifficultyInfo.label === "¡El Cañonazo!") {
+                  phrase = elCanonazoPhrases[Math.floor(Math.random() * elCanonazoPhrases.length)];
+              }
+              toast({ title: `¡Subiste a ${newDifficultyInfo.label}!`, description: phrase });
               setTimeout(() => setLevelUp(false), 1000);
             }
             if (newStreak % 5 === 0 && newStreak > 0) {
