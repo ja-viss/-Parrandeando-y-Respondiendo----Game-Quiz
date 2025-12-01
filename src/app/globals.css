@@ -63,6 +63,30 @@
 }
 
 @layer utilities {
+  .animated-gradient {
+    background: linear-gradient(
+      -45deg,
+      hsl(var(--background)),
+      hsl(347, 40%, 15%),
+      hsl(260, 30%, 12%),
+      hsl(var(--background))
+    );
+    background-size: 400% 400%;
+    animation: gradient-move 15s ease infinite;
+  }
+
+  @keyframes gradient-move {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
   @keyframes snowfall {
     0% { transform: translateY(-10vh) scale(1); opacity: 1; }
     100% { transform: translateY(110vh) scale(0.8); opacity: 0; }

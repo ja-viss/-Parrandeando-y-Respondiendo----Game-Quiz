@@ -9,7 +9,7 @@ import { HallacaIcon } from "@/components/icons/hallaca-icon";
 
 export default function Home() {
   return (
-    <main className="relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 text-center overflow-hidden">
+    <main className="relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 text-center">
       <div 
         className="z-10 flex flex-col items-center p-6 md:p-10 rounded-xl bg-card/90 shadow-2xl backdrop-blur-sm animate-fade-in-down"
       >
