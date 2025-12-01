@@ -23,6 +23,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import { GingerbreadManIcon } from '@/components/icons/gingerbread-man-icon';
 
 const powerUpConfig = {
   'hallaca-de-oro': { name: "Hallaca de Oro", icon: Shield, description: "¡Duplica tus puntos en la siguiente pregunta!", malus: false },
@@ -120,7 +121,7 @@ export default function QuizPage() {
   const [isAnswered, setIsAnswered] = useState(false);
   const [players, setPlayers] = useState<Player[]>([]);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
-  const [timeLeft, setTimeLeft] = useState<number>(35);
+  const [timeLeft, setTimeLeft] = useState<number>(70);
   const [lives, setLives] = useState(3);
   const [isGameOver, setIsGameOver] = useState(false);
   const [shake, setShake] = useState<string | null>(null);
@@ -162,7 +163,7 @@ export default function QuizPage() {
       setTimeLeft(3);
     } else {
       setIsRapidFire(false);
-      setTimeLeft(35);
+      setTimeLeft(70);
     }
 
     if (settings.mode === 'survival') {
@@ -240,7 +241,7 @@ export default function QuizPage() {
             }
             scoreToAdd *= newDifficultyInfo.multiplier;
         } else {
-            scoreToAdd += Math.floor(timeLeft / 35 * 5); // Bonus time
+            scoreToAdd += Math.floor(timeLeft / 70 * 5); // Bonus time
         }
 
         if (usingHallacaDeOro === players[currentPlayerIndex].id) {
@@ -304,7 +305,7 @@ export default function QuizPage() {
     }
 
     
-    setTimeLeft(35);
+    setTimeLeft(70);
     
 
     const fetchInitialQuestions = async () => {
@@ -391,16 +392,8 @@ export default function QuizPage() {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen p-4 space-y-4">
         <div className="flex items-center space-x-2 text-primary">
-          <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin"></div>
+          <GingerbreadManIcon className="w-12 h-12 animate-spin text-primary" />
           <span className="text-xl font-semibold font-body">Cargando y puliendo pregunta...</span>
-        </div>
-        <Skeleton className="h-12 w-full max-w-md" />
-        <Skeleton className="h-64 w-full max-w-2xl" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl">
-          <Skeleton className="h-16 w-full" />
-          <Skeleton className="h-16 w-full" />
-          <Skeleton className="h-16 w-full" />
-          <Skeleton className="h-16 w-full" />
         </div>
       </div>
     );
