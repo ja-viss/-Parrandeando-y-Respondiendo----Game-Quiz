@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { getQuizQuestions } from '@/app/actions';
-import type { GameSettings, QuizQuestion, Player, GameResults, GameCategory } from '@/lib/types';
+import type { GameSettings, QuizQuestion, Player, GameResults, Difficulty } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
@@ -51,10 +51,10 @@ const LivesIndicator = ({ lives }: { lives: number }) => (
     </div>
 );
 
-const getDifficulty = (streak: number): { name: GameCategory; multiplier: number; label: string } => {
-    if (streak <= 5) return { name: 'gastronomy', multiplier: 1.0, label: "Juguete de Niño" }; // Proxy for Easy
-    if (streak <= 15) return { name: 'music', multiplier: 1.2, label: "Palo 'e Ron" }; // Proxy for Medium
-    return { name: 'customs', multiplier: 1.5, label: "¡El Cañonazo!" }; // Proxy for Expert
+const getDifficulty = (streak: number): { name: Difficulty; multiplier: number; label: string } => {
+    if (streak <= 5) return { name: 'Juguete de Niño', multiplier: 1.0, label: "Juguete de Niño" };
+    if (streak <= 15) return { name: "Palo 'e Ron", multiplier: 1.2, label: "Palo 'e Ron" };
+    return { name: "¡El Cañonazo!", multiplier: 1.5, label: "¡El Cañonazo!" };
 };
 
 export default function QuizPage() {
@@ -84,9 +84,13 @@ export default function QuizPage() {
     const currentDifficulty = getDifficulty(currentStreak);
     if (settings?.mode === 'survival' && prevDifficulty.name !== currentDifficulty.name && currentStreak > 0) {
       setLevelUp(true);
+      toast({
+        title: "¡Subiste de Nivel!",
+        description: `La dificultad ahora es: ${currentDifficulty.label}`,
+      });
       setTimeout(() => setLevelUp(false), 1500); // Animation duration
     }
-  }, [currentStreak, settings?.mode]);
+  }, [currentStreak, settings?.mode, toast]);
 
 
   const finishGame = useCallback(() => {
@@ -167,7 +171,7 @@ export default function QuizPage() {
 
     const fetchInitialQuestions = async () => {
       setLoading(true);
-      const initialDifficulty = parsedSettings.mode === 'survival' ? getDifficulty(0).name : parsedSettings.category;
+      const initialDifficulty = parsedSettings.mode === 'survival' ? getDifficulty(0).name : parsedSettings.difficulty || 'Juguete de Niño';
       const numToFetch = parsedSettings.mode === 'survival' ? 1 : parsedSettings.numQuestions;
       const fetchedQuestions = await getQuizQuestions(initialDifficulty, numToFetch);
       setQuestions(fetchedQuestions);
@@ -190,14 +194,14 @@ export default function QuizPage() {
   }, [timeLeft, settings, isAnswered, handleNextQuestion]);
 
   const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
-  const shuffledOptions = useMemo(() => currentQuestion?.options ? [...currentQuestion.options].sort(() => Math.random() - 0.5) : [], [currentQuestion]);
+  const shuffledOptions = useMemo(() => currentQuestion?.opciones ? [...currentQuestion.opciones].sort(() => Math.random() - 0.5) : [], [currentQuestion]);
 
   const handleAnswer = (answer: string) => {
     if (isAnswered) return;
     setIsAnswered(true);
     setSelectedAnswer(answer);
 
-    const isCorrect = answer === currentQuestion.answer;
+    const isCorrect = answer === currentQuestion.respuestaCorrecta;
     
     if (isCorrect) {
         setConfetti(true);
@@ -240,7 +244,7 @@ export default function QuizPage() {
 
     setTimeout(() => {
       if (settings?.mode === 'survival' && lives > 0) {
-        handleNextQuestion();
+         if (!isGameOver) handleNextQuestion();
       } else if (settings?.mode !== 'survival') {
         handleNextQuestion();
       }
@@ -284,12 +288,12 @@ export default function QuizPage() {
               <CardDescription>
                 {settings.mode === 'survival' ? `Racha actual: ${currentStreak}` : `Pregunta ${currentQuestionIndex + 1}`}
               </CardDescription>
-              <CardTitle className="font-headline text-2xl md:text-3xl !mt-2">{currentQuestion.question}</CardTitle>
+              <CardTitle className="font-headline text-2xl md:text-3xl !mt-2">{currentQuestion.pregunta}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {shuffledOptions.map((option, index) => {
-                  const isCorrectAnswer = option === currentQuestion.answer;
+                  const isCorrectAnswer = option === currentQuestion.respuestaCorrecta;
                   const isSelected = option === selectedAnswer;
                   
                   return (

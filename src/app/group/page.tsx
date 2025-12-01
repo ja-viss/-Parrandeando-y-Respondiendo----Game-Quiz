@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { GameCategory, GameSettings, Player } from "@/lib/types";
+import { GameCategory, GameSettings, Player, Difficulty } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Music, Utensils, Users, X, PlusCircle } from "lucide-react";
 import Link from "next/link";
@@ -25,6 +25,8 @@ export default function GroupPage() {
   const [players, setPlayers] = useState<string[]>([""]);
   const [category, setCategory] = useState<GameCategory>("gastronomy");
   const [numQuestions, setNumQuestions] = useState<number>(5);
+  const [difficulty, setDifficulty] = useState<Difficulty>("Juguete de Niño");
+
 
   const handlePlayerChange = (index: number, name: string) => {
     const newPlayers = [...players];
@@ -74,6 +76,7 @@ export default function GroupPage() {
       category,
       numQuestions,
       players: gamePlayers,
+      difficulty,
     };
     sessionStorage.setItem("quizSettings", JSON.stringify(settings));
     router.push("/quiz");

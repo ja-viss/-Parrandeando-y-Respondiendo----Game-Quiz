@@ -1,0 +1,89 @@
+
+[
+  {
+    "id": "1",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "Chamo, ¿cuál es el plato principal que no puede faltar en una cena navideña venezolana?",
+    "opciones": ["Pabellón Criollo", "Hallaca", "Sancocho", "Arepa"],
+    "respuestaCorrecta": "Hallaca"
+  },
+  {
+    "id": "2",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música",
+    "pregunta": "Mi pana, ¿cómo se llama el género musical zuliano que suena sin parar en diciembre?",
+    "opciones": ["Joropo", "Salsa", "Gaita", "Merengue"],
+    "respuestaCorrecta": "Gaita"
+  },
+  {
+    "id": "3",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones",
+    "pregunta": "A ver, ¿qué se lanza a la medianoche del 31 de diciembre en algunas ciudades de los Andes para celebrar el Año Nuevo?",
+    "opciones": ["Fuegos artificiales", "Globos de los deseos", "El Año Viejo", "Agua por la ventana"],
+    "respuestaCorrecta": "El Año Viejo"
+  },
+  {
+    "id": "4",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "Échale un ojo a esto, pues: además del jamón, ¿qué otro ingrediente saladito es clave en el Pan de Jamón tradicional?",
+    "opciones": ["Queso amarillo", "Tocineta ahumada", "Salchichón", "Chorizo"],
+    "respuestaCorrecta": "Tocineta ahumada"
+  },
+  {
+    "id": "5",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música",
+    "pregunta": "Pana, ¿cuál es el instrumento que le da ese sonido de bajo vibrante y ronco a la gaita de furro?",
+    "opciones": ["El cuatro", "La charrasca", "El furruco", "Las maracas"],
+    "respuestaCorrecta": "El furruco"
+  },
+  {
+    "id": "6",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones",
+    "pregunta": "En Caracas, era costumbre ir a las misas de aguinaldo de madrugada. ¿En qué iban los chamos?",
+    "opciones": ["En bicicleta", "En monopatín", "En patines", "Caminando"],
+    "respuestaCorrecta": "En patines"
+  },
+  {
+    "id": "7",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "Chamo, hablando claro, ¿cuál es ese ingrediente que algunos le echan a la hallaca andina y que a los puristas les da una vaina?",
+    "opciones": ["Alcaparras", "Garbanzos", "Pasas", "Aceitunas rellenas"],
+    "respuestaCorrecta": "Garbanzos"
+  },
+  {
+    "id": "8",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música",
+    "pregunta": "Esta es para los que saben: ¿Quién es considerado 'El Monumental de la Gaita' y compuso clásicos como 'La Grey Zuliana'?",
+    "opciones": ["Neguito Borjas", "Ricardo Aguirre", "Betulio Medina", "Astolfo Romero"],
+    "respuestaCorrecta": "Ricardo Aguirre"
+  },
+  {
+    "id": "9",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Tradiciones",
+    "pregunta": "Mi pana, ¿cuál es el origen histórico real del 'Cañonazo' que se escucha en Caracas para recibir el año nuevo?",
+    "opciones": [
+      "La celebración de la independencia",
+      "El cierre de las puertas de la aduana de La Guaira",
+      "Un toque de queda militar del siglo XIX",
+      "Una tradición de los barcos en el puerto"
+    ],
+    "respuestaCorrecta": "Un toque de queda militar del siglo XIX"
+  }
+]

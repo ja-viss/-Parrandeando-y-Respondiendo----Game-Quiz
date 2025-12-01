@@ -1,6 +1,14 @@
-import type { GenerateChristmasQuizQuestionsOutput } from "@/ai/flows/generate-christmas-quiz-questions";
 
-export type QuizQuestion = GenerateChristmasQuizQuestionsOutput["questions"][0];
+export type QuizQuestion = {
+  id: string;
+  dificultad: Difficulty;
+  nivel: 'Fácil' | 'Medio' | 'Experto';
+  categoria: string;
+  pregunta: string;
+  opciones: string[];
+  respuestaCorrecta: string;
+};
+
 
 export type Player = {
   id: string;
