@@ -6,12 +6,10 @@ import Link from "next/link";
 import { GingerbreadManIcon } from "@/components/icons/gingerbread-man-icon";
 import { CarolersIcon } from "@/components/icons/carolers-icon";
 import { HallacaIcon } from "@/components/icons/hallaca-icon";
-import { Stars } from "@/components/stars";
 
 export default function Home() {
   return (
     <main className="relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 text-center overflow-hidden">
-      <Stars />
       <div 
         className="z-10 flex flex-col items-center p-6 md:p-10 rounded-xl bg-card/90 shadow-2xl backdrop-blur-sm animate-fade-in-down"
       >
