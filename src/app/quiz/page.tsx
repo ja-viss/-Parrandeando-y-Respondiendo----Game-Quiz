@@ -165,7 +165,7 @@ export default function QuizPage() {
       setTimeLeft(3);
     } else {
       setIsRapidFire(false);
-      setTimeLeft(settings?.timeLimit || 35);
+      setTimeLeft(35);
     }
 
     if (settings.mode === 'survival') {
@@ -243,7 +243,7 @@ export default function QuizPage() {
             }
             scoreToAdd *= newDifficultyInfo.multiplier;
         } else {
-            scoreToAdd += Math.floor(timeLeft / (settings?.timeLimit || 35) * 5); // Bonus time
+            scoreToAdd += Math.floor(timeLeft / 35 * 5); // Bonus time
         }
 
         if (usingHallacaDeOro === players[currentPlayerIndex].id) {
@@ -294,7 +294,6 @@ export default function QuizPage() {
       return;
     }
     const parsedSettings: GameSettings = JSON.parse(storedSettings);
-    parsedSettings.timeLimit = 35; // Standard time for all modes
     setSettings(parsedSettings);
     
     if (parsedSettings.mode === 'group' && parsedSettings.players) {
@@ -307,9 +306,9 @@ export default function QuizPage() {
       setPlayers([{ id: 'solo-player', name: 'Tú', score: 0, powerUps: [] }]);
     }
 
-    if(parsedSettings.timeLimit) {
-      setTimeLeft(parsedSettings.timeLimit);
-    }
+    
+    setTimeLeft(35);
+    
 
     const fetchInitialQuestions = async () => {
       setLoading(true);
@@ -566,8 +565,3 @@ export default function QuizPage() {
     </>
   );
 }
-
-    
-
-
-    
