@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { GameSettings, Player, Difficulty, GameCategory } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Music, Utensils, Users, X, PlusCircle, Globe } from "lucide-react";
+import { ArrowLeft, Music, Utensils, Gift, X, PlusCircle, Globe } from "lucide-react";
 import Link from "next/link";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
@@ -18,7 +18,7 @@ const categories: { value: GameCategory | 'all'; label: string; icon: React.Elem
   { value: "all", label: "Todas", icon: Globe },
   { value: "Gastronomía", label: "Gastronomía", icon: Utensils },
   { value: "Música y Parrandas", label: "Música", icon: Music },
-  { value: "Tradiciones y Costumbres", label: "Costumbres", icon: Users },
+  { value: "Tradiciones y Costumbres", label: "Costumbres", icon: Gift },
 ];
 
 export default function GroupPage() {
