@@ -128,7 +128,7 @@ export default function QuizPage() {
   const [isAnswered, setIsAnswered] = useState(false);
   const [players, setPlayers] = useState<Player[]>([]);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
-  const [timeLeft, setTimeLeft] = useState<number>(15);
+  const [timeLeft, setTimeLeft] = useState<number>(35);
   const [lives, setLives] = useState(3);
   const [isGameOver, setIsGameOver] = useState(false);
   const [shake, setShake] = useState<string | null>(null);
@@ -168,7 +168,7 @@ export default function QuizPage() {
       setTimeLeft(3);
     } else {
       setIsRapidFire(false);
-      setTimeLeft(settings?.timeLimit || 15);
+      setTimeLeft(settings?.mode === 'survival' ? 35 : (settings?.timeLimit || 15));
     }
 
 
@@ -289,7 +289,7 @@ export default function QuizPage() {
       return;
     }
     const parsedSettings: GameSettings = JSON.parse(storedSettings);
-    parsedSettings.timeLimit = 15; // Standard time
+    parsedSettings.timeLimit = parsedSettings.mode === 'survival' ? 35 : 15; // Adjusted time
     setSettings(parsedSettings);
     
     if (parsedSettings.mode === 'group' && parsedSettings.players) {
@@ -569,3 +569,5 @@ export default function QuizPage() {
     </>
   );
 }
+
+    
