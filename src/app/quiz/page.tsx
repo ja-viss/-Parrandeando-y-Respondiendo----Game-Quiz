@@ -159,7 +159,7 @@ const SurvivalPowerUpBar = memo(({ powerUps, onUse }: { powerUps: Partial<Record
                                             className={cn("relative flex flex-col h-16 w-16", count === 0 && "opacity-50 grayscale")}
                                         >
                                             <Icon className={cn("h-7 w-7", count > 0 ? "text-accent" : "text-muted-foreground")} />
-                                            <span className="text-xs font-body">{config.name.split(" ")[1]}</span>
+                                            <span className="text-xs font-body text-white/80">{config.name.split(" ")[1]}</span>
                                             {count > 0 && <div className="absolute top-0 right-0 h-4 w-4 bg-primary text-primary-foreground rounded-full text-xs flex items-center justify-center">{count}</div>}
                                         </Button>
                                     </TooltipTrigger>
@@ -228,7 +228,7 @@ export default function QuizPage() {
  const fetchNextQuestion = useCallback(async () => {
     if (!settings) return;
 
-    if (settings.mode !== 'survival' && currentQuestionIndex >= settings.numQuestions - 1) {
+    if (settings.mode !== 'survival' && currentQuestionIndex +1 >= settings.numQuestions) {
       finishGame();
       return;
     }
@@ -287,24 +287,16 @@ export default function QuizPage() {
       setIsRapidFire(false);
       setTimeLeft(70);
     }
-
-    if (settings.mode === 'survival') {
-      // In survival, always fetch a new question for the same player.
-      await fetchNextQuestion();
-      return;
-    }
-
-    // For solo and group modes
-    const isNewRound = (currentPlayerIndex + 1) % players.length === 0;
-
-    if (isNewRound) {
-      // It's the end of a round, fetch a new question.
-      await fetchNextQuestion();
-    }
     
-    // Move to the next player. This will cause a re-render but not a new fetch
-    // unless it's a new round (handled above).
-    setCurrentPlayerIndex(prev => (prev + 1) % players.length);
+    const isNewRoundForGroupOrSolo = (settings.mode === 'group' || settings.mode === 'solo') && (currentPlayerIndex + 1) >= players.length;
+
+    if (settings.mode === 'survival' || isNewRoundForGroupOrSolo) {
+      await fetchNextQuestion();
+    }
+
+    if (settings.mode === 'group' || settings.mode === 'solo') {
+        setCurrentPlayerIndex(prev => (prev + 1) % players.length);
+    }
 
   }, [settings, currentPlayerIndex, players.length, fetchNextQuestion, toast]);
   
@@ -382,7 +374,7 @@ export default function QuizPage() {
         }
 
     } else {
-        setShake(players[currentPlayerIndex].id);
+        setShake(players[currentPlayerIndex]?.id);
         setTimeout(() => setShake(null), 500);
         
         if (settings?.mode === 'survival') {
@@ -443,8 +435,12 @@ export default function QuizPage() {
 
 
    useEffect(() => {
+    if (isAnswered || loading || !currentQuestion) {
+        return;
+    }
+
     let timer: NodeJS.Timeout;
-    if (timeLeft > 0 && !isAnswered && !loading && currentQuestion) {
+    if (timeLeft > 0) {
         const playerMalus = activeMalus[players[currentPlayerIndex]?.id];
         let interval = 1000;
         if (playerMalus === 'la-ladilla' || slowTime) {
@@ -454,7 +450,7 @@ export default function QuizPage() {
         timer = setInterval(() => {
             setTimeLeft(prev => (prev > 0 ? prev - 1 : 0));
         }, interval);
-    } else if (timeLeft === 0 && !isAnswered && !loading && currentQuestion) {
+    } else if (timeLeft === 0) {
         handleAnswer(""); // Time's up, count as wrong
     }
     return () => clearInterval(timer);
@@ -508,7 +504,19 @@ export default function QuizPage() {
                 setHiddenOptions(optionsToHide);
                 break;
             case 'milagro-santo':
-                setUsedMilagro(true);
+                if (!usedMilagro && lives < 3) {
+                  setLives(prev => prev + 1);
+                  setUsedMilagro(true);
+                } else if (lives === 3) {
+                  toast({title: "¡Vidas Llenas!", description: "No puedes usar el milagro si tienes todas tus vidas.", variant: "destructive"});
+                   setPlayers(prev => prev.map(p => ({
+                     ...p,
+                     survivalPowerUps: {
+                         ...p.survivalPowerUps,
+                         [powerUp]: (p.survivalPowerUps?.[powerUp] || 0) + 1,
+                     }
+                   })));
+                }
                 break;
         }
     };
@@ -542,8 +550,8 @@ export default function QuizPage() {
   }
 
 
-  if (loading && !currentQuestion) {
-    return (
+  if (!currentQuestion) {
+     return (
       <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-center min-h-screen p-4">
         <div className="w-full">
            <Card className="bg-card/80 backdrop-blur-sm w-full">
@@ -592,71 +600,53 @@ export default function QuizPage() {
             <div
               className={cn(playerMalus === 'palo-de-ciego' && "blur-sm transition-all duration-300", "animate-fade-in-down")}
             >
-              {!currentQuestion ? (
-                  <Card className="bg-card/80 backdrop-blur-sm w-full">
-                    <CardHeader>
-                        <Skeleton className="h-4 w-1/4 mb-4" />
-                        <Skeleton className="h-8 w-3/4" />
-                        <Skeleton className="h-6 w-1/2 mt-1" />
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <Skeleton className="h-16 w-full" />
-                          <Skeleton className="h-16 w-full" />
-                          <Skeleton className="h-16 w-full" />
-                          <Skeleton className="h-16 w-full" />
-                      </div>
-                    </CardContent>
-                  </Card>
-              ) : (
-                <Card className="bg-card/80 backdrop-blur-sm w-full">
-                  <CardHeader>
-                    {settings?.mode !== 'survival' && <Progress value={((currentQuestionIndex + 1) / settings.numQuestions) * 100} className="mb-4" />}
-                     <div className="flex justify-between items-center text-sm text-muted-foreground font-body">
-                          <span>
-                              {settings?.mode === 'survival' 
-                                  ? `Racha actual: ${currentStreak}` 
-                                  : `Pregunta ${currentQuestionIndex + 1} de ${settings?.numQuestions || 10}`}
-                          </span>
-                          {currentQuestion.categoria !== "Error" && <span className='font-bold'>Categoría: {currentQuestion.categoria}</span>}
-                      </div>
-                    <CardTitle className="font-body text-2xl md:text-3xl lg:text-4xl !mt-2">{currentQuestion.pregunta}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {shuffledOptions.map((option, index) => {
-                        const isCorrectAnswer = option === currentQuestion.respuestaCorrecta;
-                        const isSelected = option === selectedAnswer;
-                        const isRevealed = option === revealedAnswer;
-                        
-                        return (
-                          <div
-                            key={index}
-                             className="transition-transform transform hover:scale-105"
-                          >
-                            <Button
-                              variant="outline"
-                              size="lg"
-                              className={cn(
-                                "h-auto py-4 text-base whitespace-normal justify-start text-left w-full font-body",
-                                "transition-all duration-300 transform",
-                                isAnswered && isCorrectAnswer && "bg-green-500/80 border-green-700 ring-2 ring-white text-white font-bold",
-                                isAnswered && isSelected && !isCorrectAnswer && "bg-red-500/80 border-red-700 ring-2 ring-white text-white font-bold",
-                                (isAnswered && !isSelected && !isCorrectAnswer) || (hiddenOptions.includes(option)) && "opacity-50 pointer-events-none",
-                                !isAnswered && isRevealed && "bg-yellow-500/80 border-yellow-700 ring-2 ring-white text-white font-bold"
-                              )}
-                              onClick={() => handleAnswer(option)}
-                              disabled={isAnswered || hiddenOptions.includes(option)}
-                            >
-                              {option}
-                            </Button>
-                          </div>
-                        );
-                      })}
+              <Card className="bg-card/80 backdrop-blur-sm w-full">
+                <CardHeader>
+                  {settings?.mode !== 'survival' && <Progress value={((currentQuestionIndex + 1) / settings.numQuestions) * 100} className="mb-4" />}
+                    <div className="flex justify-between items-center text-sm text-muted-foreground font-body">
+                        <span>
+                            {settings?.mode === 'survival' 
+                                ? `Racha actual: ${currentStreak}` 
+                                : `Pregunta ${currentQuestionIndex + 1} de ${settings?.numQuestions || 10}`}
+                        </span>
+                        {currentQuestion.categoria !== "Error" && <span className='font-bold'>Categoría: {currentQuestion.categoria}</span>}
                     </div>
-                  </CardContent>
-                </Card>
-              )}
+                  <CardTitle className="font-body text-2xl md:text-3xl lg:text-4xl !mt-2">{currentQuestion.pregunta}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {shuffledOptions.map((option, index) => {
+                      const isCorrectAnswer = option === currentQuestion.respuestaCorrecta;
+                      const isSelected = option === selectedAnswer;
+                      const isRevealed = option === revealedAnswer;
+                      
+                      return (
+                        <div
+                          key={index}
+                            className="transition-transform transform hover:scale-105"
+                        >
+                          <Button
+                            variant="outline"
+                            size="lg"
+                            className={cn(
+                              "h-auto py-4 text-base whitespace-normal justify-start text-left w-full font-body",
+                              "transition-all duration-300 transform",
+                              isAnswered && isCorrectAnswer && "bg-green-500/80 border-green-700 ring-2 ring-white text-white font-bold",
+                              isAnswered && isSelected && !isCorrectAnswer && "bg-red-500/80 border-red-700 ring-2 ring-white text-white font-bold",
+                              (isAnswered && !isSelected && !isCorrectAnswer) || (hiddenOptions.includes(option)) && "opacity-50 pointer-events-none",
+                              !isAnswered && isRevealed && "bg-yellow-500/80 border-yellow-700 ring-2 ring-white text-white font-bold"
+                            )}
+                            onClick={() => handleAnswer(option)}
+                            disabled={isAnswered || hiddenOptions.includes(option)}
+                          >
+                            {option}
+                          </Button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
             </div>
         </div>
 
