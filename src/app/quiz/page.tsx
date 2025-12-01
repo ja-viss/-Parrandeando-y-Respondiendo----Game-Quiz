@@ -120,12 +120,12 @@ export default function QuizPage() {
   const [isAnswered, setIsAnswered] = useState(false);
   const [players, setPlayers] = useState<Player[]>([]);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
-  const [timeLeft, setTimeLeft] = useState<number>(35);
+  const [timeLeft, setTimeLeft] = useState<number>(70);
   const [lives, setLives] = useState(3);
   const [isGameOver, setIsGameOver] = useState(false);
   const [shake, setShake] = useState<string | null>(null);
   const [currentStreak, setCurrentStreak] = useState(0);
-  const [highestStreak, setHighestStreak]_useState(0);
+  const [highestStreak, setHighestStreak] = useState(0);
   const [levelUp, setLevelUp] = useState(false);
   
   const [isRapidFire, setIsRapidFire] = useState(false);
@@ -162,7 +162,7 @@ export default function QuizPage() {
       setTimeLeft(3);
     } else {
       setIsRapidFire(false);
-      setTimeLeft(35);
+      setTimeLeft(70);
     }
 
     if (settings.mode === 'survival') {
@@ -240,7 +240,7 @@ export default function QuizPage() {
             }
             scoreToAdd *= newDifficultyInfo.multiplier;
         } else {
-            scoreToAdd += Math.floor(timeLeft / 35 * 5); // Bonus time
+            scoreToAdd += Math.floor(timeLeft / 70 * 5); // Bonus time
         }
 
         if (usingHallacaDeOro === players[currentPlayerIndex].id) {
@@ -304,7 +304,7 @@ export default function QuizPage() {
     }
 
     
-    setTimeLeft(35);
+    setTimeLeft(70);
     
 
     const fetchInitialQuestions = async () => {
