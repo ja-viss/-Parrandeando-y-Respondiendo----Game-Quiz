@@ -9,11 +9,11 @@ export default function Home() {
   return (
     <main className="relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 text-center overflow-hidden">
       <Stars />
-      <div className="z-10 flex flex-col items-center">
-        <h1 className="font-headline text-5xl md:text-7xl font-bold text-primary animate-fade-in-down">
+      <div className="z-10 flex flex-col items-center p-6 md:p-10 rounded-xl bg-card/90 shadow-2xl backdrop-blur-sm">
+        <h1 className="font-headline text-5xl md:text-7xl font-bold text-primary animate-fade-in-down [text-shadow:2px_2px_4px_rgba(255,255,255,0.6)]">
           ¡Parrandeando y Respondiendo!
         </h1>
-        <p className="mt-4 max-w-2xl text-lg text-foreground/80 animate-fade-in-up">
+        <p className="mt-4 max-w-2xl text-lg text-foreground/90 animate-fade-in-up font-body">
           Pon a prueba tus conocimientos sobre las tradiciones navideñas de Venezuela. Juega solo o compite con amigos en esta divertida parranda de preguntas.
         </p>
 
@@ -27,13 +27,13 @@ export default function Home() {
                 <div className="flex justify-center mb-4">
                   <GingerbreadManIcon className="w-20 h-20 text-primary" />
                 </div>
-                <CardTitle className="font-headline text-3xl text-center">Juego Individual</CardTitle>
-                <CardDescription className="text-center">
+                <CardTitle className="font-body text-3xl text-center text-foreground font-bold">Juego Individual</CardTitle>
+                <CardDescription className="text-center text-foreground/80 font-body">
                   Compite contra el reloj y establece tu récord personal.
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex justify-center">
-                <Button variant="default" size="lg" className="font-bold bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow">
+                <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow">
                   Modo Solitario
                 </Button>
               </CardContent>
@@ -48,13 +48,13 @@ export default function Home() {
                 <div className="flex justify-center mb-4">
                   <CarolersIcon className="w-20 h-20 text-primary" />
                 </div>
-                <CardTitle className="font-headline text-3xl text-center">Competencia Grupal</CardTitle>
-                <CardDescription className="text-center">
+                <CardTitle className="font-body text-3xl text-center text-foreground font-bold">Competencia Grupal</CardTitle>
+                <CardDescription className="text-center text-foreground/80 font-body">
                   Reta hasta 3 amigos y vean quién es el rey de la parranda.
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex justify-center">
-                <Button variant="default" size="lg" className="font-bold bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow">
+                <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow">
                   Modo Grupal
                 </Button>
               </CardContent>
