@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { getQuizQuestions } from '@/app/actions';
+import { getQuizQuestions, polishQuestionDialect } from '@/app/actions';
 import type { GameSettings, QuizQuestion, Player, GameResults, Difficulty, PowerUp } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -88,27 +88,28 @@ const Leaderboard = ({ players, currentPlayerId, onUsePowerUp }: { players: Play
 
 const LivesIndicator = ({ lives }: { lives: number }) => (
     <div className="flex items-center gap-2">
-        <span>Vidas:</span>
-      <div className="flex items-center gap-1">
-        <AnimatePresence>
-          {[...Array(lives)].map((_, i) => (
-            <motion.div
-              key={i}
-              initial={{ scale: 0, rotate: -90 }}
-              animate={{ scale: 1, rotate: 0 }}
-              exit={{ scale: 0.5, opacity: 0, rotate: 90, transition: { duration: 0.3 } }}
-              transition={{ type: 'spring', stiffness: 500, damping: 20 }}
-            >
-              <Heart className="h-6 w-6 text-red-500 fill-current" />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-        {[...Array(Math.max(0, 3 - lives))].map((_, i) => (
-          <Heart key={`empty-${i}`} className="h-6 w-6 text-red-500 opacity-25" />
-        ))}
-      </div>
+        <AlertTitle className="font-bold">Vidas:</AlertTitle>
+        <div className="flex items-center gap-1">
+            <AnimatePresence>
+            {[...Array(lives)].map((_, i) => (
+                <motion.div
+                key={i}
+                initial={{ scale: 0, rotate: -90 }}
+                animate={{ scale: 1, rotate: 0 }}
+                exit={{ scale: 0.5, opacity: 0, rotate: 90, transition: { duration: 0.3 } }}
+                transition={{ type: 'spring', stiffness: 500, damping: 20 }}
+                >
+                <Heart className="h-6 w-6 text-red-500 fill-current" />
+                </motion.div>
+            ))}
+            </AnimatePresence>
+            {[...Array(Math.max(0, 3 - lives))].map((_, i) => (
+            <Heart key={`empty-${i}`} className="h-6 w-6 text-red-500 opacity-25" />
+            ))}
+        </div>
     </div>
 );
+
 
 const getDifficulty = (streak: number): { name: Difficulty; multiplier: number; label: string } => {
     if (streak < 6) return { name: 'Juguete de Niño', multiplier: 1.0, label: "Juguete de Niño" };
@@ -176,7 +177,8 @@ export default function QuizPage() {
         const nextIndex = currentQuestionIndex + 1;
         try {
             const newQuestions = await getQuizQuestions(difficultyInfo.name, 1, settings.category);
-            setQuestions(prev => [...prev, ...newQuestions]);
+            const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
+            setQuestions(prev => [...prev, polishedQuestion]);
             setCurrentQuestionIndex(nextIndex);
         } catch (error) {
             toast({ title: "Error de red", description: "No se pudo cargar la siguiente pregunta. Inténtalo de nuevo.", variant: "destructive" });
@@ -221,11 +223,20 @@ export default function QuizPage() {
 
         if (settings?.mode === 'survival') {
             const newStreak = currentStreak + 1;
+            const prevDifficulty = difficultyInfo.label;
+            const newDifficultyInfo = getDifficulty(newStreak);
+            
+            if (newDifficultyInfo.label !== prevDifficulty) {
+              setLevelUp(true);
+              toast({ title: "¡Subiste de Nivel!", description: `Dificultad aumentada a: ${newDifficultyInfo.label}`});
+              setTimeout(() => setLevelUp(false), 1000);
+            }
+
             setCurrentStreak(newStreak);
             if (newStreak > highestStreak) {
                 setHighestStreak(newStreak);
             }
-            scoreToAdd *= difficultyInfo.multiplier;
+            scoreToAdd *= newDifficultyInfo.multiplier;
         } else {
             scoreToAdd += Math.floor(timeLeft / (settings?.timeLimit || 15) * 5); // Bonus time
         }
@@ -300,7 +311,10 @@ export default function QuizPage() {
       const initialDifficulty = parsedSettings.mode === 'survival' ? getDifficulty(0).name : parsedSettings.difficulty || 'Juguete de Niño';
       const numToFetch = parsedSettings.mode === 'survival' ? 1 : parsedSettings.numQuestions;
       const fetchedQuestions = await getQuizQuestions(initialDifficulty, numToFetch, parsedSettings.category);
-      setQuestions(fetchedQuestions);
+      
+      const polishedQuestions = await Promise.all(fetchedQuestions.map(q => polishQuestionDialect(q)));
+
+      setQuestions(polishedQuestions);
       setLoading(false);
     };
 
@@ -496,7 +510,8 @@ export default function QuizPage() {
                 </>
             ) : settings.mode === 'survival' ? (
                  <>
-                    <Alert className="flex items-center gap-4">
+                    <Alert>
+                        <Heart className="h-4 w-4" />
                         <LivesIndicator lives={lives} />
                     </Alert>
                      <Alert className={cn("relative overflow-hidden transition-all duration-300", levelUp && "ring-2 ring-accent confetti-pop")}>
