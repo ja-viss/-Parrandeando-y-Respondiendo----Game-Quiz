@@ -16,13 +16,13 @@ export type Player = {
   score: number;
 };
 
-export type GameCategory = 'gastronomy' | 'music' | 'customs';
+export type GameCategory = 'Gastronomía' | 'Música y Parrandas' | 'Tradiciones y Costumbres' | 'Folclore Regional';
 export type Difficulty = "Juguete de Niño" | "Palo 'e Ron" | "¡El Cañonazo!";
 
 
 export type GameSettings = {
   mode: 'solo' | 'group' | 'survival';
-  category: GameCategory;
+  category: GameCategory | 'all';
   numQuestions: number;
   players?: Player[];
   timeLimit?: number; // in seconds for solo mode
@@ -32,7 +32,7 @@ export type GameSettings = {
 
 export type GameResults = {
   scores: Player[];
-  category: GameCategory;
+  category: GameCategory | 'all';
   mode: 'solo' | 'group' | 'survival';
   survivalStreak?: number;
 };

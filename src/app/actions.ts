@@ -1,6 +1,6 @@
 "use server";
 
-import type { QuizQuestion, Difficulty } from "@/lib/types";
+import type { QuizQuestion, Difficulty, GameCategory } from "@/lib/types";
 import allQuestions from '@/lib/banco_preguntas_venezuela.json';
 import { polishQuestionDialect as polishQuestionWithAI } from "@/ai/actions";
 
@@ -13,15 +13,30 @@ function shuffleArray<T>(array: T[]): T[] {
   return array;
 }
 
-export async function getQuizQuestions(difficulty: Difficulty, numQuestions: number): Promise<QuizQuestion[]> {
+export async function getQuizQuestions(difficulty: Difficulty, numQuestions: number, category: GameCategory | 'all'): Promise<QuizQuestion[]> {
   try {
-    // Filter questions by the requested difficulty
-    const filteredQuestions = (allQuestions as QuizQuestion[]).filter(q => q.dificultad === difficulty);
+    let questionsPool = allQuestions as QuizQuestion[];
+
+    // 1. Filter by category if not 'all'
+    if (category !== 'all') {
+      questionsPool = questionsPool.filter(q => q.categoria === category);
+    }
     
-    // Shuffle the filtered questions to get random ones
+    // 2. Filter by the requested difficulty
+    const filteredQuestions = questionsPool.filter(q => q.dificultad === difficulty);
+    
+    // If there aren't enough questions in the selected category/difficulty, use all questions of that difficulty
+    if (filteredQuestions.length < numQuestions) {
+        console.warn(`Not enough questions for category '${category}' and difficulty '${difficulty}'. Falling back to all questions of difficulty '${difficulty}'.`);
+        const fallbackPool = (allQuestions as QuizQuestion[]).filter(q => q.dificultad === difficulty);
+        const shuffledFallback = shuffleArray(fallbackPool);
+        return shuffledFallback.slice(0, numQuestions);
+    }
+
+    // 3. Shuffle the filtered questions to get random ones
     const shuffledQuestions = shuffleArray(filteredQuestions);
 
-    // Return the requested number of questions
+    // 4. Return the requested number of questions
     return shuffledQuestions.slice(0, numQuestions);
 
   } catch (error) {
@@ -40,6 +55,7 @@ export async function getQuizQuestions(difficulty: Difficulty, numQuestions: num
     ];
   }
 }
+
 
 /**
  * Takes a question object and uses an AI to "polish" its dialect to sound more like authentic Venezuelan Spanish.

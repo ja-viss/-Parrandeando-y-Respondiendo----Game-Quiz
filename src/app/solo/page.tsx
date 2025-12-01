@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { GameCategory, GameSettings, Difficulty } from "@/lib/types";
+import { GameSettings, Difficulty } from "@/lib/types";
 import { ArrowLeft, Plus } from "lucide-react";
 import Link from "next/link";
 import { MaracaIcon } from "@/components/icons/maraca-icon";
@@ -46,7 +46,7 @@ export default function SoloPage() {
   const handleStart = () => {
     const settings: GameSettings = {
       mode: "solo",
-      category: "customs",
+      category: "all",
       numQuestions: 10,
       difficulty: difficulty,
       timeLimit: 200,
@@ -62,7 +62,7 @@ export default function SoloPage() {
           <ArrowLeft className="mr-2 h-4 w-4" /> Volver
         </Link>
       </Button>
-      <Card className="w-full max-w-2xl bg-card/80 backdrop-blur-sm">
+      <Card className="w-full max-w-4xl bg-card/80 backdrop-blur-sm">
         <CardHeader>
           <CardTitle className="font-headline text-4xl text-center">Modo Solitario</CardTitle>
           <CardDescription className="text-center">Elige el nivel de picante para tus preguntas.</CardDescription>
@@ -70,24 +70,23 @@ export default function SoloPage() {
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {difficulties.map((d) => (
-              <Button
+               <div
                 key={d.value}
-                variant={difficulty === d.value ? "default" : "outline"}
                 className={cn(
-                  `h-auto p-4 flex flex-col items-center justify-start text-left transition-all duration-300 transform hover:scale-105`,
-                  difficulty === d.value ? 'ring-2 ring-accent shadow-lg text-primary-foreground' : ''
+                  `h-auto p-4 flex flex-col items-center justify-start text-center border-2 rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-105`,
+                  difficulty === d.value ? 'border-primary ring-2 ring-accent shadow-lg bg-primary text-primary-foreground' : 'border-muted bg-background/50'
                 )}
                 onClick={() => setDifficulty(d.value)}
               >
                 <d.icon className={cn("w-12 h-12 mb-3", difficulty === d.value ? 'text-primary-foreground' : 'text-primary')} />
                 <p className="font-headline text-xl font-bold">{d.label}</p>
-                <p className={cn("font-body text-xs mt-1 whitespace-normal", difficulty === d.value ? 'text-primary-foreground/80' : 'text-muted-foreground')}>{d.description}</p>
-              </Button>
+                <p className={cn("font-body text-xs mt-1 whitespace-normal min-h-[70px]", difficulty === d.value ? 'text-primary-foreground/90' : 'text-muted-foreground')}>{d.description}</p>
+              </div>
             ))}
           </div>
         </CardContent>
         <CardFooter>
-          <Button onClick={handleStart} size="lg" className="w-full font-bold text-lg">
+          <Button onClick={handleStart} size="lg" className="w-full font-bold text-lg button-pulse">
             ¡A Jugar!
           </Button>
         </CardFooter>

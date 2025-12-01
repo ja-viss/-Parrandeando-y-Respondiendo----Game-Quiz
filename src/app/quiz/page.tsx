@@ -68,8 +68,8 @@ const LivesIndicator = ({ lives }: { lives: number }) => (
 );
 
 const getDifficulty = (streak: number): { name: Difficulty; multiplier: number; label: string } => {
-    if (streak <= 5) return { name: 'Juguete de Niño', multiplier: 1.0, label: "Juguete de Niño" };
-    if (streak <= 15) return { name: "Palo 'e Ron", multiplier: 1.2, label: "Palo 'e Ron" };
+    if (streak < 6) return { name: 'Juguete de Niño', multiplier: 1.0, label: "Juguete de Niño" };
+    if (streak < 16) return { name: "Palo 'e Ron", multiplier: 1.2, label: "Palo 'e Ron" };
     return { name: "¡El Cañonazo!", multiplier: 1.5, label: "¡El Cañonazo!" };
 };
 
@@ -95,13 +95,13 @@ export default function QuizPage() {
   const difficultyInfo = useMemo(() => getDifficulty(currentStreak), [currentStreak]);
 
   useEffect(() => {
-    const prevDifficulty = getDifficulty(currentStreak - 1);
-    const currentDifficulty = getDifficulty(currentStreak);
-    if (settings?.mode === 'survival' && prevDifficulty.name !== currentDifficulty.name && currentStreak > 0) {
+    const prevDifficulty = getDifficulty(currentStreak > 0 ? currentStreak - 1 : 0);
+    const currentDifficultyInfo = getDifficulty(currentStreak);
+    if (settings?.mode === 'survival' && prevDifficulty.name !== currentDifficultyInfo.name && currentStreak > 0) {
       setLevelUp(true);
       toast({
         title: "¡Subiste de Nivel!",
-        description: `La dificultad ahora es: ${currentDifficulty.label}`,
+        description: `La dificultad ahora es: ${currentDifficultyInfo.label}`,
       });
       setTimeout(() => setLevelUp(false), 1500); // Animation duration
     }
@@ -127,39 +127,33 @@ export default function QuizPage() {
     if (settings?.mode === 'survival') {
         setLoading(true);
         const nextIndex = currentQuestionIndex + 1;
-        // The difficulty is now derived from the streak, so we use difficultyInfo
         try {
-            const newQuestions = await getQuizQuestions(difficultyInfo.name, 1);
+            const newQuestions = await getQuizQuestions(difficultyInfo.name, 1, settings.category);
             setQuestions(prev => [...prev, ...newQuestions]);
             setCurrentQuestionIndex(nextIndex);
         } catch (error) {
             toast({ title: "Error de red", description: "No se pudo cargar la siguiente pregunta. Inténtalo de nuevo.", variant: "destructive" });
-            // Optionally, allow user to retry
         } finally {
             setLoading(false);
         }
         return;
     }
+    
+    const nextPlayerIndex = settings?.mode === 'group' ? (currentPlayerIndex + 1) % players.length : 0;
+    const isNewRound = nextPlayerIndex === 0;
 
     if (settings?.mode === 'group') {
-      const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
       setCurrentPlayerIndex(nextPlayerIndex);
+    }
 
-      if (nextPlayerIndex === 0) {
-        if (currentQuestionIndex < settings.numQuestions - 1) {
-          setCurrentQuestionIndex(prev => prev + 1);
-        } else {
-          finishGame();
-        }
-      }
-    } else { // Solo mode
-      if (settings && currentQuestionIndex < settings.numQuestions - 1) {
+    if (isNewRound) {
+       if (currentQuestionIndex < settings.numQuestions - 1) {
         setCurrentQuestionIndex(prev => prev + 1);
       } else {
         finishGame();
       }
     }
-  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame, toast, difficultyInfo.name, currentQuestionIndex]);
+  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame, toast, difficultyInfo.name]);
 
   useEffect(() => {
     const storedSettings = sessionStorage.getItem('quizSettings');
@@ -188,7 +182,7 @@ export default function QuizPage() {
       setLoading(true);
       const initialDifficulty = parsedSettings.mode === 'survival' ? getDifficulty(0).name : parsedSettings.difficulty || 'Juguete de Niño';
       const numToFetch = parsedSettings.mode === 'survival' ? 1 : parsedSettings.numQuestions;
-      const fetchedQuestions = await getQuizQuestions(initialDifficulty, numToFetch);
+      const fetchedQuestions = await getQuizQuestions(initialDifficulty, numToFetch, parsedSettings.category);
       setQuestions(fetchedQuestions);
       setLoading(false);
     };
@@ -202,11 +196,16 @@ export default function QuizPage() {
       timer = setInterval(() => {
         setTimeLeft(prev => (prev! > 0 ? prev! - 1 : 0));
       }, 1000);
-    } else if (timeLeft === 0) {
-      handleNextQuestion();
+    } else if (timeLeft === 0 && !isAnswered) {
+        setIsAnswered(true); // Mark as answered to stop timer and prevent interaction
+        toast({
+            title: "¡Se acabó el tiempo!",
+            variant: "destructive"
+        });
+        setTimeout(() => handleNextQuestion(), 1500);
     }
     return () => clearInterval(timer);
-  }, [timeLeft, settings, isAnswered, handleNextQuestion]);
+  }, [timeLeft, settings, isAnswered, handleNextQuestion, toast]);
 
   const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
   const shuffledOptions = useMemo(() => currentQuestion?.opciones ? [...currentQuestion.opciones].sort(() => Math.random() - 0.5) : [], [currentQuestion]);
@@ -256,11 +255,7 @@ export default function QuizPage() {
     }
 
     setTimeout(() => {
-      if (settings?.mode === 'survival' && lives > 0) {
-         if (!isGameOver) handleNextQuestion();
-      } else if (settings?.mode !== 'survival') {
-        handleNextQuestion();
-      }
+       handleNextQuestion();
     }, 1500);
   };
   
@@ -306,9 +301,14 @@ export default function QuizPage() {
               <Card className="bg-card/80 backdrop-blur-sm w-full">
                 <CardHeader>
                   {settings.mode !== 'survival' && <Progress value={((currentQuestionIndex + 1) / settings.numQuestions) * 100} className="mb-4" />}
-                  <CardDescription>
-                    {settings.mode === 'survival' ? `Racha actual: ${currentStreak}` : `Pregunta ${currentQuestionIndex + 1}`}
-                  </CardDescription>
+                   <div className="flex justify-between items-center text-sm text-muted-foreground">
+                        <span>
+                            {settings.mode === 'survival' 
+                                ? `Racha actual: ${currentStreak}` 
+                                : `Pregunta ${currentQuestionIndex + 1} de ${settings.numQuestions}`}
+                        </span>
+                        {currentQuestion.categoria !== "Error" && <span className='font-bold'>Categoría: {currentQuestion.categoria}</span>}
+                    </div>
                   <CardTitle className="font-headline text-2xl md:text-3xl !mt-2">{currentQuestion.pregunta}</CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -320,8 +320,8 @@ export default function QuizPage() {
                       return (
                         <motion.div
                           key={index}
-                          whileHover={{ scale: 1.05, boxShadow: "0px 5px 15px hsla(var(--ring), 0.2)" }}
-                          whileTap={{ scale: 0.98 }}
+                          whileHover={{ scale: !isAnswered ? 1.05 : 1, boxShadow: !isAnswered ? "0px 5px 15px hsla(var(--ring), 0.2)" : "" }}
+                          whileTap={{ scale: !isAnswered ? 0.98 : 1 }}
                         >
                           <Button
                             variant="outline"
@@ -329,9 +329,9 @@ export default function QuizPage() {
                             className={cn(
                               "h-auto py-4 text-base whitespace-normal justify-start text-left w-full",
                               "transition-all duration-300 transform",
-                              isAnswered && isCorrectAnswer && "bg-green-500/80 border-green-500 text-white",
-                              isAnswered && isSelected && !isCorrectAnswer && "bg-red-500/80 border-red-500 text-white",
-                              isAnswered && !isSelected && "opacity-60"
+                              isAnswered && isCorrectAnswer && "bg-green-500/80 border-green-700 ring-2 ring-white text-white font-bold",
+                              isAnswered && isSelected && !isCorrectAnswer && "bg-red-500/80 border-red-700 ring-2 ring-white text-white font-bold",
+                              isAnswered && !isSelected && !isCorrectAnswer && "opacity-50"
                             )}
                             onClick={() => handleAnswer(option)}
                             disabled={isAnswered}

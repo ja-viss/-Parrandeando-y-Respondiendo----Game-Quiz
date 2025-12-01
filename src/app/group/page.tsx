@@ -7,24 +7,26 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { GameCategory, GameSettings, Player, Difficulty } from "@/lib/types";
+import { GameSettings, Player, Difficulty, GameCategory } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Music, Utensils, Users, X, PlusCircle } from "lucide-react";
+import { ArrowLeft, Music, Utensils, Users, X, PlusCircle, Globe } from "lucide-react";
 import Link from "next/link";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
-const categories: { value: GameCategory; label: string; icon: React.ElementType }[] = [
-  { value: "gastronomy", label: "Gastronomía", icon: Utensils },
-  { value: "music", label: "Música", icon: Music },
-  { value: "customs", label: "Costumbres", icon: Users },
+const categories: { value: GameCategory | 'all'; label: string; icon: React.ElementType }[] = [
+  { value: "all", label: "Todas", icon: Globe },
+  { value: "Gastronomía", label: "Gastronomía", icon: Utensils },
+  { value: "Música y Parrandas", label: "Música", icon: Music },
+  { value: "Tradiciones y Costumbres", label: "Costumbres", icon: Users },
 ];
 
 export default function GroupPage() {
   const router = useRouter();
   const { toast } = useToast();
-  const [players, setPlayers] = useState<string[]>([""]);
-  const [category, setCategory] = useState<GameCategory>("gastronomy");
-  const [numQuestions, setNumQuestions] = useState<number>(5);
+  const [players, setPlayers] = useState<string[]>(["", ""]);
+  const [category, setCategory] = useState<GameCategory | 'all'>("all");
+  const [numQuestions, setNumQuestions] = useState<number>(10);
   const [difficulty, setDifficulty] = useState<Difficulty>("Juguete de Niño");
 
 
@@ -47,7 +49,7 @@ export default function GroupPage() {
   };
 
   const removePlayer = (index: number) => {
-    if (players.length > 1) {
+    if (players.length > 2) {
       const newPlayers = players.filter((_, i) => i !== index);
       setPlayers(newPlayers);
     }
@@ -89,7 +91,7 @@ export default function GroupPage() {
           <ArrowLeft className="mr-2 h-4 w-4" /> Volver
         </Link>
       </Button>
-      <Card className="w-full max-w-lg bg-card/80 backdrop-blur-sm">
+      <Card className="w-full max-w-2xl bg-card/80 backdrop-blur-sm">
         <CardHeader>
           <CardTitle className="font-headline text-4xl text-center">Competencia Grupal</CardTitle>
           <CardDescription className="text-center">Añadan sus nombres, elijan categoría y ¡que comience la parranda!</CardDescription>
@@ -107,7 +109,7 @@ export default function GroupPage() {
                     onChange={(e) => handlePlayerChange(index, e.target.value)}
                     required
                   />
-                  {players.length > 1 && (
+                  {players.length > 2 && (
                     <Button variant="ghost" size="icon" type="button" onClick={() => removePlayer(index)}>
                       <X className="h-4 w-4" />
                     </Button>
@@ -120,14 +122,18 @@ export default function GroupPage() {
                 </Button>
               )}
             </div>
+
             <div className="space-y-4">
               <Label className="text-lg font-semibold">Categoría</Label>
-              <RadioGroup value={category} onValueChange={(value: GameCategory) => setCategory(value)} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <RadioGroup value={category} onValueChange={(value: GameCategory | 'all') => setCategory(value)} className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {categories.map((cat) => (
                    <Label
                     key={cat.value}
                     htmlFor={cat.value}
-                    className={`flex flex-col items-center justify-center rounded-md border-2 p-4 cursor-pointer transition-colors ${category === cat.value ? 'border-primary bg-primary/10' : 'border-muted hover:border-accent'}`}
+                    className={cn(
+                        `flex flex-col items-center justify-center rounded-md border-2 p-4 cursor-pointer transition-colors`,
+                        category === cat.value ? 'border-primary bg-primary/10 ring-2 ring-primary' : 'border-muted hover:border-accent'
+                    )}
                   >
                     <RadioGroupItem value={cat.value} id={cat.value} className="sr-only" />
                     <cat.icon className="w-8 h-8 mb-2" />
@@ -136,21 +142,39 @@ export default function GroupPage() {
                 ))}
               </RadioGroup>
             </div>
-             <div className="space-y-2">
-                <Label htmlFor="num-questions" className="text-lg font-semibold">Número de Preguntas</Label>
-                <Select value={String(numQuestions)} onValueChange={(val) => setNumQuestions(Number(val))}>
-                    <SelectTrigger id="num-questions" className="w-full">
-                        <SelectValue placeholder="Selecciona el número de preguntas" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="5">5 Preguntas</SelectItem>
-                        <SelectItem value="10">10 Preguntas</SelectItem>
-                    </SelectContent>
-                </Select>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                    <Label htmlFor="num-questions" className="text-lg font-semibold">Número de Preguntas</Label>
+                    <Select value={String(numQuestions)} onValueChange={(val) => setNumQuestions(Number(val))}>
+                        <SelectTrigger id="num-questions" className="w-full">
+                            <SelectValue placeholder="Selecciona el número de preguntas" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="10">10 Preguntas</SelectItem>
+                            <SelectItem value="15">15 Preguntas</SelectItem>
+                            <SelectItem value="20">20 Preguntas</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+                 <div className="space-y-2">
+                    <Label htmlFor="difficulty" className="text-lg font-semibold">Dificultad</Label>
+                     <Select value={difficulty} onValueChange={(val: Difficulty) => setDifficulty(val)}>
+                        <SelectTrigger id="difficulty" className="w-full">
+                            <SelectValue placeholder="Selecciona la dificultad" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="Juguete de Niño">Juguete de Niño</SelectItem>
+                            <SelectItem value="Palo 'e Ron">Palo 'e Ron</SelectItem>
+                            <SelectItem value="¡El Cañonazo!">¡El Cañonazo!</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
             </div>
+
           </CardContent>
           <CardFooter>
-            <Button type="submit" size="lg" className="w-full font-bold text-lg">
+            <Button type="submit" size="lg" className="w-full font-bold text-lg button-pulse">
               ¡A Parrandear!
             </Button>
           </CardFooter>
