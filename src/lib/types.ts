@@ -1,4 +1,5 @@
 
+
 export type QuizQuestion = {
   id: string;
   dificultad: Difficulty;
@@ -9,11 +10,13 @@ export type QuizQuestion = {
   respuestaCorrecta: string;
 };
 
+export type PowerUp = 'hallaca-de-oro' | 'palo-de-ciego' | 'la-ladilla' | 'el-estruendo';
 
 export type Player = {
   id: string;
   name: string;
   score: number;
+  powerUps: PowerUp[];
 };
 
 export type GameCategory = 'Gastronomía' | 'Música y Parrandas' | 'Tradiciones y Costumbres' | 'Folclore Regional';
@@ -36,3 +39,4 @@ export type GameResults = {
   mode: 'solo' | 'group' | 'survival';
   survivalStreak?: number;
 };
+

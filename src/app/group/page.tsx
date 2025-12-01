@@ -71,6 +71,7 @@ export default function GroupPage() {
       id: `player-${index + 1}`,
       name,
       score: 0,
+      powerUps: [],
     }));
 
     const settings: GameSettings = {
