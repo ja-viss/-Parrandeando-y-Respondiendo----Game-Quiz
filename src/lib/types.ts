@@ -9,6 +9,8 @@ export type Player = {
 };
 
 export type GameCategory = 'gastronomy' | 'music' | 'customs';
+export type Difficulty = "Juguete de Niño" | "Palo 'e Ron" | "¡El Cañonazo!";
+
 
 export type GameSettings = {
   mode: 'solo' | 'group' | 'survival';
@@ -17,6 +19,7 @@ export type GameSettings = {
   players?: Player[];
   timeLimit?: number; // in seconds for solo mode
   lives?: number; // for survival mode
+  difficulty?: Difficulty;
 };
 
 export type GameResults = {

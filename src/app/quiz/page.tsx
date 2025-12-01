@@ -193,6 +193,11 @@ export default function QuizPage() {
         setTimeout(() => setConfetti(false), 2000);
         let scoreToAdd = 10;
         
+        if (settings?.mode === 'solo' && settings.difficulty) {
+            if (settings.difficulty === "Palo 'e Ron") scoreToAdd *= 1.2;
+            if (settings.difficulty === "¡El Cañonazo!") scoreToAdd *= 1.5;
+        }
+
         if (settings?.mode === 'survival') {
             const newStreak = currentStreak + 1;
             setCurrentStreak(newStreak);
@@ -207,7 +212,7 @@ export default function QuizPage() {
         }
         
         setPlayers(prevPlayers => prevPlayers.map((p, index) => 
-          index === currentPlayerIndex ? { ...p, score: p.score + scoreToAdd } : p
+          index === currentPlayerIndex ? { ...p, score: p.score + Math.round(scoreToAdd) } : p
         ));
     } else {
         setShake(true);
