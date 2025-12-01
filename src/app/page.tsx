@@ -1,24 +1,14 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { User, Users } from "lucide-react";
-import { HallacaIcon } from "@/components/icons/hallaca-icon";
-import { CuatroIcon } from "@/components/icons/cuatro-icon";
-import { MaracaIcon } from "@/components/icons/maraca-icon";
+import { GingerbreadManIcon } from "@/components/icons/gingerbread-man-icon";
+import { CarolersIcon } from "@/components/icons/carolers-icon";
+import { Stars } from "@/components/stars";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 text-center">
-      <div className="absolute top-8 left-8 flex gap-4 opacity-50">
-        <HallacaIcon className="w-8 h-8 text-primary" />
-      </div>
-      <div className="absolute top-16 right-16 flex gap-4 opacity-50">
-        <CuatroIcon className="w-8 h-8 text-accent" />
-      </div>
-      <div className="absolute bottom-8 right-8 flex gap-4 opacity-50">
-        <MaracaIcon className="w-8 h-8 text-primary" />
-      </div>
-
+    <main className="relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 text-center overflow-hidden">
+      <Stars />
       <div className="z-10 flex flex-col items-center">
         <h1 className="font-headline text-5xl md:text-7xl font-bold text-primary animate-fade-in-down">
           ¡Parrandeando y Respondiendo!
@@ -29,10 +19,13 @@ export default function Home() {
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
           <Link href="/solo" passHref>
-            <Card className="hover:border-primary hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer bg-card/80 backdrop-blur-sm">
+            <Card className="hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group">
+               <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary origin-bottom-left rotate-45" />
+               <div className="absolute top-1 right-5 w-px h-20 bg-accent/50" />
+               <div className="absolute top-5 right-1 w-20 h-px bg-accent/50" />
               <CardHeader>
                 <div className="flex justify-center mb-4">
-                  <User className="w-12 h-12 text-primary" />
+                  <GingerbreadManIcon className="w-20 h-20 text-primary" />
                 </div>
                 <CardTitle className="font-headline text-3xl text-center">Juego Individual</CardTitle>
                 <CardDescription className="text-center">
@@ -40,17 +33,20 @@ export default function Home() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex justify-center">
-                <Button variant="default" size="lg" className="font-bold">
+                <Button variant="default" size="lg" className="font-bold bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow">
                   Modo Solitario
                 </Button>
               </CardContent>
             </Card>
           </Link>
           <Link href="/group" passHref>
-            <Card className="hover:border-primary hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer bg-card/80 backdrop-blur-sm">
+            <Card className="hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group">
+              <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary origin-bottom-left rotate-45" />
+               <div className="absolute top-1 right-5 w-px h-20 bg-accent/50" />
+               <div className="absolute top-5 right-1 w-20 h-px bg-accent/50" />
               <CardHeader>
                 <div className="flex justify-center mb-4">
-                  <Users className="w-12 h-12 text-primary" />
+                  <CarolersIcon className="w-20 h-20 text-primary" />
                 </div>
                 <CardTitle className="font-headline text-3xl text-center">Competencia Grupal</CardTitle>
                 <CardDescription className="text-center">
@@ -58,7 +54,7 @@ export default function Home() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex justify-center">
-                <Button variant="default" size="lg" className="font-bold">
+                <Button variant="default" size="lg" className="font-bold bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow">
                   Modo Grupal
                 </Button>
               </CardContent>
