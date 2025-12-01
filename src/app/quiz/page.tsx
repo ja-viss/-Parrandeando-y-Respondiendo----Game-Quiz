@@ -25,7 +25,6 @@ import {
 } from "@/components/ui/alert-dialog"
 import {
   Tooltip,
-  TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
@@ -225,10 +224,10 @@ export default function QuizPage() {
     router.push('/results');
   }, [players, settings, router, highestStreak]);
 
- const fetchNextQuestion = useCallback(async (isInitial = false) => {
+ const fetchNextQuestion = useCallback(async () => {
     if (!settings) return;
 
-    if (!isInitial && settings.mode !== 'survival' && currentQuestionIndex >= settings.numQuestions - 1) {
+    if (settings.mode !== 'survival' && currentQuestionIndex >= settings.numQuestions - 1) {
       finishGame();
       return;
     }
@@ -268,6 +267,7 @@ export default function QuizPage() {
   const handleNextTurn = useCallback(async () => {
     if (!settings) return;
 
+    // Reset turn-specific states
     setIsAnswered(false);
     setSelectedAnswer(null);
     setUsingHallacaDeOro(null);
@@ -276,8 +276,9 @@ export default function QuizPage() {
     setRevealedAnswer(null);
     setHiddenOptions([]);
     setUsedMilagro(false);
-    
-    if (Math.random() < 0.15 && settings?.mode === 'group') {
+
+    // Determine rapid fire round for group mode
+    if (Math.random() < 0.15 && settings.mode === 'group') {
       setIsRapidFire(true);
       toast({ title: "¡RONDA RÁFAGA!", description: "¡3 segundos para responder! ¡El más rápido gana más!", duration: 3000 });
       setTimeLeft(3);
@@ -287,18 +288,23 @@ export default function QuizPage() {
     }
 
     if (settings.mode === 'survival') {
-        await fetchNextQuestion();
-        return;
+      // In survival, always fetch a new question for the same player.
+      await fetchNextQuestion();
+      return;
     }
-    
-    const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
-    const isNewRound = nextPlayerIndex === 0;
 
-    setCurrentPlayerIndex(nextPlayerIndex);
+    // For solo and group modes
+    const isNewRound = (currentPlayerIndex + 1) % players.length === 0;
 
     if (isNewRound) {
-        await fetchNextQuestion();
+      // It's the end of a round, fetch a new question.
+      await fetchNextQuestion();
     }
+    
+    // Move to the next player. This will cause a re-render but not a new fetch
+    // unless it's a new round (handled above).
+    setCurrentPlayerIndex(prev => (prev + 1) % players.length);
+
   }, [settings, currentPlayerIndex, players.length, fetchNextQuestion, toast]);
   
 
@@ -428,8 +434,9 @@ export default function QuizPage() {
 
   // Initial fetch effect, runs only when settings are available
   useEffect(() => {
+    // This effect ensures the first question is fetched only once.
     if (settings && currentQuestionIndex === -1) {
-        fetchNextQuestion(true);
+        fetchNextQuestion();
     }
   }, [settings, currentQuestionIndex, fetchNextQuestion]);
 
@@ -454,6 +461,8 @@ export default function QuizPage() {
 
   const shuffledOptions = useMemo(() => {
     if (!currentQuestion?.opciones) return [];
+    // The options are already shuffled in the fetching process if needed,
+    // so here we just ensure we have a stable array for rendering.
     return [...currentQuestion.opciones];
   }, [currentQuestion]);
 
@@ -735,5 +744,7 @@ export default function QuizPage() {
     </>
   );
 }
+
+    
 
     
