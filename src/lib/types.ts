@@ -10,13 +10,18 @@ export type QuizQuestion = {
   respuestaCorrecta: string;
 };
 
-export type PowerUp = 'hallaca-de-oro' | 'palo-de-ciego' | 'la-ladilla' | 'el-estruendo';
+export type GroupPowerUp = 'hallaca-de-oro' | 'palo-de-ciego' | 'la-ladilla' | 'el-estruendo';
+export type SurvivalPowerUp = 'chiguire-lento' | 'soplon' | 'media-hallaca' | 'milagro-santo';
+
+export type PowerUp = GroupPowerUp | SurvivalPowerUp;
+
 
 export type Player = {
   id: string;
   name: string;
   score: number;
-  powerUps: PowerUp[];
+  powerUps: GroupPowerUp[];
+  survivalPowerUps?: Partial<Record<SurvivalPowerUp, number>>;
 };
 
 export type GameCategory = 'Gastronomía' | 'Música y Parrandas' | 'Tradiciones y Costumbres' | 'Folclore Regional';
@@ -39,4 +44,3 @@ export type GameResults = {
   mode: 'solo' | 'group' | 'survival';
   survivalStreak?: number;
 };
-
