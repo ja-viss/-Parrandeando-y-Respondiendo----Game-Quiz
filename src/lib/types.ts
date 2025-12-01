@@ -1,5 +1,18 @@
 
 
+export enum Difficulty {
+    NINO = "Juguete de Niño",
+    RON = "Palo 'e Ron",
+    CANONAZO = "¡El Cañonazo!",
+}
+
+export enum GameCategory {
+    GASTRONOMIA = 'Gastronomía',
+    MUSICA = 'Música y Parrandas',
+    TRADICIONES = 'Tradiciones y Costumbres',
+    FOLCLORE = 'Folclore Regional',
+}
+
 export type QuizQuestion = {
   id: string;
   dificultad: Difficulty;
@@ -23,10 +36,6 @@ export type Player = {
   powerUps: GroupPowerUp[];
   survivalPowerUps?: Partial<Record<SurvivalPowerUp, number>>;
 };
-
-export type GameCategory = 'Gastronomía' | 'Música y Parrandas' | 'Tradiciones y Costumbres' | 'Folclore Regional';
-export type Difficulty = "Juguete de Niño" | "Palo 'e Ron" | "¡El Cañonazo!";
-
 
 export type GameSettings = {
   mode: 'solo' | 'group' | 'survival';

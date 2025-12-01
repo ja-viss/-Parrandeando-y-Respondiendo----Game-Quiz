@@ -2,7 +2,7 @@
 
 import type { QuizQuestion, Difficulty, GameCategory } from "@/lib/types";
 import allQuestions from '@/lib/banco_preguntas_venezuela.json';
-import { polishQuestionDialect as polishQuestionWithAI } from "@/ai/actions";
+import { polishQuestionDialect as polishQuestionWithAI, createVenezuelanQuizQuestion } from "@/ai/actions";
 
 // Helper function to shuffle an array
 function shuffleArray<T>(array: T[]): T[] {
@@ -13,9 +13,35 @@ function shuffleArray<T>(array: T[]): T[] {
   return array;
 }
 
-export async function getQuizQuestions(difficulty: Difficulty, numQuestions: number, category: GameCategory | 'all'): Promise<QuizQuestion[]> {
+export async function getQuizQuestions(
+    difficulty: Difficulty, 
+    numQuestions: number, 
+    category: GameCategory | 'all',
+    useAI: boolean = false,
+    existingQuestionIds: string[] = []
+): Promise<QuizQuestion[]> {
   try {
+
+    if (useAI) {
+      const allCategories: GameCategory[] = ['Gastronomía', 'Música y Parrandas', 'Tradiciones y Costumbres', 'Folclore Regional'];
+      const targetCategory = category === 'all' ? allCategories[Math.floor(Math.random() * allCategories.length)] : category;
+      
+      const existingQuestionsText = (allQuestions as QuizQuestion[])
+            .filter(q => existingQuestionIds.includes(q.id))
+            .map(q => q.pregunta);
+
+      const aiQuestion = await createVenezuelanQuizQuestion(difficulty, targetCategory, existingQuestionsText);
+      return [aiQuestion];
+    }
+
+
     let questionsPool = allQuestions as QuizQuestion[];
+
+    // 0. Filter out existing questions
+    if(existingQuestionIds.length > 0) {
+        questionsPool = questionsPool.filter(q => !existingQuestionIds.includes(q.id));
+    }
+
 
     // 1. Filter by category if not 'all'
     if (category !== 'all') {
@@ -23,12 +49,12 @@ export async function getQuizQuestions(difficulty: Difficulty, numQuestions: num
     }
     
     // 2. Filter by the requested difficulty
-    const filteredQuestions = questionsPool.filter(q => q.dificultad === difficulty);
+    let filteredQuestions = questionsPool.filter(q => q.dificultad === difficulty);
     
     // If there aren't enough questions in the selected category/difficulty, use all questions of that difficulty
     if (filteredQuestions.length < numQuestions) {
         console.warn(`Not enough questions for category '${category}' and difficulty '${difficulty}'. Falling back to all questions of difficulty '${difficulty}'.`);
-        const fallbackPool = (allQuestions as QuizQuestion[]).filter(q => q.dificultad === difficulty);
+        const fallbackPool = (allQuestions as QuizQuestion[]).filter(q => q.dificultad === difficulty && !existingQuestionIds.includes(q.id));
         const shuffledFallback = shuffleArray(fallbackPool);
         return shuffledFallback.slice(0, numQuestions);
     }
@@ -64,6 +90,10 @@ export async function getQuizQuestions(difficulty: Difficulty, numQuestions: num
  * @returns A new question object with the polished dialect.
  */
 export async function polishQuestionDialect(question: QuizQuestion): Promise<QuizQuestion> {
+    // We don't polish AI generated questions as they should come polished
+    if(question.id.startsWith('ai-gen-')) {
+        return question;
+    }
     try {
         const polishedText = await polishQuestionWithAI(question.pregunta);
         return {

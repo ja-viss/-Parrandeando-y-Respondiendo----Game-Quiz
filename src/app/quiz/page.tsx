@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Trophy, Clock, Users, User, ArrowLeft, Heart, Zap, Shield, Bomb, FastForward, Turtle, Gift, Star, Cross, HelpCircle } from 'lucide-react';
+import { Trophy, Clock, Users, User, ArrowLeft, Heart, Zap, Shield, Bomb, FastForward, Turtle, Gift, Cross, HelpCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -205,6 +205,7 @@ export default function QuizPage() {
   const [hiddenOptions, setHiddenOptions] = useState<string[]>([]);
   const [usedMilagro, setUsedMilagro] = useState(false);
 
+  const [shouldUseAI, setShouldUseAI] = useState(false);
 
   const difficultyInfo = useMemo(() => getDifficulty(currentStreak), [currentStreak]);
 
@@ -230,10 +231,14 @@ export default function QuizPage() {
     setHiddenOptions([]);
     setSlowTime(false);
     setUsedMilagro(false);
-    setTimeLeft(70);
 
     try {
-        const newQuestions = await getQuizQuestions(difficultyInfo.name, 1, settings.category);
+        const existingIds = questions.map(q => q.id);
+        const newQuestions = await getQuizQuestions(difficultyInfo.name, 1, settings.category, shouldUseAI, existingIds);
+        
+        // Alternate AI for next question
+        setShouldUseAI(prev => !prev);
+        
         if (newQuestions.length > 0) {
             const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
              setQuestions(prev => [...prev, polishedQuestion]);
@@ -246,8 +251,9 @@ export default function QuizPage() {
         finishGame();
     } finally {
         setLoading(false);
+        setTimeLeft(70);
     }
-  }, [settings, difficultyInfo.name, finishGame, toast]);
+  }, [settings, difficultyInfo.name, finishGame, toast, questions, shouldUseAI]);
 
 
   const handleNextTurn = useCallback(async () => {
@@ -287,23 +293,12 @@ export default function QuizPage() {
 
     if (isNewRound) {
        if (currentQuestionIndex < settings.numQuestions - 1) {
-        const nextQuestionIndex = currentQuestionIndex + 1;
-        setCurrentQuestionIndex(nextQuestionIndex);
-        
-        // Polish the next question just in time
-        if (questions[nextQuestionIndex]) {
-            const polishedQuestion = await polishQuestionDialect(questions[nextQuestionIndex]);
-            setQuestions(prev => {
-              const newQs = [...prev];
-              newQs[nextQuestionIndex] = polishedQuestion;
-              return newQs;
-            });
-        }
+            fetchNextQuestion();
       } else {
         finishGame();
       }
     }
-  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame, toast, questions, fetchNextQuestion]);
+  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, finishGame, toast, fetchNextQuestion]);
   
   const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
 
@@ -414,6 +409,7 @@ export default function QuizPage() {
     }
     const parsedSettings: GameSettings = JSON.parse(storedSettings);
     setSettings(parsedSettings);
+    setShouldUseAI(false); // Start with a bank question
     
     if (parsedSettings.mode === 'group' && parsedSettings.players) {
       setPlayers(parsedSettings.players.map(p => ({...p, survivalPowerUps: {}})));
@@ -425,15 +421,13 @@ export default function QuizPage() {
       setPlayers([{ id: 'solo-player', name: 'Tú', score: 0, powerUps: [], survivalPowerUps: {} }]);
     }
     
-    setTimeLeft(70);
-
     const fetchInitialQuestions = async () => {
       setLoading(true);
       const initialDifficulty = parsedSettings.mode === 'survival' ? getDifficulty(0).name : parsedSettings.difficulty || 'Juguete de Niño';
-      const numToFetch = parsedSettings.mode === 'survival' ? 1 : parsedSettings.numQuestions;
+      const numToFetch = 1; // Always fetch one question at a time
       
       try {
-        const fetchedQuestions = await getQuizQuestions(initialDifficulty, numToFetch, parsedSettings.category);
+        const fetchedQuestions = await getQuizQuestions(initialDifficulty, numToFetch, parsedSettings.category, false, []);
         if (fetchedQuestions.length > 0) {
             const polishedQuestions = await Promise.all(fetchedQuestions.map(q => polishQuestionDialect(q)));
             setQuestions(polishedQuestions);
@@ -447,6 +441,7 @@ export default function QuizPage() {
         router.push('/');
       } finally {
         setLoading(false);
+        setTimeLeft(70);
       }
     };
 
@@ -462,15 +457,15 @@ export default function QuizPage() {
         interval = 2000; // Time is halved, so interval is doubled
     }
     
-    if (timeLeft > 0 && !isAnswered) {
+    if (timeLeft > 0 && !isAnswered && !loading) {
       timer = setInterval(() => {
         setTimeLeft(prev => (prev > 0 ? prev - 1 : 0));
       }, interval);
-    } else if (timeLeft === 0 && !isAnswered) {
+    } else if (timeLeft === 0 && !isAnswered && !loading) {
         handleAnswer(""); // Time's up, count as wrong
     }
     return () => clearInterval(timer);
-  }, [timeLeft, isAnswered, activeMalus, players, currentPlayerIndex, slowTime, handleAnswer]);
+  }, [timeLeft, isAnswered, activeMalus, players, currentPlayerIndex, slowTime, handleAnswer, loading]);
 
   const shuffledOptions = useMemo(() => {
     if (!currentQuestion?.opciones) return [];
@@ -628,7 +623,7 @@ export default function QuizPage() {
               ) : (
                 <Card className="bg-card/80 backdrop-blur-sm w-full">
                   <CardHeader>
-                    {settings.mode !== 'survival' && <Progress value={((currentQuestionIndex + 1) / settings.numQuestions) * 100} className="mb-4" />}
+                    {settings.mode !== 'survival' && <Progress value={((currentQuestionIndex + 1) / questions.length) * 100} className="mb-4" />}
                      <div className="flex justify-between items-center text-sm text-muted-foreground font-body">
                           <span>
                               {settings.mode === 'survival' 
