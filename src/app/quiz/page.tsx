@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Trophy, Clock, Users, User, ArrowLeft, Heart, Zap, Shield, Bomb, Turtle, Gift, Cross, HelpCircle } from 'lucide-react';
+import { Trophy, Clock, Users, User, ArrowLeft, Heart, Zap, Shield, Bomb, Turtle, Gift, Cross, HelpCircle, FastForward } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -735,3 +735,5 @@ export default function QuizPage() {
     </>
   );
 }
+
+    
