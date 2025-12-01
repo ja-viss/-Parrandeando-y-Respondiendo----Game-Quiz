@@ -1,7 +1,8 @@
 "use server";
 
-import type { GameCategory, QuizQuestion, Difficulty } from "@/lib/types";
+import type { QuizQuestion, Difficulty } from "@/lib/types";
 import allQuestions from '@/lib/banco_preguntas_venezuela.json';
+import { polishQuestionDialect as polishQuestionWithAI } from "@/ai/actions";
 
 // Helper function to shuffle an array
 function shuffleArray<T>(array: T[]): T[] {
@@ -38,4 +39,24 @@ export async function getQuizQuestions(difficulty: Difficulty, numQuestions: num
       },
     ];
   }
+}
+
+/**
+ * Takes a question object and uses an AI to "polish" its dialect to sound more like authentic Venezuelan Spanish.
+ * This is a low-cost operation as it only refines existing text.
+ * @param question The question object to polish.
+ * @returns A new question object with the polished dialect.
+ */
+export async function polishQuestionDialect(question: QuizQuestion): Promise<QuizQuestion> {
+    try {
+        const polishedText = await polishQuestionWithAI(question.pregunta);
+        return {
+            ...question,
+            pregunta: polishedText,
+        };
+    } catch(error) {
+        console.error("Error polishing question dialect:", error);
+        // If AI fails, return the original question
+        return question;
+    }
 }

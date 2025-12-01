@@ -4,86 +4,4831 @@
     "id": "1",
     "dificultad": "Juguete de Niño",
     "nivel": "Fácil",
-    "categoria": "Gastronomía",
-    "pregunta": "Chamo, ¿cuál es el plato principal que no puede faltar en una cena navideña venezolana?",
-    "opciones": ["Pabellón Criollo", "Hallaca", "Sancocho", "Arepa"],
-    "respuestaCorrecta": "Hallaca"
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Cuál es la vaina con el instrumento venezolano que, aunque no tiene cuerda, se usa para marcar el ritmo básico de las gaitas, pues?",
+    "opciones": [
+      "El Cuatro",
+      "El Furruco",
+      "El Bandolín",
+      "La Batería"
+    ],
+    "respuestaCorrecta": "El Furruco"
   },
   {
     "id": "2",
-    "dificultad": "Juguete de Niño",
-    "nivel": "Fácil",
-    "categoria": "Música",
-    "pregunta": "Mi pana, ¿cómo se llama el género musical zuliano que suena sin parar en diciembre?",
-    "opciones": ["Joropo", "Salsa", "Gaita", "Merengue"],
-    "respuestaCorrecta": "Gaita"
-  },
-  {
-    "id": "3",
-    "dificultad": "Juguete de Niño",
-    "nivel": "Fácil",
-    "categoria": "Tradiciones",
-    "pregunta": "A ver, ¿qué se lanza a la medianoche del 31 de diciembre en algunas ciudades de los Andes para celebrar el Año Nuevo?",
-    "opciones": ["Fuegos artificiales", "Globos de los deseos", "El Año Viejo", "Agua por la ventana"],
-    "respuestaCorrecta": "El Año Viejo"
-  },
-  {
-    "id": "4",
     "dificultad": "Palo 'e Ron",
     "nivel": "Medio",
     "categoria": "Gastronomía",
-    "pregunta": "Échale un ojo a esto, pues: además del jamón, ¿qué otro ingrediente saladito es clave en el Pan de Jamón tradicional?",
-    "opciones": ["Queso amarillo", "Tocineta ahumada", "Salchichón", "Chorizo"],
-    "respuestaCorrecta": "Tocineta ahumada"
+    "pregunta": "Mira, chamo, si estás haciendo pan de jamón y le pones alcaparras, ¿cuál es el detalle importante que no puede faltar al enrollar para que quede chévere?",
+    "opciones": [
+      "Mantequilla de maní",
+      "Hojas de plátano",
+      "Aceitunas rellenas",
+      "Queso amarillo"
+    ],
+    "respuestaCorrecta": "Aceitunas rellenas"
+  },
+  {
+    "id": "3",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "El 'Cañonazo' anuncia que llegó el 1ro de enero, pero ¿a qué hora exacta se lanza históricamente ese saludo, pues?",
+    "opciones": [
+      "10:00 p.m.",
+      "Medianoche (12:00 a.m.)",
+      "1:00 a.m.",
+      "6:00 a.m."
+    ],
+    "respuestaCorrecta": "Medianoche (12:00 a.m.)"
+  },
+  {
+    "id": "4",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "En Venezuela, ¿cuál es el día de diciembre donde, tradicionalmente, la familia se reúne para armar el pesebre y el arbolito, chamo?",
+    "opciones": [
+      "25 de diciembre",
+      "31 de diciembre",
+      "8 de diciembre",
+      "6 de enero"
+    ],
+    "respuestaCorrecta": "8 de diciembre"
   },
   {
     "id": "5",
     "dificultad": "Palo 'e Ron",
     "nivel": "Medio",
-    "categoria": "Música",
-    "pregunta": "Pana, ¿cuál es el instrumento que le da ese sonido de bajo vibrante y ronco a la gaita de furro?",
-    "opciones": ["El cuatro", "La charrasca", "El furruco", "Las maracas"],
-    "respuestaCorrecta": "El furruco"
+    "categoria": "Música y Parrandas",
+    "pregunta": "Hay una gaita muy famosa que dice '...y no te asombres si te digo', ¿cuál es el título de esa vaina que hasta el más rascado se sabe?",
+    "opciones": [
+      "El Cardenalito",
+      "Sin Rencor",
+      "La Grey Zuliana",
+      "Faltan Cinco Pa' Las Doce"
+    ],
+    "respuestaCorrecta": "La Grey Zuliana"
   },
   {
     "id": "6",
-    "dificultad": "Palo 'e Ron",
-    "nivel": "Medio",
-    "categoria": "Tradiciones",
-    "pregunta": "En Caracas, era costumbre ir a las misas de aguinaldo de madrugada. ¿En qué iban los chamos?",
-    "opciones": ["En bicicleta", "En monopatín", "En patines", "Caminando"],
-    "respuestaCorrecta": "En patines"
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En la región andina, durante la época navideña, existe una manifestación folclórica con personajes que bailan disfrazados. ¿Cuál es la vaina con el nombre de esa tradición, pues?",
+    "opciones": [
+      "La Burriquita",
+      "Los Pastores del Niño Jesús",
+      "El Baile de San Benito",
+      "Las Locainas"
+    ],
+    "respuestaCorrecta": "Los Pastores del Niño Jesús"
   },
   {
     "id": "7",
-    "dificultad": "¡El Cañonazo!",
-    "nivel": "Experto",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
     "categoria": "Gastronomía",
-    "pregunta": "Chamo, hablando claro, ¿cuál es ese ingrediente que algunos le echan a la hallaca andina y que a los puristas les da una vaina?",
-    "opciones": ["Alcaparras", "Garbanzos", "Pasas", "Aceitunas rellenas"],
-    "respuestaCorrecta": "Garbanzos"
+    "pregunta": "El pernil es el coroto ese que no puede faltar en la cena. ¿Cuál de estos es el mejor líquido para inyectarlo y que quede bien jugoso, pana?",
+    "opciones": [
+      "Agua mineral",
+      "Vino tinto",
+      "Jugo de naranja",
+      "Ron añejo"
+    ],
+    "respuestaCorrecta": "Vino tinto"
   },
   {
     "id": "8",
-    "dificultad": "¡El Cañonazo!",
-    "nivel": "Experto",
-    "categoria": "Música",
-    "pregunta": "Esta es para los que saben: ¿Quién es considerado 'El Monumental de la Gaita' y compuso clásicos como 'La Grey Zuliana'?",
-    "opciones": ["Neguito Borjas", "Ricardo Aguirre", "Betulio Medina", "Astolfo Romero"],
-    "respuestaCorrecta": "Ricardo Aguirre"
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "¿Cómo se llama la misa que se celebra muy temprano en las mañanas, desde el 16 de diciembre hasta el 24, pues?",
+    "opciones": [
+      "Misa del Gallo",
+      "Misa Mayor",
+      "Misa de Aguinaldo",
+      "Misa de Parranda"
+    ],
+    "respuestaCorrecta": "Misa de Aguinaldo"
   },
   {
     "id": "9",
     "dificultad": "¡El Cañonazo!",
     "nivel": "Experto",
-    "categoria": "Tradiciones",
-    "pregunta": "Mi pana, ¿cuál es el origen histórico real del 'Cañonazo' que se escucha en Caracas para recibir el año nuevo?",
+    "categoria": "Gastronomía",
+    "pregunta": "El pan de jamón tiene pasas, aceitunas y jamón. Históricamente, ¿quién inventó el pan de jamón para ahorrar gastos, chamo?",
     "opciones": [
-      "La celebración de la independencia",
-      "El cierre de las puertas de la aduana de La Guaira",
-      "Un toque de queda militar del siglo XIX",
-      "Una tradición de los barcos en el puerto"
+      "Un panadero italiano",
+      "Un chef francés en Caracas",
+      "Un señor panadero de nombre Lucas",
+      "Un chef alemán en el Hotel Humboldt"
     ],
-    "respuestaCorrecta": "Un toque de queda militar del siglo XIX"
+    "respuestaCorrecta": "Un señor panadero de nombre Lucas"
+  },
+  {
+    "id": "10",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Para bailar al ritmo de la gaita, ¿cuál es el movimiento de cadera más característico que no puedes dejar de hacer, pues?",
+    "opciones": [
+      "El Twist",
+      "El Meneo",
+      "El Valz",
+      "El Rock and Roll"
+    ],
+    "respuestaCorrecta": "El Meneo"
+  },
+  {
+    "id": "11",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Folclore Regional",
+    "pregunta": "Si un chamo se disfraza de mujer para la fiesta, ¿cómo se llama esa figura tradicional que trae alegría a la parranda, pana?",
+    "opciones": [
+      "El San Benito",
+      "La Burriquita",
+      "El Diablo",
+      "El Papá Noel"
+    ],
+    "respuestaCorrecta": "La Burriquita"
+  },
+  {
+    "id": "12",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Antes, los chamos iban a las misas de aguinaldo con patines. ¿Por qué era tan importante esa vaina de usar patines, chamo?",
+    "opciones": [
+      "Para ganar carreras",
+      "Porque era más rápido llegar a la iglesia",
+      "Para evitar el tráfico",
+      "Porque era tradición sin razón"
+    ],
+    "respuestaCorrecta": "Porque era tradición sin razón"
+  },
+  {
+    "id": "13",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "En la gaita zuliana, ¿cuál es el tipo de tambor específico que acompaña al furruco y es crucial para el ritmo, que no es la tambora común?",
+    "opciones": [
+      "El Redoblante",
+      "El Charrasca",
+      "El Tamborón",
+      "La Pandereta"
+    ],
+    "respuestaCorrecta": "La Pandereta"
+  },
+  {
+    "id": "14",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "Cuando envuelves una hallaca, ¿cuál es el detalle importante que le da ese aroma característico, además del guiso, pana?",
+    "opciones": [
+      "El color del hilo",
+      "El tamaño de la hallaca",
+      "La hoja de plátano",
+      "La cebolla"
+    ],
+    "respuestaCorrecta": "La hoja de plátano"
+  },
+  {
+    "id": "15",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "¿Qué vaina es esa que la gente cuelga en la puerta, que parece una campana, pero es para darle la bienvenida a la Navidad, chamo?",
+    "opciones": [
+      "La Estrella de Belén",
+      "La Corona de Adviento",
+      "El Muñeco de Nieve",
+      "La Piñata"
+    ],
+    "respuestaCorrecta": "La Corona de Adviento"
+  },
+  {
+    "id": "16",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Folclore Regional",
+    "pregunta": "Hay una gaita muy famosa llamada 'Feliz Año', ¿quién es el artista que la popularizó y suena en todas las fiestas de fin de año, pues?",
+    "opciones": [
+      "Guaco",
+      "Gran Coquivacoa",
+      "Billos Caracas Boys",
+      "Nelson Enríquez"
+    ],
+    "respuestaCorrecta": "Billos Caracas Boys"
+  },
+  {
+    "id": "17",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "La tradición del 'Amigo Secreto' tiene un día específico de celebración en diciembre para el intercambio. ¿Qué día es esa vaina, pana?",
+    "opciones": [
+      "24 de diciembre",
+      "28 de diciembre (Día de los Inocentes)",
+      "31 de diciembre",
+      "16 de diciembre"
+    ],
+    "respuestaCorrecta": "24 de diciembre"
+  },
+  {
+    "id": "18",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Qué es la vaina que se hace con leche, ron y huevo, que es dulce y cremoso, y es la bebida favorita de las abuelas en Navidad, chamo?",
+    "opciones": [
+      "Tizana",
+      "Ponche Crema",
+      "Papelón con limón",
+      "Chicha"
+    ],
+    "respuestaCorrecta": "Ponche Crema"
+  },
+  {
+    "id": "19",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Más allá de las gaitas zulianas, ¿cuál es el ritmo folclórico del oriente de Venezuela, parecido al aguinaldo, que es crucial para la parranda navideña?",
+    "opciones": [
+      "El Joropo",
+      "La Tonada",
+      "El Polo Oriental",
+      "El Calipso"
+    ],
+    "respuestaCorrecta": "El Calipso"
+  },
+  {
+    "id": "20",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "El 'Paseo del Niño' es una vaina muy bonita, pero ¿cuándo es la fecha exacta en enero donde se celebra más fuertemente esta tradición religiosa, pues?",
+    "opciones": [
+      "1 de enero",
+      "6 de enero (Día de Reyes)",
+      "14 de enero",
+      "31 de enero"
+    ],
+    "respuestaCorrecta": "6 de enero (Día de Reyes)"
+  },
+  {
+    "id": "21",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Cuál es la vaina con la carne que casi siempre usamos de base para el guiso de la hallaca, chamo?",
+    "opciones": [
+      "Carne de chigüire",
+      "Carne de res y cochino",
+      "Carne de pollo y pescado",
+      "Carne de cabra y pato"
+    ],
+    "respuestaCorrecta": "Carne de res y cochino"
+  },
+  {
+    "id": "22",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Si te digo que el furruco es esencial en la parranda, ¿cuál es el instrumento que el furruco imita con su sonido característico, pues?",
+    "opciones": [
+      "El arpa llanera",
+      "El bajo eléctrico",
+      "El sonido del bajo de una gaita",
+      "El ruido del cañonazo"
+    ],
+    "respuestaCorrecta": "El sonido del bajo de una gaita"
+  },
+  {
+    "id": "23",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En las Locainas de Sanare, la vestimenta de los personajes principales, ¿de qué vaina está hecha principalmente para dar ese aspecto festivo y rústico?",
+    "opciones": [
+      "Seda roja y negra",
+      "Hojas de palma y tela de saco",
+      "Plástico de colores",
+      "Lana de oveja"
+    ],
+    "respuestaCorrecta": "Hojas de palma y tela de saco"
+  },
+  {
+    "id": "24",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "¿En qué día de enero la gente suele quitar el arbolito y guardar los adornos para 'recoger' la Navidad, pana?",
+    "opciones": [
+      "7 de enero",
+      "31 de diciembre",
+      "1 de enero",
+      "15 de enero"
+    ],
+    "respuestaCorrecta": "7 de enero"
+  },
+  {
+    "id": "25",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "Para que el guiso de la hallaca se mantenga chévere y no se dañe, se le añade un toque de licor, ¿cuál de estos es el más tradicional y usado, pues?",
+    "opciones": [
+      "Ginebra",
+      "Vino de uva",
+      "Ron añejo",
+      "Cerveza"
+    ],
+    "respuestaCorrecta": "Vino de uva"
+  },
+  {
+    "id": "26",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Mira pana, el 31 de diciembre la gente sale corriendo con una maleta a la calle. ¿Pa' qué hacen esa vaina, pues?",
+    "opciones": [
+      "Para mudarse de casa",
+      "Para viajar y conocer mundo",
+      "Para huir de la suegra",
+      "Para hacer ejercicio"
+    ],
+    "respuestaCorrecta": "Para viajar y conocer mundo"
+  },
+  {
+    "id": "27",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "En la mesa navideña venezolana, hay una ensalada que es la reina. ¿Cuál es el ingrediente que le da ese colorcito rosado tan característico, chamo?",
+    "opciones": [
+      "Tomate",
+      "Remolacha",
+      "Fresa",
+      "Pimentón rojo"
+    ],
+    "respuestaCorrecta": "Remolacha"
+  },
+  {
+    "id": "28",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Hay un aguinaldo clásico que dice 'Si la Virgen fuera andina y San José de los Llanos...'. ¿Qué sería el Niño Jesús según esa canción, chamo?",
+    "opciones": [
+      "Un niño maracucho",
+      "Un niño caraqueño",
+      "Un niño guayanés",
+      "Un niño oriental"
+    ],
+    "respuestaCorrecta": "Un niño maracucho"
+  },
+  {
+    "id": "29",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Cuál es la agrupación gaitera más famosa que canta 'Amparito', esa que pone a bailar a todo el mundo en las fiestas, pues?",
+    "opciones": [
+      "Maracaibo 15",
+      "Cardenales del Éxito",
+      "Guaco",
+      "Rincón Morales"
+    ],
+    "respuestaCorrecta": "Maracaibo 15"
+  },
+  {
+    "id": "30",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "En los Andes venezolanos hacen una vaina llamada la 'Paradura del Niño'. ¿Qué es lo que hacen con la figura del Niño Jesús en esa fiesta?",
+    "opciones": [
+      "Lo esconden",
+      "Lo ponen de pie y lo pasean",
+      "Lo regalan a la iglesia",
+      "Lo pintan de dorado"
+    ],
+    "respuestaCorrecta": "Lo ponen de pie y lo pasean"
+  },
+  {
+    "id": "31",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "Hablemos claro del Dulce de Lechoza. ¿Cuál es el secreto químico (la vaina esa blanca) que se usa para que la lechoza quede durita por fuera y suave por dentro?",
+    "opciones": [
+      "Azúcar glass",
+      "Bicarbonato de sodio",
+      "Ceniza o cal",
+      "Clara de huevo"
+    ],
+    "respuestaCorrecta": "Bicarbonato de sodio"
+  },
+  {
+    "id": "32",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Chamo, cuando suenan las 12 campanadas, ¿qué fruta se tiene que comer uno rapidito para pedir los deseos del año nuevo?",
+    "opciones": [
+      "Mandarinas",
+      "Uvas",
+      "Fresas",
+      "Cambures"
+    ],
+    "respuestaCorrecta": "Uvas"
+  },
+  {
+    "id": "33",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Folclore Regional",
+    "pregunta": "En el estado Lara y Falcón celebran a los 'Locos y Locainas'. ¿Qué día específico salen estos personajes a echar broma a la calle?",
+    "opciones": [
+      "24 de diciembre",
+      "28 de diciembre",
+      "1 de enero",
+      "6 de enero"
+    ],
+    "respuestaCorrecta": "28 de diciembre"
+  },
+  {
+    "id": "34",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Ricardo Aguirre es 'El Monumental', pero ¿cómo se llama la gaita que se considera el segundo himno del Zulia y que él inmortalizó?",
+    "opciones": [
+      "Sentir Zuliano",
+      "La Grey Zuliana",
+      "Maracaibo Marginada",
+      "La Cabra Mocha"
+    ],
+    "respuestaCorrecta": "La Grey Zuliana"
+  },
+  {
+    "id": "35",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Cuál es la bebida espirituosa que nunca falta en diciembre, que parece leche pero pega duro si te descuidas, pana?",
+    "opciones": [
+      "Jugo de Parchita",
+      "Ponche Crema",
+      "Chicha",
+      "Café con leche"
+    ],
+    "respuestaCorrecta": "Ponche Crema"
+  },
+  {
+    "id": "36",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Hay una parranda un solo pueblo que canta 'Vengan a ver mi granja que es hermosa...'. ¿Qué animalito es el protagonista de esa canción, pues?",
+    "opciones": [
+      "El Perro",
+      "La Burra",
+      "El Toro",
+      "El Gallo"
+    ],
+    "respuestaCorrecta": "La Burra"
+  },
+  {
+    "id": "37",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "En la hallaca oriental, hay un ingrediente del mar que a veces le ponen y que a los caraqueños les parece una locura. ¿Cuál es esa vaina?",
+    "opciones": [
+      "Camarones",
+      "Cazón o pescado",
+      "Pulpo",
+      "Pepitonas"
+    ],
+    "respuestaCorrecta": "Cazón o pescado"
+  },
+  {
+    "id": "38",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "¿Qué animal trae los regalos en Venezuela si no viene San Nicolás? Bueno, en realidad, ¿quién es el que trae los regalos tradicionalmente?",
+    "opciones": [
+      "Los Reyes Magos",
+      "El Niño Jesús",
+      "El Espíritu de la Navidad",
+      "Simón Bolívar"
+    ],
+    "respuestaCorrecta": "El Niño Jesús"
+  },
+  {
+    "id": "39",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Cómo se llama el instrumento de cuerdas pequeño, primo del cuatro, que se usa burda en los aguinaldos y parrandas?",
+    "opciones": [
+      "Guitarra",
+      "Mandolina",
+      "Violín",
+      "Arpa"
+    ],
+    "respuestaCorrecta": "Mandolina"
+  },
+  {
+    "id": "40",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En Caicara de Maturín se celebra una danza muy peculiar el 28 de diciembre relacionada con un animal. ¿Cómo se llama esa vaina?",
+    "opciones": [
+      "El Baile del Pato",
+      "El Baile del Mono",
+      "La Danza de la Culebra",
+      "El Brinco del Tigre"
+    ],
+    "respuestaCorrecta": "El Baile del Mono"
+  },
+  {
+    "id": "41",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Completa la vaina: 'Faltan cinco pa' las doce, el año va a terminar, me voy corriendo a mi casa a...'",
+    "opciones": [
+      "...comer hallaca",
+      "...abrazar a mi mamá",
+      "...beber ron",
+      "...dormir un rato"
+    ],
+    "respuestaCorrecta": "...abrazar a mi mamá"
+  },
+  {
+    "id": "42",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "El Pan de Jamón lleva pasas y aceitunas, pero ¿qué tipo de jamón es el que manda la tradición para que quede mundial?",
+    "opciones": [
+      "Jamón de Pavo",
+      "Jamón Serrano",
+      "Jamón Planchado o Ahumado",
+      "Mortadela"
+    ],
+    "respuestaCorrecta": "Jamón Planchado o Ahumado"
+  },
+  {
+    "id": "43",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "¿Qué día llega el 'Espíritu de la Navidad', esa tradición que no es venezolana de origen pero que la gente adoptó para limpiar la casa y prender incienso?",
+    "opciones": [
+      "1 de diciembre",
+      "21 de diciembre",
+      "24 de diciembre",
+      "31 de diciembre"
+    ],
+    "respuestaCorrecta": "21 de diciembre"
+  },
+  {
+    "id": "44",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Qué se le pone a la hallaca para adornarla por encima antes de cerrarla, que son como rueditas blancas y amarillas?",
+    "opciones": [
+      "Queso y jamón",
+      "Cebolla y pimentón",
+      "Huevo sancochado y papa",
+      "Tomate y lechuga"
+    ],
+    "respuestaCorrecta": "Cebolla y pimentón"
+  },
+  {
+    "id": "45",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué agrupación famosa venezolana tiene el tema 'Viejo Año' que dice 'qué te pasa viejo año, qué te pasa'?",
+    "opciones": [
+      "Maracaibo 15",
+      "Guaco",
+      "Rincón Morales",
+      "Gran Coquivacoa"
+    ],
+    "respuestaCorrecta": "Maracaibo 15"
+  },
+  {
+    "id": "46",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "Los Vasallos de la Candelaria son una tradición importante en los Andes. ¿En qué estado específicamente se baila esto con más fuerza?",
+    "opciones": [
+      "Táchira",
+      "Mérida",
+      "Trujillo",
+      "Lara"
+    ],
+    "respuestaCorrecta": "Mérida"
+  },
+  {
+    "id": "47",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué instrumento se toca sacudiéndolo y tiene semillas por dentro, que no puede faltar en ninguna parranda, chamo?",
+    "opciones": [
+      "El Tambor",
+      "Las Maracas",
+      "El Furruco",
+      "La Charrasca"
+    ],
+    "respuestaCorrecta": "Las Maracas"
+  },
+  {
+    "id": "48",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "El Torta Negra es famosa en navidad, pero, ¿qué ingrediente clave debe macerarse en licor por meses para que esa torta quede buena de verdad?",
+    "opciones": [
+      "El chocolate",
+      "Las frutas confitadas y frutos secos",
+      "La harina de trigo",
+      "La vainilla"
+    ],
+    "respuestaCorrecta": "Las frutas confitadas y frutos secos"
+  },
+  {
+    "id": "49",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "¿Cuál es el nombre de la flor roja que adorna todas las casas venezolanas en navidad? Pista: No es 'Flor de Navidad' a secas.",
+    "opciones": [
+      "Orquídea de Invierno",
+      "Papagayo",
+      "Poinsettia o Papagayo",
+      "Cayena Roja"
+    ],
+    "respuestaCorrecta": "Poinsettia o Papagayo"
+  },
+  {
+    "id": "50",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Si te sale el 'Niño Jesús' en la Rosca de Reyes, ¿qué te toca hacer el 2 de febrero, chamo?",
+    "opciones": [
+      "Pagar la fiesta o los tamales",
+      "Bailar una gaita",
+      "No hacer nada",
+      "Comprar el pan de jamón"
+    ],
+    "respuestaCorrecta": "Pagar la fiesta o los tamales"
+  },
+  {
+    "id": "51",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "En la gaita 'La Cabra Mocha', ¿de quiénes son los versos de esa gaita tan famosa del Zulia?",
+    "opciones": [
+      "De un poeta de Santa Lucía",
+      "De Próspero Palmiero",
+      "De Ricardo Aguirre",
+      "De Simón Díaz"
+    ],
+    "respuestaCorrecta": "De Próspero Palmiero"
+  },
+  {
+    "id": "52",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "En el estado Zulia, hay una variante de la hallaca que lleva plátano en la masa o en el relleno. ¿Cómo le dicen a esa hallaca?",
+    "opciones": [
+      "Hallaca de Plátano",
+      "Hallaca Zuliana",
+      "Hallaca de Paquete",
+      "Bollito Pelón"
+    ],
+    "respuestaCorrecta": "Hallaca de Plátano"
+  },
+  {
+    "id": "53",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Cuál es el villancico que dice 'Con mi burrito sabanero voy camino de Belén'?",
+    "opciones": [
+      "Niño Lindo",
+      "Mi Burrito Sabanero",
+      "Corre Caballito",
+      "Din Din Din"
+    ],
+    "respuestaCorrecta": "Mi Burrito Sabanero"
+  },
+  {
+    "id": "54",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "¿Qué prenda de ropa interior se supone que debes usar el 31 de diciembre para tener suerte en el amor el año que viene?",
+    "opciones": [
+      "Roja",
+      "Amarilla",
+      "Verde",
+      "Blanca"
+    ],
+    "respuestaCorrecta": "Amarilla"
+  },
+  {
+    "id": "55",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En Barlovento y la costa, las fiestas de San Juan son famosas, pero en diciembre celebran a San Benito. ¿Cuál es el instrumento principal para bailarle a San Benito?",
+    "opciones": [
+      "El Arpa",
+      "Los Chimbangueles (Tambores)",
+      "El Cuatro",
+      "La Flauta"
+    ],
+    "respuestaCorrecta": "Los Chimbangueles (Tambores)"
+  },
+  {
+    "id": "56",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "El plato navideño tiene Hallaca, Pan de Jamón y Ensalada de Gallina. ¿Qué falta ahí que es carne de cochino horneada?",
+    "opciones": [
+      "Carne Mechada",
+      "Pernil",
+      "Chuleta",
+      "Chicharrón"
+    ],
+    "respuestaCorrecta": "Pernil"
+  },
+  {
+    "id": "57",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Quién compuso el famosísimo 'Año Viejo' que dice 'me dejó una chiva, una burra negra, una yegua blanca'?",
+    "opciones": [
+      "Billo Frómeta",
+      "Cresencio Salcedo",
+      "Hugo Blanco",
+      "Simón Díaz"
+    ],
+    "respuestaCorrecta": "Cresencio Salcedo"
+  },
+  {
+    "id": "58",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "El pesebre venezolano tiene figuras clásicas, pero en los Andes a veces colocan una figura de un hombre haciendo sus necesidades escondido. ¿Cómo se llama ese personaje (tomado de la tradición catalana)?",
+    "opciones": [
+      "El Caganer",
+      "El Meón",
+      "El Escondido",
+      "El Travieso"
+    ],
+    "respuestaCorrecta": "El Caganer"
+  },
+  {
+    "id": "59",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "¿Qué día se celebra el 'Día de los Inocentes', donde todo el mundo echa broma y dice mentiras?",
+    "opciones": [
+      "25 de diciembre",
+      "28 de diciembre",
+      "31 de diciembre",
+      "6 de enero"
+    ],
+    "respuestaCorrecta": "28 de diciembre"
+  },
+  {
+    "id": "60",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Cuál es la hoja que se usa para envolver la hallaca? No me digas 'hoja de hallaca', dime el nombre de la planta.",
+    "opciones": [
+      "Hoja de Maíz",
+      "Hoja de Plátano o Bijao",
+      "Hoja de Uva",
+      "Papel de Aluminio"
+    ],
+    "respuestaCorrecta": "Hoja de Plátano o Bijao"
+  },
+  {
+    "id": "61",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Existe un tipo de música navideña en Venezuela llamada 'Aguinaldo Divino' y otro 'Aguinaldo Humano'. ¿Cuál es la diferencia principal, chamo?",
+    "opciones": [
+      "Uno se baila y el otro no",
+      "Uno trata temas religiosos y el otro temas de fiesta y parranda",
+      "Uno es con cuatro y el otro con guitarra",
+      "No hay diferencia, son lo mismo"
+    ],
+    "respuestaCorrecta": "Uno trata temas religiosos y el otro temas de fiesta y parranda"
+  },
+  {
+    "id": "62",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué canción dice 'Tun tun, ¿quién es? Gente de paz, ábrenos la puerta que ya es Navidad'?",
+    "opciones": [
+      "Tun Tun",
+      "El Burrito Sabanero",
+      "Fuego al Cañón",
+      "Noche de Paz"
+    ],
+    "respuestaCorrecta": "Tun Tun"
+  },
+  {
+    "id": "63",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "En las patinatas de antes, ¿qué comida típica se vendía en la calle para calentar el cuerpo después de patinar?",
+    "opciones": [
+      "Arepas con queso",
+      "Tostadas",
+      "Chocolate caliente con queso o churros",
+      "Sopa de costilla"
+    ],
+    "respuestaCorrecta": "Chocolate caliente con queso o churros"
+  },
+  {
+    "id": "64",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "El 'Carato de Acupe' es una bebida de maíz fermentado típica de diciembre en algunas regiones. ¿De qué estado es originaria principalmente?",
+    "opciones": [
+      "Zulia",
+      "Miranda",
+      "Carabobo",
+      "Guárico"
+    ],
+    "respuestaCorrecta": "Miranda"
+  },
+  {
+    "id": "65",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "Si la masa de la hallaca te queda muy pálida, ¿qué le echaste poco o se te olvidó ponerle, chamo?",
+    "opciones": [
+      "Sal",
+      "Onoto",
+      "Azúcar",
+      "Harina"
+    ],
+    "respuestaCorrecta": "Onoto"
+  },
+  {
+    "id": "66",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "Cuando sobran masa y guiso de las hallacas, se hace una vaina más pequeña y redonda. ¿Cómo se llama ese 'resuelve' delicioso?",
+    "opciones": [
+      "La Ñapa",
+      "El Bollito",
+      "La Empanada",
+      "El Tamalito"
+    ],
+    "respuestaCorrecta": "El Bollito"
+  },
+  {
+    "id": "67",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Cómo se llama el cantante bigotón, famoso actor también, que cantaba 'El Negrito Fullero' con los Cardenales del Éxito?",
+    "opciones": [
+      "Daniel Alvarado",
+      "Oscar D'León",
+      "Simón Díaz",
+      "Cheo Feliciano"
+    ],
+    "respuestaCorrecta": "Daniel Alvarado"
+  },
+  {
+    "id": "68",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En Sanare, estado Lara, el 28 de diciembre salen unos personajes con máscaras y trajes de colores muy locos. ¿Cómo se llama esa fiesta tradicional?",
+    "opciones": [
+      "Los Diablos Danzantes",
+      "Las Zaragozas",
+      "La Parranda de San Pedro",
+      "El Baile de las Turas"
+    ],
+    "respuestaCorrecta": "Las Zaragozas"
+  },
+  {
+    "id": "69",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "El 31 de diciembre, mucha gente se mete un puñado de lentejas en el bolsillo. ¿Pa' qué sirve esa brujería, chamo?",
+    "opciones": [
+      "Para tener buena salud",
+      "Para conseguir novio/a",
+      "Para que no falte la plata y la comida",
+      "Para viajar mucho"
+    ],
+    "respuestaCorrecta": "Para que no falte la plata y la comida"
+  },
+  {
+    "id": "70",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Hay una balada navideña muy bonita del grupo Voz Veis que dice 'Ven a mi casa esta navidad...'. ¿Cómo sigue la letra, chamo?",
+    "opciones": [
+      "...que yo te invito a cenar",
+      "...que ya no hay soledad",
+      "...que vamos a parrandear",
+      "...trae tu botella de ron"
+    ],
+    "respuestaCorrecta": "...que ya no hay soledad"
+  },
+  {
+    "id": "71",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Historia",
+    "pregunta": "Se dice que el Pan de Jamón nació en una panadería de Caracas en 1905. ¿Cómo se llamaba esa panadería histórica?",
+    "opciones": [
+      "Panadería Ramella",
+      "Panadería Solis",
+      "Panadería La France",
+      "Panadería Quinta Crespo"
+    ],
+    "respuestaCorrecta": "Panadería Ramella"
+  },
+  {
+    "id": "72",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "A las 12 de la noche del 31, hay gente que agarra billetes (dólares o bolívares) y los aprieta en la mano. ¿Cuál es la misión de esa vaina?",
+    "opciones": [
+      "Pagar el taxi",
+      "Atraer prosperidad económica",
+      "Regalárselos al primero que abracen",
+      "Lanzarlos al aire"
+    ],
+    "respuestaCorrecta": "Atraer prosperidad económica"
+  },
+  {
+    "id": "73",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "En la Ensalada de Gallina, hay un ingrediente que divide a las familias: unos lo aman y otros lo odian por ser dulce y crujiente. ¿Cuál es?",
+    "opciones": [
+      "La Piña",
+      "La Manzana Verde",
+      "El Celery",
+      "Las Pasas"
+    ],
+    "respuestaCorrecta": "La Manzana Verde"
+  },
+  {
+    "id": "74",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La charrasca zuliana es cilíndrica y metálica, pero ¿de qué material es preferible que sea hecha para que suene brillante y duro?",
+    "opciones": [
+      "Aluminio",
+      "Bronce",
+      "Acero inoxidable",
+      "Hierro colado"
+    ],
+    "respuestaCorrecta": "Bronce"
+  },
+  {
+    "id": "75",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Completa el coro de la parranda: 'Fuego al cañón, fuego al cañón...'",
+    "opciones": [
+      "...para que respete mi condición",
+      "...para que se prenda el fogón",
+      "...para que bailen en el salón",
+      "...para que venga el niño Simón"
+    ],
+    "respuestaCorrecta": "...para que respete mi condición"
+  },
+  {
+    "id": "76",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Si ves a alguien barriendo la casa de adentro hacia afuera justo a la medianoche del 31, ¿qué está sacando, pues?",
+    "opciones": [
+      "El polvo del año pasado",
+      "Las malas energías y la pavita",
+      "A los borrachos",
+      "El confeti"
+    ],
+    "respuestaCorrecta": "Las malas energías y la pavita"
+  },
+  {
+    "id": "77",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En Mucuchíes y Timotes celebran a San Benito, pero los devotos se pintan la cara de un color específico. ¿De qué color se pintan?",
+    "opciones": [
+      "De Rojo",
+      "De Negro",
+      "De Azul",
+      "De Blanco"
+    ],
+    "respuestaCorrecta": "De Negro"
+  },
+  {
+    "id": "78",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "Antes de usar las hojas de plátano para la hallaca, hay que pasarlas por el fuego o hervirlas. ¿Para qué se hace esa vaina?",
+    "opciones": [
+      "Para que cambien de color",
+      "Para limpiarlas y que no se partan al doblar",
+      "Para que sepan ahumado",
+      "Para matar los bichos nomás"
+    ],
+    "respuestaCorrecta": "Para limpiarlas y que no se partan al doblar"
+  },
+  {
+    "id": "79",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Billo's Caracas Boys tiene un tema muy emotivo que empieza: 'El año viejo se ha ido ya...'. ¿Cómo se llama esa canción dedicada a la amistad?",
+    "opciones": [
+      "Año Nuevo",
+      "Amigo",
+      "Compadre",
+      "Hermano"
+    ],
+    "respuestaCorrecta": "Amigo"
+  },
+  {
+    "id": "80",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Por qué demonios le ponemos alcaparras a la hallaca? ¿Cuál es la función histórica de ese ingrediente importado?",
+    "opciones": [
+      "Era un preservante natural para que no se dañara",
+      "Era para que picara un poco",
+      "Era para darle color verde",
+      "Era un error de receta"
+    ],
+    "respuestaCorrecta": "Era un preservante natural para que no se dañara"
+  },
+  {
+    "id": "81",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Hay una creencia de que si entras a tu casa después del cañonazo con cierto pie, te va a ir bien. ¿Cuál pie es el de la suerte?",
+    "opciones": [
+      "El pie izquierdo",
+      "El pie derecho",
+      "Saltando con los dos pies",
+      "Entrar de espaldas"
+    ],
+    "respuestaCorrecta": "El pie derecho"
+  },
+  {
+    "id": "82",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "En el aguinaldo 'Cantemos, Cantemos', ¿qué es lo que dice la letra que hagamos para que el niño no llore?",
+    "opciones": [
+      "Démosle un tetero",
+      "Cantemos, cantemos, glorias al Salvador",
+      "Toquemos el cuatro con mucho amor",
+      "Hagamos silencio por favor"
+    ],
+    "respuestaCorrecta": "Cantemos, cantemos, glorias al Salvador"
+  },
+  {
+    "id": "83",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La Gaita Perijanera es distinta a la de Maracaibo. ¿Cuál es una característica única de la perijanera?",
+    "opciones": [
+      "No usa tambora",
+      "Se baila en círculo y es más lenta",
+      "Se canta en inglés",
+      "Usa violines eléctricos"
+    ],
+    "respuestaCorrecta": "Se baila en círculo y es más lenta"
+  },
+  {
+    "id": "84",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Cuál es el ingrediente de la hallaca que todo niño venezolano se la pasa sacando con el tenedor porque no le gusta?",
+    "opciones": [
+      "La carne",
+      "Las pasas y aceitunas",
+      "La papa",
+      "El pollo"
+    ],
+    "respuestaCorrecta": "Las pasas y aceitunas"
+  },
+  {
+    "id": "85",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "El 21 de diciembre se celebra el Espíritu de la Navidad. ¿De qué color se viste la gente y pone las velas ese día?",
+    "opciones": [
+      "Azul Rey",
+      "Naranja o Mandarina",
+      "Rojo Pasión",
+      "Negro Luto"
+    ],
+    "respuestaCorrecta": "Naranja o Mandarina"
+  },
+  {
+    "id": "86",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "La receta original del Pan de Jamón de 1905 no usaba la masa de pan normal que usamos hoy. ¿Qué tipo de masa usaban al principio?",
+    "opciones": [
+      "Masa de Hojaldre",
+      "Masa de Maíz",
+      "Masa de Brioche",
+      "Masa quebrada"
+    ],
+    "respuestaCorrecta": "Masa de Hojaldre"
+  },
+  {
+    "id": "87",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué animalito es el 'Tucusito, Tucusito' que menciona el famoso aguinaldo?",
+    "opciones": [
+      "Un perrito",
+      "Un colibrí (pajarito)",
+      "Un gatito",
+      "Un grillito"
+    ],
+    "respuestaCorrecta": "Un colibrí (pajarito)"
+  },
+  {
+    "id": "88",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "Además del jamón y las pasas, ¿qué tira de carne ahumada se le pone al Pan de Jamón para que suelte grasita y sabor?",
+    "opciones": [
+      "Chorizo",
+      "Tocineta (Bacon)",
+      "Salchichón",
+      "Chuleta"
+    ],
+    "respuestaCorrecta": "Tocineta (Bacon)"
+  },
+  {
+    "id": "89",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En San Joaquín, estado Carabobo, hay una tradición de pastores muy famosa. ¿Qué instrumento peculiar usan ellos al bailar?",
+    "opciones": [
+      "El palo de lluvia",
+      "El gineceo",
+      "El furruco de mano",
+      "Las maracas grandes"
+    ],
+    "respuestaCorrecta": "El gineceo"
+  },
+  {
+    "id": "90",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Si te comes las 12 uvas, ¿qué tienes que hacer mentalmente con cada uva para que funcione la magia?",
+    "opciones": [
+      "Decir una grosería",
+      "Pedir un deseo",
+      "Acordarte de tu ex",
+      "Contar hasta diez"
+    ],
+    "respuestaCorrecta": "Pedir un deseo"
+  },
+  {
+    "id": "91",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Quién es el cantante principal y líder de Maracaibo 15, el hombre de la voz inconfundible de la navidad?",
+    "opciones": [
+      "Betulio Medina",
+      "Neguito Borjas",
+      "Ricardo Montaner",
+      "Pollo Brito"
+    ],
+    "respuestaCorrecta": "Betulio Medina"
+  },
+  {
+    "id": "92",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "La diferencia técnica más grande entre la hallaca andina y la caraqueña, aparte de los garbanzos, está en el guiso. ¿Cuál es?",
+    "opciones": [
+      "El guiso andino se pone crudo en la masa",
+      "El guiso caraqueño lleva picante",
+      "El guiso andino no lleva carne",
+      "El guiso caraqueño se hace al horno"
+    ],
+    "respuestaCorrecta": "El guiso andino se pone crudo en la masa"
+  },
+  {
+    "id": "93",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "¿Qué es una 'Lucecita de Bengala' que le dan a los chamos?",
+    "opciones": [
+      "Un dulce brillante",
+      "Un palito que chispea luz sin explotar",
+      "Un cohete ruidoso",
+      "Una linterna"
+    ],
+    "respuestaCorrecta": "Un palito que chispea luz sin explotar"
+  },
+  {
+    "id": "94",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "Para los chamos que no pueden beber alcohol en la cena, existe una bebida gaseosa con sabor a fruta que parece champaña. ¿Cómo se llama?",
+    "opciones": [
+      "Frescolita",
+      "Chinotto",
+      "Champanur o Senador",
+      "Malta"
+    ],
+    "respuestaCorrecta": "Champanur o Senador"
+  },
+  {
+    "id": "95",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "El palito de caña que se usa para frotar el cuero del furruco y sacar el sonido tiene un nombre específico. ¿Cuál es?",
+    "opciones": [
+      "La Verada",
+      "El Frotador",
+      "La Batuta",
+      "El Arco"
+    ],
+    "respuestaCorrecta": "La Verada"
+  },
+  {
+    "id": "96",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "El Panettone no es venezolano, es italiano, pero aquí lo comemos burda. ¿Qué trae el Panettone clásico por dentro?",
+    "opciones": [
+      "Chocolate",
+      "Frutas confitadas",
+      "Jamón y queso",
+      "Dulce de leche"
+    ],
+    "respuestaCorrecta": "Frutas confitadas"
+  },
+  {
+    "id": "97",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "El 'Burrito Sabanero' es famoso en todo el mundo, pero su compositor es venezolano. ¿Quién fue el genio que la escribió?",
+    "opciones": [
+      "Simón Díaz",
+      "Hugo Blanco",
+      "Juan Luis Guerra",
+      "Tío Simón"
+    ],
+    "respuestaCorrecta": "Hugo Blanco"
+  },
+  {
+    "id": "98",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Historia",
+    "pregunta": "Hay una teoría que dice que la hallaca nació de las sobras de los banquetes de los mantuanos. ¿Quiénes inventaron el plato según esta teoría?",
+    "opciones": [
+      "Los esclavos e indígenas",
+      "Los cocineros franceses",
+      "Las monjas de clausura",
+      "Los soldados patriotas"
+    ],
+    "respuestaCorrecta": "Los esclavos e indígenas"
+  },
+  {
+    "id": "99",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Cuándo empiezan a sonar las gaitas en la radio venezolana? (O por lo menos cuando deberían empezar).",
+    "opciones": [
+      "En Enero",
+      "En Octubre o Noviembre",
+      "El 24 de Diciembre",
+      "En Semana Santa"
+    ],
+    "respuestaCorrecta": "En Octubre o Noviembre"
+  },
+  {
+    "id": "100",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "Hay un postre venezolano de chocolate con una crema inglesa blanca alrededor, que se come mucho en fiestas elegantes. ¿Cómo se llama?",
+    "opciones": [
+      "Negro en Camisa",
+      "Bienmesabe",
+      "Quesillo de Chocolate",
+      "Torta Burrera"
+    ],
+    "respuestaCorrecta": "Negro en Camisa"
+  },
+  {
+    "id": "101",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "Los tambores Chimbangueles de San Benito son varios. ¿Cuántos tambores conforman típicamente la batería de chimbangueles?",
+    "opciones": [
+      "Solo 3",
+      "7 tambores",
+      "12 tambores",
+      "1 solo tambor grande"
+    ],
+    "respuestaCorrecta": "7 tambores"
+  },
+  {
+    "id": "102",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Sigue la letra: 'Corre caballito, vamos a Belén...'",
+    "opciones": [
+      "...a ver a María y al Niño también",
+      "...a comer hallacas y a beber también",
+      "...que la virgen santa nos va a proteger",
+      "...que se hace tarde para comer"
+    ],
+    "respuestaCorrecta": "...a ver a María y al Niño también"
+  },
+  {
+    "id": "103",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Cuando dan las 12 en punto el 1 de enero, ¿qué es lo primero que haces con la gente que tienes al lado, además de brindar?",
+    "opciones": [
+      "Darse el 'Feliz Año' con un abrazo apretao",
+      "Ignorarlos",
+      "Pedirles plata prestada",
+      "Irse a dormir"
+    ],
+    "respuestaCorrecta": "Darse el 'Feliz Año' con un abrazo apretao"
+  },
+  {
+    "id": "104",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "Las aceitunas que se usan para el pan de jamón y la hallaca tradicionalmente vienen rellenas. ¿De qué vienen rellenas esa vaina?",
+    "opciones": [
+      "De anchoas",
+      "De pimiento rojo (Pimentón)",
+      "De queso azul",
+      "De nada, son con hueso"
+    ],
+    "respuestaCorrecta": "De pimiento rojo (Pimentón)"
+  },
+  {
+    "id": "105",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Después de beber y comer tanto el 24 o 31, al día siguiente uno amanece con un malestar horrible. ¿Cómo se le dice a esa resaca en Venezuela?",
+    "opciones": [
+      "El Guayabo",
+      "El Ratón",
+      "La Pálida",
+      "La Flojera"
+    ],
+    "respuestaCorrecta": "El Ratón"
+  },
+  {
+    "id": "146",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Cuál es el ingrediente principal del 'Asado Negro' que le da ese color oscuro característico a la salsa, pana?",
+    "opciones": [
+      "Papelón o azúcar quemada",
+      "Salsa de Soya",
+      "Tinta de Calamar",
+      "Chocolate oscuro"
+    ],
+    "respuestaCorrecta": "Papelón o azúcar quemada"
+  },
+  {
+    "id": "147",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Hay una gaita que es casi un trabalenguas y dice 'La gallina vieja es la que da buen caldo...'. ¿Cómo se llama ese grupo divertido?",
+    "opciones": [
+      "Melody Gaita",
+      "Gran Coquivacoa",
+      "Maracaibo 15",
+      "Guaco"
+    ],
+    "respuestaCorrecta": "Melody Gaita"
+  },
+  {
+    "id": "148",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "El 'Robo del Niño' es una tradición andina traviesa. ¿En qué consiste exactamente esa vaina?",
+    "opciones": [
+      "Robarse el Niño Jesús del pesebre de un vecino para que haga una fiesta (Paradura) al rescatarlo",
+      "Robarse los regalos del arbolito",
+      "Esconderse en la misa",
+      "Robarse las hallacas de la cocina"
+    ],
+    "respuestaCorrecta": "Robarse el Niño Jesús del pesebre de un vecino para que haga una fiesta (Paradura) al rescatarlo"
+  },
+  {
+    "id": "149",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Completa el villancico: 'Noche de paz, noche de...'",
+    "opciones": [
+      "...amor",
+      "...fiesta",
+      "...sueño",
+      "...luz"
+    ],
+    "respuestaCorrecta": "...amor"
+  },
+  {
+    "id": "150",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "Si te ofrecen una 'Hallaca Boba', ¿qué es lo que te vas a comer realmente?",
+    "opciones": [
+      "Una hallaca que es pura masa, sin guiso ni carne",
+      "Una hallaca con doble carne",
+      "Una hallaca dulce",
+      "Un bollo picante"
+    ],
+    "respuestaCorrecta": "Una hallaca que es pura masa, sin guiso ni carne"
+  },
+  {
+    "id": "151",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "El compositor de 'Faltan Cinco pa' las Doce' es Oswaldo Oropeza, pero, ¿quién fue el cantante venezolano que la hizo himno nacional?",
+    "opciones": [
+      "Néstor Zavarce",
+      "Simón Díaz",
+      "Oscar D'León",
+      "José Luis Rodríguez"
+    ],
+    "respuestaCorrecta": "Néstor Zavarce"
+  },
+  {
+    "id": "152",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "¿Qué usamos para decorar el arbolito que a veces se enreda todo y es un lío desenredar el año siguiente?",
+    "opciones": [
+      "Las luces de Navidad",
+      "Las bambalinas",
+      "La estrella",
+      "El pie de árbol"
+    ],
+    "respuestaCorrecta": "Las luces de Navidad"
+  },
+  {
+    "id": "153",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Folclore Regional",
+    "pregunta": "En el estado Falcón y Lara se celebra el 'Baile de las Turas', aunque es más indígena, a veces se cruza con fechas decembrinas. ¿Qué ingrediente agrícola agradecen en ese baile?",
+    "opciones": [
+      "El Maíz",
+      "El Cacao",
+      "El Café",
+      "La Yuca"
+    ],
+    "respuestaCorrecta": "El Maíz"
+  },
+  {
+    "id": "154",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "El Pan de Jamón moderno lleva tocineta y pasas, pero en la receta original de 1905, aparte del jamón, ¿qué era lo único extra que llevaba?",
+    "opciones": [
+      "Nada, solo jamón",
+      "Queso Kraft",
+      "Pimentón",
+      "Aceitunas"
+    ],
+    "respuestaCorrecta": "Nada, solo jamón"
+  },
+  {
+    "id": "155",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Cómo se llama el 'fuego artificial' chiquitico que uno tira al piso y suena '¡pac!' que usan los niños?",
+    "opciones": [
+      "Triquitraqui",
+      "Mata Suegra",
+      "Tumba Rancho",
+      "Cohetón"
+    ],
+    "respuestaCorrecta": "Triquitraqui"
+  },
+  {
+    "id": "156",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Cuando uno dice que va a 'poner el Nacimiento', ¿a qué se refiere específicamente?",
+    "opciones": [
+      "A armar el Pesebre",
+      "A cocinar la cena",
+      "A poner música",
+      "A sacar la basura"
+    ],
+    "respuestaCorrecta": "A armar el Pesebre"
+  },
+  {
+    "id": "157",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La gaita 'Sentir Zuliano' tiene un verso famosísimo que dice: 'Cuando voy a Maracaibo y empiezo a pasar el puente...'. ¿Quién canta esa vaina con tanto sentimiento?",
+    "opciones": [
+      "Ricardo Cepeda",
+      "Ricardo Aguirre",
+      "Betulio Medina",
+      "Astolfo Romero"
+    ],
+    "respuestaCorrecta": "Ricardo Cepeda"
+  },
+  {
+    "id": "158",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Qué carne se usa para el corte del 'Asado Negro' venezolano?",
+    "opciones": [
+      "Muchacho Redondo",
+      "Solomo de Cuerito",
+      "Costilla",
+      "Falda"
+    ],
+    "respuestaCorrecta": "Muchacho Redondo"
+  },
+  {
+    "id": "159",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué grupo de aguinaldos famosos popularizó 'La Pulga y el Piojo'?",
+    "opciones": [
+      "Serenata Guayanesa",
+      "Un Solo Pueblo",
+      "Vasallos del Sol",
+      "Los Tucusitos"
+    ],
+    "respuestaCorrecta": "Serenata Guayanesa"
+  },
+  {
+    "id": "160",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "En las misas de aguinaldo, a veces se usan instrumentos poco comunes en la iglesia. ¿Cuál de estos está permitido en Venezuela para acompañar la misa?",
+    "opciones": [
+      "El Furruco",
+      "La Guitarra Eléctrica",
+      "La Gaita Escocesa",
+      "El Saxofón"
+    ],
+    "respuestaCorrecta": "El Furruco"
+  },
+  {
+    "id": "161",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "El 25 de diciembre muchos niños salen a la calle a estrenar sus juguetes. ¿Qué juguete clásico siempre ves a los chamos rodando por ahí?",
+    "opciones": [
+      "La Bicicleta",
+      "El Papagayo",
+      "Las Metras",
+      "El Trompo"
+    ],
+    "respuestaCorrecta": "La Bicicleta"
+  },
+  {
+    "id": "162",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "Si te sirven un 'Bollo Pelón' en diciembre, ¿en qué se diferencia del bollo navideño normal?",
+    "opciones": [
+      "El guiso va por dentro (como una esfera) y no revuelto con la masa",
+      "No tiene guiso",
+      "Es dulce",
+      "Es de arroz"
+    ],
+    "respuestaCorrecta": "El guiso va por dentro (como una esfera) y no revuelto con la masa"
+  },
+  {
+    "id": "163",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La 'Tamborera' es un ritmo zuliano muy movido. ¿Es una mezcla de Gaita con qué otro ritmo?",
+    "opciones": [
+      "Con Chimbangueles (golpes de tambor afrovenezolano)",
+      "Con Joropo",
+      "Con Salsa",
+      "Con Merengue"
+    ],
+    "respuestaCorrecta": "Con Chimbangueles (golpes de tambor afrovenezolano)"
+  },
+  {
+    "id": "164",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Qué bebida alcohólica burbujeante se destapa a las 12 de la noche para el brindis?",
+    "opciones": [
+      "Champaña o Espumante",
+      "Cerveza",
+      "Anís",
+      "Agua"
+    ],
+    "respuestaCorrecta": "Champaña o Espumante"
+  },
+  {
+    "id": "165",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "En la carta al Niño Jesús, ¿dónde se pone tradicionalmente la carta para que él la encuentre?",
+    "opciones": [
+      "En el Arbolito o el Pesebre",
+      "Debajo de la almohada",
+      "En el buzón de la calle",
+      "En la nevera"
+    ],
+    "respuestaCorrecta": "En el Arbolito o el Pesebre"
+  },
+  {
+    "id": "166",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Historia",
+    "pregunta": "¿Quién es el autor de la letra del himno popular 'Corre Caballito'? Pista: Es un poeta venezolano muy famoso.",
+    "opciones": [
+      "Es anónimo (folclore)",
+      "Andrés Eloy Blanco",
+      "Aquiles Nazoa",
+      "Simón Díaz"
+    ],
+    "respuestaCorrecta": "Es anónimo (folclore)"
+  },
+  {
+    "id": "167",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Cuando la gaita dice 'Pa' que Luis, allá por Santa Lucía...', ¿qué es 'Pa' que Luis'?",
+    "opciones": [
+      "Un bar o tienda popular en Maracaibo",
+      "La casa de un amigo",
+      "Una iglesia",
+      "Una plaza"
+    ],
+    "respuestaCorrecta": "Un bar o tienda popular en Maracaibo"
+  },
+  {
+    "id": "168",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "Hay una versión del Pan de Jamón que se hace con masa de hojaldre. ¿Cómo le dicen los sifrinos a ese pan?",
+    "opciones": [
+      "Pan de Jamón Gourmet",
+      "Pan de Hojaldre",
+      "Cachito gigante",
+      "Croissant de Jamón"
+    ],
+    "respuestaCorrecta": "Pan de Hojaldre"
+  },
+  {
+    "id": "169",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En la Parranda de San Pedro (Guatire/Guarenas), aunque es en junio, se cantan versos. Pero en Navidad, esas mismas zonas tienen una parranda callejera. ¿Cuál es?",
+    "opciones": [
+      "La Burriquita",
+      "Los Boleros de Caucagua",
+      "Las Parrandas de la Octavita",
+      "El Entierro de la Sardina"
+    ],
+    "respuestaCorrecta": "La Burriquita"
+  },
+  {
+    "id": "170",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Si quieres viajar el año que viene, ¿qué tienes que sacar a pasear a las 12 de la noche?",
+    "opciones": [
+      "Las Maletas",
+      "El Perro",
+      "El Pasaporte",
+      "Los Zapatos"
+    ],
+    "respuestaCorrecta": "Las Maletas"
+  },
+  {
+    "id": "171",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué canción de Guaco dice: 'Ay, si oyeras el sonar, de mi tambora...'?",
+    "opciones": [
+      "Pastelero",
+      "Un Cigarrito y un Café",
+      "Sentimiento Nacional",
+      "Gaita de Tambora"
+    ],
+    "respuestaCorrecta": "Pastelero"
+  },
+  {
+    "id": "172",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "El 'Dulce de Martinica' es una variante poco común. ¿De qué fruta cítrica se hace ese dulce?",
+    "opciones": [
+      "Cáscara de Toronja",
+      "Limón",
+      "Naranja Agria",
+      "Mandarina"
+    ],
+    "respuestaCorrecta": "Cáscara de Toronja"
+  },
+  {
+    "id": "173",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué instrumento se rasca con un palito y es de metal en la gaita?",
+    "opciones": [
+      "La Charrasca",
+      "El Rallo de Queso",
+      "El Triángulo",
+      "El Platillo"
+    ],
+    "respuestaCorrecta": "La Charrasca"
+  },
+  {
+    "id": "174",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "En Venezuela, si alguien no te da regalo de Navidad, tú le dices bromeando: '¡Bájate de la...!'",
+    "opciones": [
+      "...Mula",
+      "...Hamaca",
+      "...Nube",
+      "...Mata"
+    ],
+    "respuestaCorrecta": "...Mula"
+  },
+  {
+    "id": "175",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La gaita 'La Grey Zuliana' es conocida como el himno de los gaiteros, pero su letra es fundamentalmente una...",
+    "opciones": [
+      "Protesta contra el gobierno y el abandono del Zulia",
+      "Canción de amor a la Virgen",
+      "Historia sobre el lago",
+      "Canción de fiesta"
+    ],
+    "respuestaCorrecta": "Protesta contra el gobierno y el abandono del Zulia"
+  },
+  {
+    "id": "176",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Cómo se llama la salsa verde que le ponemos a la hallaca, al bollo y a la empanada, hecha con cilantro y aguacate?",
+    "opciones": [
+      "Guasacaca",
+      "Mojito",
+      "Salsa de Ajo",
+      "Salsa Tártara"
+    ],
+    "respuestaCorrecta": "Guasacaca"
+  },
+  {
+    "id": "177",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Quién canta la versión más famosa de 'El Tamborilero' en Venezuela (Ropoponpon)?",
+    "opciones": [
+      "El 'Pavo' Frank (Voz Veis)",
+      "José Luis Rodríguez 'El Puma' o Lila Morillo",
+      "Salserín",
+      "Los Adolescentes"
+    ],
+    "respuestaCorrecta": "José Luis Rodríguez 'El Puma' o Lila Morillo"
+  },
+  {
+    "id": "178",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Historia",
+    "pregunta": "¿Cuándo se legalizó oficialmente el uso de la gaita en las misas católicas en Venezuela?",
+    "opciones": [
+      "Nunca se ha legalizado",
+      "En los años 60 tras el Concilio Vaticano II",
+      "En el siglo XIX",
+      "En el año 2000"
+    ],
+    "respuestaCorrecta": "En los años 60 tras el Concilio Vaticano II"
+  },
+  {
+    "id": "179",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Sigue la canción: 'Cantemos, cantemos, glorias al salvador...'",
+    "opciones": [
+      "...Feliz Año pa ti, Feliz Año pa ella",
+      "...Al niño que nace en el portal",
+      "...Adiós año viejo",
+      "...Que siga la fiesta"
+    ],
+    "respuestaCorrecta": "...Feliz Año pa ti, Feliz Año pa ella"
+  },
+  {
+    "id": "180",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Cuál es la clave para que la ensalada de gallina quede 'cuadradita' y perfecta?",
+    "opciones": [
+      "Picar la papa y la zanahoria del mismo tamaño chiquitico",
+      "Aplastar todo como un puré",
+      "Usar licuadora",
+      "Picar todo en tiras largas"
+    ],
+    "respuestaCorrecta": "Picar la papa y la zanahoria del mismo tamaño chiquitico"
+  },
+  {
+    "id": "181",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En la procesión de la Divina Pastora (que cierra la navidad en enero), ¿qué color predomina en el vestido de la virgen y en la gente?",
+    "opciones": [
+      "Blanco y Beige/Dorado",
+      "Rojo",
+      "Azul",
+      "Verde"
+    ],
+    "respuestaCorrecta": "Blanco y Beige/Dorado"
+  },
+  {
+    "id": "182",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Si alguien te dice '¡Dame mi aguinaldo!', ¿qué te está pidiendo?",
+    "opciones": [
+      "Que le cantes una canción",
+      "Plata o un regalo",
+      "Un beso",
+      "Una hallaca"
+    ],
+    "respuestaCorrecta": "Plata o un regalo"
+  },
+  {
+    "id": "183",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué canción famosa dice: 'Yo no olvido el año viejo, porque me ha dejao cosas muy buenas...'?",
+    "opciones": [
+      "El Año Viejo",
+      "Faltan Cinco Pa las Doce",
+      "Las Uvas",
+      "Año Nuevo Vida Nueva"
+    ],
+    "respuestaCorrecta": "El Año Viejo"
+  },
+  {
+    "id": "184",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "La Hallaca Caraqueña lleva almendras. ¿Dónde van las almendras tradicionalmente?",
+    "opciones": [
+      "Adornando por encima del guiso",
+      "Licuadas en la masa",
+      "Dentro de la aceituna",
+      "Molidas en el guiso"
+    ],
+    "respuestaCorrecta": "Adornando por encima del guiso"
+  },
+  {
+    "id": "185",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "General",
+    "pregunta": "¿Qué fecha cae el 'Día de Reyes'?",
+    "opciones": [
+      "6 de Enero",
+      "1 de Enero",
+      "25 de Diciembre",
+      "15 de Enero"
+    ],
+    "respuestaCorrecta": "6 de Enero"
+  },
+  {
+    "id": "186",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "General",
+    "pregunta": "En diciembre, cuando baja la temperatura en Caracas y pega el frío, la gente dice que 'bajó...'",
+    "opciones": [
+      "...El espíritu santo",
+      "...Pacheco",
+      "...Simón Bolívar",
+      "...El precio del dólar"
+    ],
+    "respuestaCorrecta": "...Pacheco"
+  },
+  {
+    "id": "187",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La gaita 'Sin Rencor' de Gran Coquivacoa es famosa porque casi nadie la baila, sino que la cantan a gritos. ¿Qué tipo de gaita es esa?",
+    "opciones": [
+      "Gaita Protesta",
+      "Gaita Romántica",
+      "Gaita Tamborera",
+      "Gaita Furrera"
+    ],
+    "respuestaCorrecta": "Gaita Romántica"
+  },
+  {
+    "id": "188",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "En la Paradura del Niño, antes de besar al Niño Jesús, los padrinos lo pasean por la casa en un pañuelo. ¿Cómo se llama el canto específico de ese momento?",
+    "opciones": [
+      "Versos del Paseo",
+      "La Serenata del Niño",
+      "El Alabado",
+      "El Canto de los Pastores"
+    ],
+    "respuestaCorrecta": "Versos del Paseo"
+  },
+  {
+    "id": "189",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Qué se usa para amarrar la hallaca y que no se le salga el relleno en la olla, chamo?",
+    "opciones": [
+      "Cinta adhesiva",
+      "Hilo Pabilo",
+      "Alambre dulce",
+      "Mecate"
+    ],
+    "respuestaCorrecta": "Hilo Pabilo"
+  },
+  {
+    "id": "190",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Completa la letra de 'Mi Burrito Sabanero': 'Si me ven, si me ven...'",
+    "opciones": [
+      "...voy comiendo pan de jamón",
+      "...voy camino de Belén",
+      "...dame un trago de ron",
+      "...ya se acerca el tren"
+    ],
+    "respuestaCorrecta": "...voy camino de Belén"
+  },
+  {
+    "id": "191",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "El 'Dulce de Cabello de Ángel' se hace con una variedad específica de zapallo o auyama. ¿Cuál es el nombre científico o común de esa verdura antes de ser dulce?",
+    "opciones": [
+      "Zapallo Victoria (Cucurbita ficifolia)",
+      "Auyama común",
+      "Chayota",
+      "Melón"
+    ],
+    "respuestaCorrecta": "Zapallo Victoria (Cucurbita ficifolia)"
+  },
+  {
+    "id": "192",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Cuando suenan los 'Tuki tuki tuki tuki...' en la canción, ¿a qué ritmo va el burrito?",
+    "opciones": [
+      "A paso lento",
+      "Trotando o apuradito",
+      "Volando",
+      "Nadando"
+    ],
+    "respuestaCorrecta": "Trotando o apuradito"
+  },
+  {
+    "id": "193",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Folclore Regional",
+    "pregunta": "Los 'Locos de La Vela' en el estado Falcón son famosos por sus trajes coloridos. ¿Qué día salen a desfilar?",
+    "opciones": [
+      "28 de Diciembre (Día de los Inocentes)",
+      "25 de Diciembre",
+      "1 de Enero",
+      "6 de Enero"
+    ],
+    "respuestaCorrecta": "28 de Diciembre (Día de los Inocentes)"
+  },
+  {
+    "id": "194",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Historia",
+    "pregunta": "¿Quién se dice que trajo la tradición del Arbolito de Navidad a Venezuela por primera vez en el siglo XIX?",
+    "opciones": [
+      "Simón Bolívar",
+      "Una familia alemana (los Möller o similar) en Caracas",
+      "Los españoles en la colonia",
+      "Los americanos del petróleo"
+    ],
+    "respuestaCorrecta": "Una familia alemana (los Möller o similar) en Caracas"
+  },
+  {
+    "id": "195",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Si a las 12 de la noche sales a dar una vuelta a la manzana con las maletas, ¿qué no se te puede olvidar pa' poder entrar de nuevo a la casa?",
+    "opciones": [
+      "Las llaves",
+      "El pasaporte",
+      "La cédula",
+      "La hallaca"
+    ],
+    "respuestaCorrecta": "Las llaves"
+  },
+  {
+    "id": "196",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "Para que el Pernil agarre gusto de verdad, ¿cuánto tiempo mínimo deberías dejarlo marinando antes de meterlo al horno?",
+    "opciones": [
+      "10 minutos",
+      "De un día para otro (24 horas)",
+      "1 hora",
+      "No se marina, se aliña y ya"
+    ],
+    "respuestaCorrecta": "De un día para otro (24 horas)"
+  },
+  {
+    "id": "197",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "El 'Furruco' es un instrumento de fricción. ¿De qué animal era hecha tradicionalmente la membrana de cuero del furruco?",
+    "opciones": [
+      "De vejiga de toro o cuero de chivo curado",
+      "De piel de conejo",
+      "De plástico",
+      "De tela de saco"
+    ],
+    "respuestaCorrecta": "De vejiga de toro o cuero de chivo curado"
+  },
+  {
+    "id": "198",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué instrumento es el 'Cuatro' venezolano? (Pregunta regalada pa' que no pierdas la racha).",
+    "opciones": [
+      "Una guitarra pequeña de 4 cuerdas",
+      "Un tambor cuadrado",
+      "Una flauta de 4 huecos",
+      "Un piano chiquito"
+    ],
+    "respuestaCorrecta": "Una guitarra pequeña de 4 cuerdas"
+  },
+  {
+    "id": "199",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "El 28 de diciembre se hacen bromas pesadas. En los periódicos de antes, ¿qué solían publicar ese día?",
+    "opciones": [
+      "Noticias falsas o graciosas (La Inocentada)",
+      "El horóscopo del año que viene",
+      "Fotos de Santa Claus",
+      "Recetas de hallacas"
+    ],
+    "respuestaCorrecta": "Noticias falsas o graciosas (La Inocentada)"
+  },
+  {
+    "id": "200",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En el Baile del Mono de Caicara, la gente grita una frase para animar a la cola humana. ¿Qué gritan?",
+    "opciones": [
+      "¡Dale que no viene carro!",
+      "¡Mono no, Mono sí!",
+      "¡Aquí nadie se cansa!",
+      "¡Caicara campeona!"
+    ],
+    "respuestaCorrecta": "¡Mono no, Mono sí!"
+  },
+  {
+    "id": "201",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "General",
+    "pregunta": "Si un vecino te trae un plato con hallacas y pan de jamón de regalo, ¿qué se supone que debes hacer tú después?",
+    "opciones": [
+      "Devolverle el plato sucio",
+      "Devolverle el plato con algo que tú cocinaste (nunca vacío)",
+      "Quedarte con el plato",
+      "Vender el plato"
+    ],
+    "respuestaCorrecta": "Devolverle el plato con algo que tú cocinaste (nunca vacío)"
+  },
+  {
+    "id": "202",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Hay una gaita de Cardenales del Éxito que habla de la devoción a la Chinita. Se llama 'Virgen de Chiquinquirá'. ¿Qué le piden en el coro?",
+    "opciones": [
+      "Patrona de los Zulianos, danos la libertad",
+      "Virgen de Chiquinquirá, patrona de los zulianos (la bendición)",
+      "Llévanos al cielo",
+      "Danos gaita todo el año"
+    ],
+    "respuestaCorrecta": "Virgen de Chiquinquirá, patrona de los zulianos (la bendición)"
+  },
+  {
+    "id": "203",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "La 'Torta de Reyes' es un postre que se come el 6 de enero, herencia española. ¿Qué se esconde adentro de la masa?",
+    "opciones": [
+      "Una moneda de oro",
+      "Un frijol o una figurita del Niño Jesús/Rey",
+      "Un anillo de bodas",
+      "Un diente de ajo"
+    ],
+    "respuestaCorrecta": "Un frijol o una figurita del Niño Jesús/Rey"
+  },
+  {
+    "id": "204",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Qué es el 'Jamón Planchado'? ¿Por qué se llama así?",
+    "opciones": [
+      "Porque lo aplastan con una plancha de ropa",
+      "Porque se le pasaba una plancha caliente de cocina para quemar el azúcar/glaseado",
+      "Porque viene plano de fábrica",
+      "Porque se cocina en una plancha de asar arepas"
+    ],
+    "respuestaCorrecta": "Porque se le pasaba una plancha caliente de cocina para quemar el azúcar/glaseado"
+  },
+  {
+    "id": "205",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Cuál es la agrupación que canta 'Casta Paloma', una gaita con un ritmo muy particular y rápido?",
+    "opciones": [
+      "Rincón Morales",
+      "Cardenales del Éxito",
+      "Maracaibo 15",
+      "Barrio Obrero de Cabimas"
+    ],
+    "respuestaCorrecta": "Rincón Morales"
+  },
+  {
+    "id": "206",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "El 'Entierro de la Sardina' marca el fin de algo, pero a veces se confunde con navidad. ¿Qué marca realmente?",
+    "opciones": [
+      "El fin de la Navidad y el inicio de la Cuaresma (Carnaval)",
+      "El fin del año viejo",
+      "El inicio de las gaitas",
+      "El día de los inocentes"
+    ],
+    "respuestaCorrecta": "El fin de la Navidad y el inicio de la Cuaresma (Carnaval)"
+  },
+  {
+    "id": "207",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué le pasó al 'Negrito Fullero' según la canción?",
+    "opciones": [
+      "Se gastó toda la plata bebiendo",
+      "Se andaba de parranda y mujeriego",
+      "Se perdió en Caracas",
+      "Se ganó la lotería"
+    ],
+    "respuestaCorrecta": "Se andaba de parranda y mujeriego"
+  },
+  {
+    "id": "208",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "Para pintar la masa de la hallaca de amarillo, usamos aceite onotado. ¿De dónde sale el onoto?",
+    "opciones": [
+      "De unas semillitas rojas",
+      "De un polvo químico",
+      "De la cúrcuma",
+      "Del azafrán"
+    ],
+    "respuestaCorrecta": "De unas semillitas rojas"
+  },
+  {
+    "id": "209",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La 'Parranda Central' (Aragua/Carabobo) usa un instrumento que no se ve mucho en la gaita zuliana. ¿Cuál es?",
+    "opciones": [
+      "El Violín",
+      "La Charneca (o Charrasca de Cacho)",
+      "El Acordeón",
+      "La Tuba"
+    ],
+    "respuestaCorrecta": "El Violín"
+  },
+  {
+    "id": "210",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "En el pesebre, ¿qué figura NO se pone hasta que sean las 12 de la noche del 24?",
+    "opciones": [
+      "La mula y el buey",
+      "El Niño Jesús",
+      "San José",
+      "La Virgen María"
+    ],
+    "respuestaCorrecta": "El Niño Jesús"
+  },
+  {
+    "id": "211",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "El 'Pernil' se hornea por muchas horas. ¿Cuál es el truco para saber si ya está listo sin picarlo?",
+    "opciones": [
+      "Si huele a quemado",
+      "Si el hueso se despega fácil de la carne",
+      "Si flota en el jugo",
+      "Si cambia de color a azul"
+    ],
+    "respuestaCorrecta": "Si el hueso se despega fácil de la carne"
+  },
+  {
+    "id": "212",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Historia",
+    "pregunta": "El maestro Billo Frómeta compuso 'Cantares de Navidad'. Billo no nació en Venezuela, aunque era más venezolano que la arepa. ¿De dónde era?",
+    "opciones": [
+      "República Dominicana",
+      "Cuba",
+      "Puerto Rico",
+      "Colombia"
+    ],
+    "respuestaCorrecta": "República Dominicana"
+  },
+  {
+    "id": "213",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Termina la frase: 'Año nuevo, vida...'",
+    "opciones": [
+      "...buena",
+      "...nueva",
+      "...larga",
+      "...cara"
+    ],
+    "respuestaCorrecta": "...nueva"
+  },
+  {
+    "id": "214",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "El 21 de diciembre mucha gente abre las puertas y ventanas de la casa. ¿Para qué?",
+    "opciones": [
+      "Para que entre el Espíritu de la Navidad",
+      "Para que salga el olor a pintura",
+      "Para ver los fuegos artificiales",
+      "Para que entre el fresco"
+    ],
+    "respuestaCorrecta": "Para que entre el Espíritu de la Navidad"
+  },
+  {
+    "id": "215",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En los pueblos de la costa, las 'Diversiones Pascuales' incluyen obras de teatro callejero. ¿Qué personajes suelen aparecer?",
+    "opciones": [
+      "Animales marinos y fantasmas (La Llorona)",
+      "Solo pastores",
+      "Soldados romanos",
+      "Extraterrestres"
+    ],
+    "respuestaCorrecta": "Animales marinos y fantasmas (La Llorona)"
+  },
+  {
+    "id": "216",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "La masa de la hallaca es de maíz, igual que la arepa. Pero, ¿qué caldo se usa para amasarla y que sepa a gloria?",
+    "opciones": [
+      "Agua del chorro",
+      "Caldo de Gallina o del guiso",
+      "Leche",
+      "Jugo de naranja"
+    ],
+    "respuestaCorrecta": "Caldo de Gallina o del guiso"
+  },
+  {
+    "id": "217",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué instrumento lleva el ritmo 'trancao' de la gaita zuliana y hace que uno mueva los pies?",
+    "opciones": [
+      "La Tambora",
+      "El Piano",
+      "La Trompeta",
+      "El Saxofón"
+    ],
+    "respuestaCorrecta": "La Tambora"
+  },
+  {
+    "id": "218",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "El 'Licor de Ponsigué' es tradicional en oriente y navidad. ¿En qué licor se maceran las frutas de ponsigué?",
+    "opciones": [
+      "Ron blanco o carta roja",
+      "Aguardiente claro (Caña clara)",
+      "Whisky",
+      "Cocuy de Penca"
+    ],
+    "respuestaCorrecta": "Ron blanco o carta roja"
+  },
+  {
+    "id": "219",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "General",
+    "pregunta": "En las cuñas de navidad de Venevisión de los 90, ¿qué frase salía siempre al final?",
+    "opciones": [
+      "Venevisión, siempre contigo",
+      "Mucho más que ver",
+      "Feliz Navidad Venezuela",
+      "Ya viene el lunes"
+    ],
+    "respuestaCorrecta": "Venevisión, siempre contigo"
+  },
+  {
+    "id": "220",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Si te dicen que vas a 'La Misa del Gallo', ¿a qué hora tienes que estar en la iglesia?",
+    "opciones": [
+      "A medianoche del 24 de diciembre",
+      "A las 6 de la mañana",
+      "A las 12 del mediodía",
+      "A las 6 de la tarde"
+    ],
+    "respuestaCorrecta": "A medianoche del 24 de diciembre"
+  },
+  {
+    "id": "221",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "En el ritmo de 'Golpe Tocuyano' (Lara) que se toca en navidad, ¿qué instrumento de percusión sustituye a la tambora zuliana?",
+    "opciones": [
+      "El Tamunangue (Tambor)",
+      "Las Maracas solamente",
+      "El Pandero",
+      "La Caja"
+    ],
+    "respuestaCorrecta": "El Tamunangue (Tambor)"
+  },
+  {
+    "id": "222",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué grita uno cuando termina una gaita buena?",
+    "opciones": [
+      "¡Otra, otra!",
+      "¡Gaita, gaita!",
+      "¡Bravo!",
+      "¡Parranda!"
+    ],
+    "respuestaCorrecta": "¡Gaita, gaita!"
+  },
+  {
+    "id": "223",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "Hay una galleta navideña que viene en lata azul y que después las abuelas usan para guardar hilos. ¿Cuál es?",
+    "opciones": [
+      "Galletas María",
+      "Galletas Danesas (de Mantequilla)",
+      "Galletas Oreo",
+      "Galletas de Soda"
+    ],
+    "respuestaCorrecta": "Galletas Danesas (de Mantequilla)"
+  },
+  {
+    "id": "224",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Historia",
+    "pregunta": "En 1965 se grabó una gaita icónica llamada 'La Cabra'. ¿De qué agrupación era originalmente antes de ser versionada mil veces?",
+    "opciones": [
+      "Barrio Obrero",
+      "Saladilllo",
+      "Cardenales del Éxito",
+      "Estrellas del Zulia"
+    ],
+    "respuestaCorrecta": "Saladilllo"
+  },
+  {
+    "id": "225",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "En el villancico 'Campana sobre Campana', ¿quién se asoma a la ventana?",
+    "opciones": [
+      "Belén",
+      "El Niño Dios",
+      "Los pastores",
+      "La abuela"
+    ],
+    "respuestaCorrecta": "Belén"
+  },
+  {
+    "id": "226",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Cuál es la diferencia visual más obvia entre un 'Bollo' y una 'Hallaca', pana?",
+    "opciones": [
+      "El Bollo es cuadrado y la Hallaca redonda",
+      "El Bollo no lleva hoja",
+      "La Hallaca es cuadrada/rectangular y el Bollo tiene forma de tamalito o cilindro",
+      "El Bollo es de color azul"
+    ],
+    "respuestaCorrecta": "La Hallaca es cuadrada/rectangular y el Bollo tiene forma de tamalito o cilindro"
+  },
+  {
+    "id": "227",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La agrupación 'Un Solo Pueblo' tiene una canción famosísima que dice 'Viva Venezuela...'. ¿Cómo sigue el coro?",
+    "opciones": [
+      "...mi patria querida",
+      "...tierra de gracia",
+      "...mi tierra amada",
+      "...país de campeones"
+    ],
+    "respuestaCorrecta": "...mi patria querida"
+  },
+  {
+    "id": "228",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "En el estado Bolívar, específicamente en Angostura, a la hallaca le ponen un ingrediente seco muy particular que no se ve en otro lado. ¿Cuál es?",
+    "opciones": [
+      "Merey (Anacardo)",
+      "Pistacho",
+      "Coco rallado",
+      "Almendras fileteadas"
+    ],
+    "respuestaCorrecta": "Merey (Anacardo)"
+  },
+  {
+    "id": "229",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "General",
+    "pregunta": "Si un chamo se porta mal todo el año, ¿qué se supone que le trae el Niño Jesús en vez de juguetes? (Según la amenaza de la mamá).",
+    "opciones": [
+      "Carbón",
+      "Una piedra",
+      "Medias",
+      "Libros de matemática"
+    ],
+    "respuestaCorrecta": "Carbón"
+  },
+  {
+    "id": "230",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Hay una tradición de 'pararse y sentarse' repetidamente con las 12 campanadas. ¿Para qué hace la gente esa loquera?",
+    "opciones": [
+      "Para rebajar la cena",
+      "Para casarse el año que viene",
+      "Para conseguir trabajo",
+      "Para que no les duela la espalda"
+    ],
+    "respuestaCorrecta": "Para casarse el año que viene"
+  },
+  {
+    "id": "231",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Antes de que la Gaita fuera comercial, se tocaba en los patios de las casas. ¿Cómo se llamaba esa reunión espontánea e informal?",
+    "opciones": [
+      "El Zaguán",
+      "La Grey",
+      "La Encerrona",
+      "El Bochinche"
+    ],
+    "respuestaCorrecta": "La Encerrona"
+  },
+  {
+    "id": "232",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "El Pan de Jamón se corta en rebanadas. ¿Qué forma tienen esas rebanadas, chamo?",
+    "opciones": [
+      "Cuadradas",
+      "Como un espiral o caracol",
+      "Triangulares",
+      "Como una arepa"
+    ],
+    "respuestaCorrecta": "Como un espiral o caracol"
+  },
+  {
+    "id": "233",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué famoso salsero venezolano grabó un disco entero de navidad llamado 'Así es la Navidad' con canciones clásicas?",
+    "opciones": [
+      "Oscar D'León",
+      "Porfi Baloa",
+      "Servando y Florentino",
+      "Dimensión Latina"
+    ],
+    "respuestaCorrecta": "Oscar D'León"
+  },
+  {
+    "id": "234",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En los Andes, los 'Giros de San Benito' realizan una danza trenzando cintas. ¿De qué color son tradicionalmente las cintas?",
+    "opciones": [
+      "Solo blancas",
+      "De los colores de la bandera de Venezuela",
+      "Negras y moradas",
+      "Multicolores brillantes"
+    ],
+    "respuestaCorrecta": "Multicolores brillantes"
+  },
+  {
+    "id": "235",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "El 28 de diciembre, si alguien te pide plata prestada, ¿qué le tienes que decir?",
+    "opciones": [
+      "¡Claro, toma!",
+      "¡Caíste por inocente!",
+      "Mañana te pago",
+      "No tengo sencillo"
+    ],
+    "respuestaCorrecta": "¡Caíste por inocente!"
+  },
+  {
+    "id": "236",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "Hay una disputa eterna sobre la hallaca. ¿La papa va cruda o cocida cuando se pone de adorno antes de cerrar?",
+    "opciones": [
+      "Cruda (se cocina hirviendo la hallaca)",
+      "Cocida pero firme (sancochada)",
+      "Frita",
+      "Puré"
+    ],
+    "respuestaCorrecta": "Cocida pero firme (sancochada)"
+  },
+  {
+    "id": "237",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "El 'Golpe Larense' se toca mucho en diciembre. ¿Cuál es el instrumento de percusión principal que parece un tambor de mano pero se toca con palitos?",
+    "opciones": [
+      "El Pandero",
+      "El Cumaco",
+      "El Tamunangue",
+      "La Caja"
+    ],
+    "respuestaCorrecta": "El Pandero"
+  },
+  {
+    "id": "238",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Sigue la letra: 'Tucusito, tucusito, llévame a cortar las flores...'",
+    "opciones": [
+      "...pa' mi novia",
+      "...pa' adornar el altar",
+      "...de tu jardín",
+      "...del campo"
+    ],
+    "respuestaCorrecta": "...pa' adornar el altar"
+  },
+  {
+    "id": "239",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Si barres la casa el 31 de diciembre, ¿hacia dónde tienes que barrer la basura?",
+    "opciones": [
+      "Hacia la cocina",
+      "Hacia debajo de la alfombra",
+      "Hacia la puerta de la calle (pa' fuera)",
+      "Hacia los cuartos"
+    ],
+    "respuestaCorrecta": "Hacia la puerta de la calle (pa' fuera)"
+  },
+  {
+    "id": "240",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "La 'Carne Mechada' nunca va en el plato navideño, pero en algunas zonas de los Llanos hacen una hallaca con un relleno parecido al pisillo. ¿De qué animal es?",
+    "opciones": [
+      "De Chigüire",
+      "De Baba (Caimán)",
+      "De Venado",
+      "De Conejo"
+    ],
+    "respuestaCorrecta": "De Chigüire"
+  },
+  {
+    "id": "241",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "General",
+    "pregunta": "Cuando estás armando el arbolito, ¿qué es lo último que se pone en la punta?",
+    "opciones": [
+      "Un zapato",
+      "La Estrella o el Ángel",
+      "Una bambalina roja",
+      "El enchufe"
+    ],
+    "respuestaCorrecta": "La Estrella o el Ángel"
+  },
+  {
+    "id": "242",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La canción 'El Tamborilero' tiene un sonido onomatopéyico. ¿Cómo hace el tambor?",
+    "opciones": [
+      "Tucun tucun tucun",
+      "Ropoponpon",
+      "Tras tras tras",
+      "Bum bum bum"
+    ],
+    "respuestaCorrecta": "Ropoponpon"
+  },
+  {
+    "id": "243",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Historia",
+    "pregunta": "¿Qué presidente de Venezuela decretó en los años 50 el adelanto de la Navidad al 1 de noviembre (algo que se repite ahora)?",
+    "opciones": [
+      "Rómulo Betancourt",
+      "Marcos Pérez Jiménez",
+      "Carlos Andrés Pérez",
+      "Rafael Caldera"
+    ],
+    "respuestaCorrecta": "Marcos Pérez Jiménez"
+  },
+  {
+    "id": "244",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Cuál es la fruta seca pequeña y arrugada que le da el toque dulce a la hallaca?",
+    "opciones": [
+      "La Ciruela Pasa",
+      "La Uva Pasa (Pasitas)",
+      "El Higo",
+      "El Dátil"
+    ],
+    "respuestaCorrecta": "La Uva Pasa (Pasitas)"
+  },
+  {
+    "id": "245",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué canción dice 'Llevo mi sonrisa y mi rostro alegre, la paz y la dicha...'?",
+    "opciones": [
+      "La Jornada (Din Din Din)",
+      "De Contento",
+      "Sublime Ideal",
+      "Niño Lindo"
+    ],
+    "respuestaCorrecta": "De Contento"
+  },
+  {
+    "id": "246",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "En la Isla de Margarita, es común que el guiso de la hallaca tenga un toque diferente en el sofrito. ¿Qué ají usan que es típico de allá?",
+    "opciones": [
+      "Ají Chombo",
+      "Ají Margariteño (Dulce)",
+      "Ají Picante",
+      "Pimentón importado"
+    ],
+    "respuestaCorrecta": "Ají Margariteño (Dulce)"
+  },
+  {
+    "id": "247",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué instrumento se guinda al cuello el gaitero y se toca con dos palos?",
+    "opciones": [
+      "El Furruco",
+      "La Tambora",
+      "El Cuatro",
+      "La Maraca"
+    ],
+    "respuestaCorrecta": "La Tambora"
+  },
+  {
+    "id": "248",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "En las oficinas venezolanas, antes del 24, siempre se hace una fiesta para compartir. ¿Cómo le dicen a esa fiesta?",
+    "opciones": [
+      "El Bonche",
+      "El Agasajo o Fiesta de Fin de Año",
+      "La Reunión",
+      "El Matiné"
+    ],
+    "respuestaCorrecta": "El Agasajo o Fiesta de Fin de Año"
+  },
+  {
+    "id": "249",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "Los 'Pastores de San Joaquín' usan un sombrero muy particular decorado. ¿De qué material es la decoración principal del sombrero?",
+    "opciones": [
+      "De plumas de guacamaya",
+      "De flores de papel crepé",
+      "De espejos y cintas",
+      "De frutas plásticas"
+    ],
+    "respuestaCorrecta": "De flores de papel crepé"
+  },
+  {
+    "id": "250",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "Si no te gusta el Pan de Jamón porque eres vegetariano, ¿qué le quitas?",
+    "opciones": [
+      "La masa",
+      "Las pasas",
+      "El jamón y la tocineta",
+      "Las aceitunas"
+    ],
+    "respuestaCorrecta": "El jamón y la tocineta"
+  },
+  {
+    "id": "251",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué grupo canta 'Viejo Año' ('Qué te pasa viejo año, qué te pasa...')?",
+    "opciones": [
+      "Guaco",
+      "Maracaibo 15",
+      "Gran Coquivacoa",
+      "Rincón Morales"
+    ],
+    "respuestaCorrecta": "Maracaibo 15"
+  },
+  {
+    "id": "252",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Historia",
+    "pregunta": "¿En qué año se fundó la agrupación 'Cardenales del Éxito', una de las instituciones gaiteras más viejas?",
+    "opciones": [
+      "1940",
+      "1962",
+      "1980",
+      "1950"
+    ],
+    "respuestaCorrecta": "1962"
+  },
+  {
+    "id": "253",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "¿Cómo se llama la misa que se hace el 31 de diciembre o 1 de enero para dar gracias?",
+    "opciones": [
+      "Misa de Gallo",
+      "Misa de Año Nuevo (Te Deum)",
+      "Misa de Ramos",
+      "Misa de San Benito"
+    ],
+    "respuestaCorrecta": "Misa de Año Nuevo (Te Deum)"
+  },
+  {
+    "id": "254",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "El 'Dulce de Lechosa' se sirve en almíbar. ¿Qué especia se le pone (que parece un clavito) para darle olor?",
+    "opciones": [
+      "Canela",
+      "Clavos de Olor (Especia)",
+      "Pimienta Guayabita",
+      "Anís Estrellado"
+    ],
+    "respuestaCorrecta": "Clavos de Olor (Especia)"
+  },
+  {
+    "id": "255",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La 'Gaita de Santa Lucía' tiene una diferencia fundamental con la gaita de furro tradicional en cuanto a los instrumentos. ¿Qué instrumento NO lleva la de Santa Lucía?",
+    "opciones": [
+      "No lleva Furruco",
+      "No lleva Cuatro",
+      "No lleva Charrasca",
+      "No lleva Tambora"
+    ],
+    "respuestaCorrecta": "No lleva Furruco"
+  },
+  {
+    "id": "256",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Completa el verso: 'Tun tun, ¿quién es? Gente de paz...'",
+    "opciones": [
+      "...ábrenos la puerta que ya es navidad",
+      "...vengo a cobrar la renta",
+      "...dame una hallaca",
+      "...que venimos a cantar"
+    ],
+    "respuestaCorrecta": "...ábrenos la puerta que ya es navidad"
+  },
+  {
+    "id": "257",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Cuál es la bebida que sustituye al Ponche Crema en los Andes, hecha con huevos y miche?",
+    "opciones": [
+      "Mistela",
+      "Leche de Burra",
+      "Calentadito",
+      "Chicha Andina"
+    ],
+    "respuestaCorrecta": "Leche de Burra"
+  },
+  {
+    "id": "258",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "En la tradición venezolana del pesebre, ¿qué representan las casitas de cartón o corcho que se ponen en las montañas?",
+    "opciones": [
+      "El pueblo de Belén",
+      "Las casas de los pastores",
+      "Jerusalén",
+      "Caracas vieja"
+    ],
+    "respuestaCorrecta": "El pueblo de Belén"
+  },
+  {
+    "id": "259",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "El Panettone original es de frutas, pero en Venezuela nos encanta el que viene relleno de...",
+    "opciones": [
+      "Chocolate (Chocottone)",
+      "Queso crema",
+      "Arequipe",
+      "Guayaba"
+    ],
+    "respuestaCorrecta": "Chocolate (Chocottone)"
+  },
+  {
+    "id": "260",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué canción dice 'Esta bella noche, vamos a cenar, un plato de hallaca...'?",
+    "opciones": [
+      "Corre Caballito",
+      "Esta Bella Noche",
+      "Noche de Paz",
+      "El Niño Criollo"
+    ],
+    "respuestaCorrecta": "Esta Bella Noche"
+  },
+  {
+    "id": "261",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "La receta del 'Pan de Jamón' original de Ramella (1905) se vendía muy barata. ¿Sabes por qué le decían 'Pan de Jamón'?",
+    "opciones": [
+      "Porque usaba los recortes de jamón que sobraban del año (Plan de aprovechamiento)",
+      "Porque era puro jamón sin masa",
+      "Porque el panadero se llamaba Jamón",
+      "Porque era un lujo"
+    ],
+    "respuestaCorrecta": "Porque usaba los recortes de jamón que sobraban del año (Plan de aprovechamiento)"
+  },
+  {
+    "id": "262",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "General",
+    "pregunta": "Si vas a 'dar el Feliz Año', ¿qué es lo más importante que tienes que hacer físicamente?",
+    "opciones": [
+      "Dar un abrazo fuerte",
+      "Chocar los puños",
+      "Dar la mano",
+      "Hacer una reverencia"
+    ],
+    "respuestaCorrecta": "Dar un abrazo fuerte"
+  },
+  {
+    "id": "263",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Cómo se llama el cantante de 'La Grey Zuliana', conocido como 'El Monumental'?",
+    "opciones": [
+      "Ricardo Aguirre",
+      "Simón Díaz",
+      "Ali Primera",
+      "Gualberto Ibarreto"
+    ],
+    "respuestaCorrecta": "Ricardo Aguirre"
+  },
+  {
+    "id": "264",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "El 'Entierro de la Sardina' se celebra en Naiguatá. Aunque es carnaval, su preparación empieza al final de Navidad. ¿Qué representa la Sardina?",
+    "opciones": [
+      "El pasado y los pecados que se deben enterrar",
+      "La comida que sobró",
+      "Un pescado sagrado",
+      "La llegada de la primavera"
+    ],
+    "respuestaCorrecta": "El pasado y los pecados que se deben enterrar"
+  },
+  {
+    "id": "265",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Los Reyes Magos le trajeron oro, incienso y mirra al Niño Jesús. En Venezuela, los chamos le dejan algo a los camellos. ¿Qué es?",
+    "opciones": [
+      "Pasto y agua (o grama)",
+      "Leche y galletas",
+      "Hallacas",
+      "Refresco"
+    ],
+    "respuestaCorrecta": "Pasto y agua (o grama)"
+  },
+  {
+    "id": "266",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Qué es lo que no puede faltar en la mesa para untarle a la arepa en el desayuno del 25 de diciembre?",
+    "opciones": [
+      "Mantequilla y queso",
+      "Pernil recalentado",
+      "Salsa de tomate",
+      "Mermelada"
+    ],
+    "respuestaCorrecta": "Pernil recalentado"
+  },
+  {
+    "id": "267",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Hay una parranda de Un Solo Pueblo que nombra a una mujer. 'María... María...'. ¿Cómo se llama la canción?",
+    "opciones": [
+      "María Paleta",
+      "María Moñitos",
+      "La Matica",
+      "Woman del Callao"
+    ],
+    "respuestaCorrecta": "María Paleta"
+  },
+  {
+    "id": "268",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "En la tradición de las 'Cabañuelas' (que algunos viejitos hacen en enero), ¿qué es lo que observan los primeros 12 días del año?",
+    "opciones": [
+      "El clima de cada día para predecir el clima de los 12 meses",
+      "El precio del dólar",
+      "El comportamiento de los pájaros",
+      "La marea"
+    ],
+    "respuestaCorrecta": "El clima de cada día para predecir el clima de los 12 meses"
+  },
+  {
+    "id": "269",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué dice el coro de la canción 'Venga un Abrazo'?",
+    "opciones": [
+      "Venga un abrazo que ya es navidad",
+      "Venga un abrazo de año nuevo",
+      "Venga un abrazo que quiero bailar",
+      "Dame un abrazo pues"
+    ],
+    "respuestaCorrecta": "Venga un abrazo que ya es navidad"
+  },
+  {
+    "id": "270",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "El 'Limonsón' es una fruta cítrica gigante. ¿En qué estado se hace tradicionalmente el dulce de limonsón en almíbar?",
+    "opciones": [
+      "Carabobo (Valencia)",
+      "Zulia",
+      "Mérida",
+      "Nueva Esparta"
+    ],
+    "respuestaCorrecta": "Carabobo (Valencia)"
+  },
+  {
+    "id": "271",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La gaita 'La Botellita' de Cardenales del Éxito es famosa. ¿A qué 'botellita' se refieren en la letra con doble sentido?",
+    "opciones": [
+      "A una botella de ron",
+      "A una mujer chiquita y de buenas curvas",
+      "A una medicina",
+      "A un perfume"
+    ],
+    "respuestaCorrecta": "A una mujer chiquita y de buenas curvas"
+  },
+  {
+    "id": "272",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Si te pones la ropa interior al revés el 31 de diciembre, ¿qué se supone que pasa?",
+    "opciones": [
+      "Que tendrás mucha ropa nueva",
+      "Que alejas la mala suerte",
+      "Que te la pusiste mal por borracho",
+      "Que vas a viajar"
+    ],
+    "respuestaCorrecta": "Que tendrás mucha ropa nueva"
+  },
+  {
+    "id": "273",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "El 'Queso de Bola' (Edam) rojo relleno es un plato de lujo en la mesa zuliana. ¿De qué se rellena tradicionalmente?",
+    "opciones": [
+      "De guiso de pollo o carne con pasas y aceitunas",
+      "De puro jamón",
+      "De pasta",
+      "De ensalada"
+    ],
+    "respuestaCorrecta": "De guiso de pollo o carne con pasas y aceitunas"
+  },
+  {
+    "id": "274",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En la 'Paradura del Niño', a veces los padrinos 'roban' al niño. ¿Qué tienen que pagar los dueños de la casa para recuperarlo?",
+    "opciones": [
+      "Una multa en dólares",
+      "Una fiesta con comida, bebida y música",
+      "Unos rezos",
+      "No pagan nada"
+    ],
+    "respuestaCorrecta": "Una fiesta con comida, bebida y música"
+  },
+  {
+    "id": "275",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué agrupación infantil de los 90 cantaba 'Con la mano en el moño, con la mano en la cintura...' en navidad?",
+    "opciones": [
+      "Los Mini Pops",
+      "Salserín",
+      "Tigritos",
+      "Payasitas Nifu Nifa"
+    ],
+    "respuestaCorrecta": "Los Mini Pops"
+  },
+  {
+    "id": "276",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Cómo se llama el instrumento de percusión indígena que se usa en las parrandas de Aragua y Carabobo (no es el tambor)?",
+    "opciones": [
+      "Las Maracas de Capachos",
+      "El Culo e' Puya",
+      "La Curbata",
+      "El Botuto"
+    ],
+    "respuestaCorrecta": "Las Maracas de Capachos"
+  },
+  {
+    "id": "277",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "La 'Sopa de Rabo' o 'Sancocho' del 25 de diciembre o 1 de enero se le conoce popularmente como...",
+    "opciones": [
+      "El Levanta Muertos",
+      "La Cruzada",
+      "El Hervido",
+      "La Bomba"
+    ],
+    "respuestaCorrecta": "El Levanta Muertos"
+  },
+  {
+    "id": "278",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "General",
+    "pregunta": "¿Qué canal de televisión hacía la 'Cuña de Navidad' más famosa y esperada por todos los venezolanos?",
+    "opciones": [
+      "RCTV",
+      "Venevisión",
+      "Televen",
+      "VTV"
+    ],
+    "respuestaCorrecta": "Venevisión"
+  },
+  {
+    "id": "279",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Si pones un vaso de agua detrás de la puerta el 31 de diciembre y lo botas a la calle a las 12, ¿qué estás botando?",
+    "opciones": [
+      "El agua sucia",
+      "Las lágrimas y tristezas del año viejo",
+      "A los malos vecinos",
+      "El calor"
+    ],
+    "respuestaCorrecta": "Las lágrimas y tristezas del año viejo"
+  },
+  {
+    "id": "280",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "En la gaita 'Aquel Zuliano', ¿a quién le canta Ricardo Aguirre con tanta nostalgia?",
+    "opciones": [
+      "A Maracaibo como ciudad cambiante",
+      "A su papá",
+      "A la Virgen",
+      "Al lago contaminado"
+    ],
+    "respuestaCorrecta": "A Maracaibo como ciudad cambiante"
+  },
+  {
+    "id": "281",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Cuál es el postre que se hace con papaya verde?",
+    "opciones": [
+      "Dulce de Lechoza",
+      "Mermelada de Fresa",
+      "Bocadillo",
+      "Quesillo"
+    ],
+    "respuestaCorrecta": "Dulce de Lechoza"
+  },
+  {
+    "id": "282",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué canción dice: 'Yo te daré, te daré niña hermosa, te daré una cosa que empieza por C...'?",
+    "opciones": [
+      "Casta Paloma",
+      "Una Casa",
+      "Caramelo",
+      "Corazón"
+    ],
+    "respuestaCorrecta": "Una Casa"
+  },
+  {
+    "id": "283",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Historia",
+    "pregunta": "¿Qué día se fundó la ciudad de Caracas? (Pregunta trampa: no es en navidad, pero el 25 de julio. Sin embargo, ¿qué terremoto famoso ocurrió en año nuevo o cerca?)",
+    "opciones": [
+      "El Terremoto de 1812 (Jueves Santo)",
+      "El Terremoto de 1900 (Octubre)",
+      "No hay terremoto famoso de año nuevo, es mito",
+      "El Terremoto de 1641 (San Bernabé)"
+    ],
+    "respuestaCorrecta": "No hay terremoto famoso de año nuevo, es mito"
+  },
+  {
+    "id": "284",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Si en la cena de navidad alguien dice 'Pásame el casabe', ¿seguramente de qué parte de Venezuela es?",
+    "opciones": [
+      "De Oriente (Anzoátegui/Sucre)",
+      "De los Andes",
+      "Del Zulia",
+      "De Caracas"
+    ],
+    "respuestaCorrecta": "De Oriente (Anzoátegui/Sucre)"
+  },
+  {
+    "id": "285",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "El 'Ponche Crema' casero a veces se hace con un polvo de postre instantáneo para que espese rápido. ¿Cuál es?",
+    "opciones": [
+      "Gelatina sin sabor",
+      "Polvo para Flan o Pudín de Vainilla",
+      "Harina Pan",
+      "Maicena"
+    ],
+    "respuestaCorrecta": "Polvo para Flan o Pudín de Vainilla"
+  },
+  {
+    "id": "286",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En los pueblos de la costa de Aragua (Cata, Cuyagua), los niños se disfrazan de 'Pastores' pero llevan una vara larga. ¿Cómo se llama esa vara?",
+    "opciones": [
+      "El Garrote",
+      "La Vara Mágica",
+      "El Báculo",
+      "La Caña"
+    ],
+    "respuestaCorrecta": "El Garrote"
+  },
+  {
+    "id": "287",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Cómo termina el verso: 'Allá por el oriente sale el sol y por el occidente...'?",
+    "opciones": [
+      "...sale la luna",
+      "...se pone el sol",
+      "...sale el Niño Dios",
+      "...se oculta"
+    ],
+    "respuestaCorrecta": "...sale la luna"
+  },
+  {
+    "id": "288",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Si un venezolano dice 'Estoy limpio' el 31 de diciembre, ¿qué significa?",
+    "opciones": [
+      "Que se bañó",
+      "Que no tiene dinero (está pelando)",
+      "Que no tiene pecados",
+      "Que limpió la casa"
+    ],
+    "respuestaCorrecta": "Que no tiene dinero (está pelando)"
+  },
+  {
+    "id": "289",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "La 'Hallaca de Pescado' es típica de oriente, pero ¿en qué época del año es OBLIGATORIO comerla en vez de la de carne, aunque no sea navidad?",
+    "opciones": [
+      "En Semana Santa",
+      "En Carnaval",
+      "En el cumpleaños de la abuela",
+      "En vacaciones escolares"
+    ],
+    "respuestaCorrecta": "En Semana Santa"
+  },
+  {
+    "id": "290",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Qué ingrediente le da el toque ácido a la Ensalada de Gallina?",
+    "opciones": [
+      "Vinagre o Limón",
+      "Mostaza",
+      "Manzana",
+      "Aceite"
+    ],
+    "respuestaCorrecta": "Vinagre o Limón"
+  },
+  {
+    "id": "291",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Quién canta 'Sentimiento Nacional'? ('...llévale a mi negra esta parranda, dile que la quiero...')",
+    "opciones": [
+      "Guaco",
+      "Desorden Público",
+      "Un Solo Pueblo",
+      "Tambor Urbano"
+    ],
+    "respuestaCorrecta": "Guaco"
+  },
+  {
+    "id": "292",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "En la gaita 'Maracaibo Marginada', Ricardo Aguirre critica algo específico de la ciudad. ¿Qué critica?",
+    "opciones": [
+      "El centralismo y el olvido de la ciudad a pesar de su riqueza petrolera",
+      "Que no hay agua",
+      "Que hace mucho calor",
+      "Que la gente no baila"
+    ],
+    "respuestaCorrecta": "El centralismo y el olvido de la ciudad a pesar de su riqueza petrolera"
+  },
+  {
+    "id": "293",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "General",
+    "pregunta": "Cuando termina el año, la gente dice 'Año Nuevo, Vida...'",
+    "opciones": [
+      "...Nueva",
+      "...Vieja",
+      "...Loca",
+      "...Cara"
+    ],
+    "respuestaCorrecta": "...Nueva"
+  },
+  {
+    "id": "294",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "El 'Licor de Cacao' o crema de cacao es otro clásico. ¿De qué color es la botella más famosa en Venezuela?",
+    "opciones": [
+      "Transparente (Cacao blanco) o Marrón (Oscuro)",
+      "Verde",
+      "Azul",
+      "Roja"
+    ],
+    "respuestaCorrecta": "Transparente (Cacao blanco) o Marrón (Oscuro)"
+  },
+  {
+    "id": "295",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "El 'Pregón de Navidad' es una costumbre antigua. ¿Quién solía leer el pregón en los pueblos?",
+    "opciones": [
+      "El Pregonero o un personaje respetado del pueblo",
+      "El Alcalde solamente",
+      "El Cura",
+      "El policía"
+    ],
+    "respuestaCorrecta": "El Pregonero o un personaje respetado del pueblo"
+  },
+  {
+    "id": "296",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué instrumento se toca 'rascando' las costillas de metal?",
+    "opciones": [
+      "La Charrasca",
+      "El Rallo",
+      "El Violin",
+      "El Cuatro"
+    ],
+    "respuestaCorrecta": "La Charrasca"
+  },
+  {
+    "id": "297",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Qué corte del cochino se usa a veces para sustituir al pernil si la cosa está cara o para variar?",
+    "opciones": [
+      "La Paleta (mano del cochino)",
+      "Las paticas",
+      "El rabo",
+      "La oreja"
+    ],
+    "respuestaCorrecta": "La Paleta (mano del cochino)"
+  },
+  {
+    "id": "298",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Historia",
+    "pregunta": "La 'Billos Caracas Boys' sacaba un disco todos los fines de año llamado...",
+    "opciones": [
+      "Mosaico Billos",
+      "Fin de Año con Billos",
+      "Billos en Navidad",
+      "Fiesta con Billos"
+    ],
+    "respuestaCorrecta": "Fin de Año con Billos"
+  },
+  {
+    "id": "299",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Si te encuentras una moneda en el piso el 31 de diciembre, ¿qué haces?",
+    "opciones": [
+      "La agarras porque es buena suerte",
+      "La pateas",
+      "La dejas ahí",
+      "Llamas a la policía"
+    ],
+    "respuestaCorrecta": "La agarras porque es buena suerte"
+  },
+  {
+    "id": "300",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Quién canta 'El Hacha'? ('Ahí viene la cabra, ahí viene el hacha...')",
+    "opciones": [
+      "Maracaibo 15",
+      "Gran Coquivacoa",
+      "Guaco",
+      "Koquimba"
+    ],
+    "respuestaCorrecta": "Maracaibo 15"
+  },
+  {
+    "id": "301",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "El 'Cabello de Ángel' se cocina con piña a veces. ¿Cómo se llama esa combinación?",
+    "opciones": [
+      "Dulce de Piña con Cabello de Ángel",
+      "Mermelada Real",
+      "Dulce de Frutas",
+      "Torta de Piña"
+    ],
+    "respuestaCorrecta": "Dulce de Piña con Cabello de Ángel"
+  },
+  {
+    "id": "302",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "General",
+    "pregunta": "¿Qué le dices a alguien que estornuda en la cena de navidad?",
+    "opciones": [
+      "Salud",
+      "Cállate",
+      "Toma agua",
+      "Vete pa tu cuarto"
+    ],
+    "respuestaCorrecta": "Salud"
+  },
+  {
+    "id": "303",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Si un año nuevo quieres que te vaya bien en los estudios, ¿qué pones en la mesa?",
+    "opciones": [
+      "Libros y cuadernos",
+      "La computadora",
+      "Un lápiz",
+      "El carnet de la universidad"
+    ],
+    "respuestaCorrecta": "Libros y cuadernos"
+  },
+  {
+    "id": "304",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La canción 'Corre Caballito' es un aguinaldo anónimo recopilado por un musicólogo famoso. ¿Quién la recopiló?",
+    "opciones": [
+      "Vicente Emilio Sojo",
+      "Simón Díaz",
+      "Juan Vicente Torrealba",
+      "Aldemaro Romero"
+    ],
+    "respuestaCorrecta": "Vicente Emilio Sojo"
+  },
+  {
+    "id": "305",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Final",
+    "pregunta": "¿Qué es lo último que haces antes de dormirte el 1 de enero?",
+    "opciones": [
+      "Darle gracias a Dios por el año nuevo",
+      "Comer otra hallaca",
+      "Ver televisión",
+      "Lavar los platos"
+    ],
+    "respuestaCorrecta": "Darle gracias a Dios por el año nuevo"
+  },
+  {
+    "id": "306",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "En la mesa navideña, aparte de la hallaca, siempre hay un pan dulce grandote con frutas que compramos en caja. ¿Cómo se llama?",
+    "opciones": [
+      "Pan Canilla",
+      "Panettone",
+      "Pan Francés",
+      "Acemita"
+    ],
+    "respuestaCorrecta": "Panettone"
+  },
+  {
+    "id": "307",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La canción 'Viejo Año' dice: 'Que te pasa viejo año, qué te pasa...'. ¿Qué es lo que le responde el coro?",
+    "opciones": [
+      "...que ya tienes las maletas listas",
+      "...que ya tienes tus maletas preparadas",
+      "...que te vas y no vuelves más",
+      "...que te quedan pocos días"
+    ],
+    "respuestaCorrecta": "...que ya tienes tus maletas preparadas"
+  },
+  {
+    "id": "308",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Historia",
+    "pregunta": "¿En qué año se declaró la Gaita Zuliana como 'Bien de Interés Cultural y Artístico' de Venezuela?",
+    "opciones": [
+      "En 2014",
+      "En 1990",
+      "En 1950",
+      "Nunca se ha declarado"
+    ],
+    "respuestaCorrecta": "En 2014"
+  },
+  {
+    "id": "309",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Si un chamo se esconde debajo de la mesa el 31 de diciembre mientras suenan las campanadas, ¿qué está buscando?",
+    "opciones": [
+      "Esconderse para no bañarse",
+      "Conseguir pareja/novio(a) el próximo año",
+      "Agarrar el wifi del vecino",
+      "Comerse las uvas tranquilo"
+    ],
+    "respuestaCorrecta": "Conseguir pareja/novio(a) el próximo año"
+  },
+  {
+    "id": "310",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "El 'Dulce de Toronja' es un clásico, pero es difícil de hacer. ¿Por qué hay que lavar y exprimir tantas veces la toronja?",
+    "opciones": [
+      "Para sacarle lo amargo",
+      "Para que cambie de color",
+      "Para quitarle las semillas",
+      "Para que se ponga dulce sola"
+    ],
+    "respuestaCorrecta": "Para sacarle lo amargo"
+  },
+  {
+    "id": "311",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "La 'Danza de la Culebra de Ipure' es una tradición de Monagas que se baila a veces en diciembre. ¿Qué representa el baile?",
+    "opciones": [
+      "La lucha de una madre por salvar a su hija picada por una culebra",
+      "La caza de una anaconda",
+      "La adoración a la serpiente emplumada",
+      "El viaje de los reyes magos"
+    ],
+    "respuestaCorrecta": "La lucha de una madre por salvar a su hija picada por una culebra"
+  },
+  {
+    "id": "312",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué canción infantil dice 'Mi burrito sabanero va camino de...'?",
+    "opciones": [
+      "...Caracas",
+      "...Belén",
+      "...Maracaibo",
+      "...La Playa"
+    ],
+    "respuestaCorrecta": "...Belén"
+  },
+  {
+    "id": "313",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "Hay una hallaca que se hace con masa de plátano verde en vez de maíz. ¿Cómo se llama esa variante zuliana/sur del lago?",
+    "opciones": [
+      "Hallaca de Plátano",
+      "Hallaca Negra",
+      "Tumbarrancho",
+      "Patacón Relleno"
+    ],
+    "respuestaCorrecta": "Hallaca de Plátano"
+  },
+  {
+    "id": "314",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "El 'Golpe de Patanemo' es un ritmo de parranda central. ¿Cuál es la característica principal de su coro?",
+    "opciones": [
+      "Es un lamento lento",
+      "Es un estribillo corto y repetitivo muy rápido",
+      "No tiene coro",
+      "Se canta en otro idioma"
+    ],
+    "respuestaCorrecta": "Es un estribillo corto y repetitivo muy rápido"
+  },
+  {
+    "id": "315",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "¿Qué significa cuando la abuela dice que 'ya huele a Navidad' en noviembre?",
+    "opciones": [
+      "Que alguien se echó perfume",
+      "Que ya pusieron gaitas en la radio o pintaron la casa",
+      "Que se quemó el arroz",
+      "Que llegó visita"
+    ],
+    "respuestaCorrecta": "Que ya pusieron gaitas en la radio o pintaron la casa"
+  },
+  {
+    "id": "316",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "General",
+    "pregunta": "Si te regalan una 'Cesta Navideña' en el trabajo, ¿qué trae típicamente adentro?",
+    "opciones": [
+      "Ropa sucia",
+      "Licores, enlatados, panettone y turrones",
+      "Herramientas de trabajo",
+      "Juguetes"
+    ],
+    "respuestaCorrecta": "Licores, enlatados, panettone y turrones"
+  },
+  {
+    "id": "317",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "En la receta antigua de la 'Torta Negra' colonial, ¿qué ingrediente usaban para darle el color oscuro antes de que el chocolate fuera tan común en esa mezcla?",
+    "opciones": [
+      "Quemaban papelón (melaza)",
+      "Usaban tinta vegetal",
+      "Usaban café muy fuerte",
+      "Usaban carbón molido"
+    ],
+    "respuestaCorrecta": "Quemaban papelón (melaza)"
+  },
+  {
+    "id": "318",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Completa el verso: 'Faltan cinco pa' las doce, el año va a terminar, me voy corriendo a mi casa a...'",
+    "opciones": [
+      "...buscar mi celular",
+      "...abrazar a mi mamá",
+      "...comer las uvas",
+      "...prender el arbolito"
+    ],
+    "respuestaCorrecta": "...abrazar a mi mamá"
+  },
+  {
+    "id": "319",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "El 'Espíritu de la Navidad' (21 de diciembre) es una tradición moderna. ¿Qué hacen muchas familias esa noche a las 10 o 12?",
+    "opciones": [
+      "Una cena con hallacas",
+      "Una cena especial, prender incienso y escribir deseos",
+      "Salir a correr",
+      "Dormir temprano"
+    ],
+    "respuestaCorrecta": "Una cena especial, prender incienso y escribir deseos"
+  },
+  {
+    "id": "320",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En los pueblos de Barlovento, la Parranda de Navidad va acompañada de banderas. ¿Qué significan las banderas?",
+    "opciones": [
+      "Los colores del partido político",
+      "Símbolos de alegría y guía para la procesión (el abanderado)",
+      "Para espantar mosquitos",
+      "No tienen significado"
+    ],
+    "respuestaCorrecta": "Símbolos de alegría y guía para la procesión (el abanderado)"
+  },
+  {
+    "id": "321",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Cuál es la bebida de maíz fermentado que toman los andinos y se pone 'fuerte' si la dejas mucho tiempo?",
+    "opciones": [
+      "Chicha Andina (fuerte)",
+      "Jugo de Mora",
+      "Agua de Panela",
+      "Toddy"
+    ],
+    "respuestaCorrecta": "Chicha Andina (fuerte)"
+  },
+  {
+    "id": "322",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué famoso grupo de pop-balada venezolano sacó el disco 'Navidad con Voz Veis'?",
+    "opciones": [
+      "Voz Veis",
+      "Servando y Florentino",
+      "A.5",
+      "Guaco"
+    ],
+    "respuestaCorrecta": "Voz Veis"
+  },
+  {
+    "id": "323",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "La 'Hallaca de Anguila' (pescado) es una rareza gastronómica. ¿En qué parte de Venezuela se preparaba tradicionalmente?",
+    "opciones": [
+      "En el Lago de Valencia (Carabobo/Aragua)",
+      "En Maracaibo",
+      "En el Orinoco",
+      "En Margarita"
+    ],
+    "respuestaCorrecta": "En el Lago de Valencia (Carabobo/Aragua)"
+  },
+  {
+    "id": "324",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué instrumento se toca con dos maracas y se llama igual que el ritmo?",
+    "opciones": [
+      "La Salsa",
+      "El Joropo (Las maracas son parte)",
+      "No hay instrumento que se llame así",
+      "La Batería"
+    ],
+    "respuestaCorrecta": "El Joropo (Las maracas son parte)"
+  },
+  {
+    "id": "325",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "El 'Estreno' del 24 y 31 es sagrado. ¿Qué pasa si no tienes ropa nueva?",
+    "opciones": [
+      "No sales de tu cuarto",
+      "Te pones lo mejor que tengas y vas pa' lante",
+      "Vas en pijama a la cena",
+      "Pides prestado al vecino"
+    ],
+    "respuestaCorrecta": "Te pones lo mejor que tengas y vas pa' lante"
+  },
+  {
+    "id": "326",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "El 'Aguinaldo de Parranda' tiene una estructura de versos específica. ¿De cuántas sílabas son generalmente los versos?",
+    "opciones": [
+      "Hexasílabos (6 sílabas)",
+      "Endecasílabos (11 sílabas)",
+      "Octosílabos (8 sílabas)",
+      "Libres"
+    ],
+    "respuestaCorrecta": "Hexasílabos (6 sílabas)"
+  },
+  {
+    "id": "327",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Qué dulce duro y blanco se hace con almendras o maní y viene de España pero lo comemos aquí?",
+    "opciones": [
+      "El Turrón",
+      "El Chocolate",
+      "El Caramelo",
+      "La Oblea"
+    ],
+    "respuestaCorrecta": "El Turrón"
+  },
+  {
+    "id": "328",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La gaita 'La Moza' de Maracaibo 15 es un clásico. ¿De qué habla la canción?",
+    "opciones": [
+      "De una muchacha bonita (moza) que va a la procesión",
+      "De una hallaca mal hecha",
+      "De una cerveza",
+      "De una pelea"
+    ],
+    "respuestaCorrecta": "De una muchacha bonita (moza) que va a la procesión"
+  },
+  {
+    "id": "329",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En Trujillo, los 'Pastores de San Miguel' usan trajes coloridos. ¿Qué figura demoníaca aparece para asustar a los pastores en la danza?",
+    "opciones": [
+      "El Diablo",
+      "El Silbón",
+      "La Sayona",
+      "El Coco"
+    ],
+    "respuestaCorrecta": "El Diablo"
+  },
+  {
+    "id": "330",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "Si estás haciendo hallacas y se acaba el pabilo, ¿qué haces, chamo?",
+    "opciones": [
+      "Llorar",
+      "Salir corriendo a la bodega o pedirle al vecino",
+      "Amarrarlas con trenzas de zapatos",
+      "Pegarlas con pega loca"
+    ],
+    "respuestaCorrecta": "Salir corriendo a la bodega o pedirle al vecino"
+  },
+  {
+    "id": "331",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "La 'Quema del Año Viejo' se hace con un muñeco. ¿Qué le meten adentro al muñeco para que explote?",
+    "opciones": [
+      "Caramelos",
+      "Cohetes, triquitraquis y pólvora",
+      "Ropa vieja",
+      "Papel periódico solamente"
+    ],
+    "respuestaCorrecta": "Cohetes, triquitraquis y pólvora"
+  },
+  {
+    "id": "332",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "El compositor Renato Aguirre es hermano de Ricardo Aguirre. ¿Qué gaita famosa compuso Renato que popularizó el grupo 'Cardenales del Éxito'?",
+    "opciones": [
+      "Fascinación",
+      "La Grey Zuliana",
+      "Sin Rencor",
+      "Amparito"
+    ],
+    "respuestaCorrecta": "Fascinación"
+  },
+  {
+    "id": "333",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué animal nombra la canción 'Mi Burrito Sabanero' además del burrito?",
+    "opciones": [
+      "Ninguno",
+      "No dice más animales",
+      "Dice 'Tucusito' y otros pájaros",
+      "Un perro"
+    ],
+    "respuestaCorrecta": "Dice 'Tucusito' y otros pájaros"
+  },
+  {
+    "id": "334",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "El 'Licor de Huevo' europeo se parece al Ponche Crema. Pero el Ponche Crema venezolano de Eliodoro González P. tiene algo único. ¿Qué es?",
+    "opciones": [
+      "La receta secreta patentada",
+      "Que lleva picante",
+      "Que es de color azul",
+      "Que se toma caliente"
+    ],
+    "respuestaCorrecta": "La receta secreta patentada"
+  },
+  {
+    "id": "335",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "En la tradición del pesebre, ¿qué significa poner un espejo simulando un lago?",
+    "opciones": [
+      "Para que el niño se vea",
+      "Representa el agua de vida y pureza",
+      "Para que se vea más grande el pesebre",
+      "Es solo adorno"
+    ],
+    "respuestaCorrecta": "Representa el agua de vida y pureza"
+  },
+  {
+    "id": "336",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "El 'Pernil' viene de...",
+    "opciones": [
+      "La Vaca",
+      "El Cochino (Cerdo)",
+      "El Pollo",
+      "El Chivo"
+    ],
+    "respuestaCorrecta": "El Cochino (Cerdo)"
+  },
+  {
+    "id": "337",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Cómo se llama la gaita que dice 'Y la vieron que salía, por la orilla del lago...'?",
+    "opciones": [
+      "La Vieron",
+      "El Ferry",
+      "Gaita a la Virgen",
+      "Dos Regalos"
+    ],
+    "respuestaCorrecta": "El Ferry"
+  },
+  {
+    "id": "338",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "La 'Torta de Jojoto' o maíz tierno a veces acompaña la mesa. ¿Qué tipo de queso lleva la receta tradicional venezolana?",
+    "opciones": [
+      "Queso Llanero duro rallado",
+      "Queso Mozzarella",
+      "Queso Parmesano",
+      "Queso Crema"
+    ],
+    "respuestaCorrecta": "Queso Llanero duro rallado"
+  },
+  {
+    "id": "339",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "¿Qué color de vela se enciende para el Espíritu de la Navidad (prosperidad)?",
+    "opciones": [
+      "Negra",
+      "Naranja o Dorada",
+      "Morada",
+      "Marrón"
+    ],
+    "respuestaCorrecta": "Naranja o Dorada"
+  },
+  {
+    "id": "340",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "En el coro de 'Fuego al Cañón', ¿qué se le pide al niño?",
+    "opciones": [
+      "Que nos traiga paz",
+      "Que respete mi condición",
+      "Para el niño es...",
+      "Que apague el fuego"
+    ],
+    "respuestaCorrecta": "Para el niño es..."
+  },
+  {
+    "id": "341",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "El 'Baile de la Cinta' de Mérida. ¿Qué árbol se usa como eje central para trenzar las cintas?",
+    "opciones": [
+      "Un Araguaney",
+      "Un palo cualquiera adornado (Maguey)",
+      "Un Pino",
+      "Un Samán"
+    ],
+    "respuestaCorrecta": "Un palo cualquiera adornado (Maguey)"
+  },
+  {
+    "id": "342",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Qué fruta NO lleva la Ensalada de Gallina tradicional?",
+    "opciones": [
+      "Manzana (a veces)",
+      "Lechosa",
+      "No lleva fruta obligada",
+      "Patilla"
+    ],
+    "respuestaCorrecta": "Patilla"
+  },
+  {
+    "id": "343",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "General",
+    "pregunta": "Si te toca lavar los platos después de la cena de navidad, ¿qué es lo más difícil de lavar?",
+    "opciones": [
+      "Los vasos",
+      "La olla del pernil o donde se cocinaron las hallacas (tiznada)",
+      "Los cubiertos",
+      "Los platos llanos"
+    ],
+    "respuestaCorrecta": "La olla del pernil o donde se cocinaron las hallacas (tiznada)"
+  },
+  {
+    "id": "344",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Historia",
+    "pregunta": "¿Cuál fue la primera gaita grabada en disco de 45 rpm en la historia?",
+    "opciones": [
+      "Gaita Nro. 1",
+      "La Cabra Mocha",
+      "Gaita Zuliana de Los Chiquinquireños (1947 aprox)",
+      "Sentir Zuliano"
+    ],
+    "respuestaCorrecta": "Gaita Zuliana de Los Chiquinquireños (1947 aprox)"
+  },
+  {
+    "id": "345",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Final",
+    "pregunta": "¿Qué se dice cuando se brinda el 31?",
+    "opciones": [
+      "¡Salud, dinero y amor!",
+      "¡Tengo hambre!",
+      "¡Ya me voy!",
+      "¡Qué fastidio!"
+    ],
+    "respuestaCorrecta": "¡Salud, dinero y amor!"
+  },
+  {
+    "id": "346",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "El 1 de enero en la mañana, nadie quiere cocinar. ¿Cuál es el desayuno clásico de ese día con las sobras de la cena?",
+    "opciones": [
+      "Cereal con leche",
+      "Arepa rellena con pernil o ensalada de gallina",
+      "Panquecas",
+      "Sushi"
+    ],
+    "respuestaCorrecta": "Arepa rellena con pernil o ensalada de gallina"
+  },
+  {
+    "id": "347",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "En la gaita zuliana, el furruquero no golpea el instrumento, sino que frota la vara. ¿Cómo se llama esa vara de caña que produce el sonido ronco?",
+    "opciones": [
+      "El Palo Mágico",
+      "La Verada",
+      "El Frotador",
+      "La Batuta"
+    ],
+    "respuestaCorrecta": "La Verada"
+  },
+  {
+    "id": "348",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Existe una técnica específica para amarrar la hallaca para que quede cuadrada y bonita, pasando el pabilo 3 veces por un lado y 3 por el otro. ¿Cómo le dicen las abuelas a ese amarrado?",
+    "opciones": [
+      "El nudo marinero",
+      "La cuadrícula",
+      "El 3x3 o 'Tres y Tres'",
+      "El enrejado"
+    ],
+    "respuestaCorrecta": "El 3x3 o 'Tres y Tres'"
+  },
+  {
+    "id": "349",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Si quieres que el año que viene no te falte la plata, ¿de qué color te pones la ropa interior el 31?",
+    "opciones": [
+      "Roja rojita",
+      "Amarilla pollito",
+      "Negra",
+      "Verde billete"
+    ],
+    "respuestaCorrecta": "Amarilla pollito"
+  },
+  {
+    "id": "350",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Hay una gaita muy movida que dice en el coro: 'La voy a tocar a pie, la voy a tocar a pie...'. ¿Quién la canta?",
+    "opciones": [
+      "VHG (VenoHuelGa)",
+      "Gran Coquivacoa",
+      "Cardenales del Éxito",
+      "Koquimba"
+    ],
+    "respuestaCorrecta": "VHG (VenoHuelGa)"
+  },
+  {
+    "id": "351",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "El 'Cabello de Ángel' se hace con zapallo (auyama). Para que salgan las hebras, ¿qué hay que hacerle a la fruta antes de cocinarla?",
+    "opciones": [
+      "Congelarla",
+      "Darle golpes contra el piso o con un mazo para que suelte la fibra",
+      "Licuarla",
+      "Dejarla secar al sol"
+    ],
+    "respuestaCorrecta": "Darle golpes contra el piso o con un mazo para que suelte la fibra"
+  },
+  {
+    "id": "352",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué instrumento de la parranda suena como si estuvieras raspando una olla?",
+    "opciones": [
+      "El Cuatro",
+      "La Charrasca",
+      "El Furruco",
+      "La Tambora"
+    ],
+    "respuestaCorrecta": "La Charrasca"
+  },
+  {
+    "id": "353",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "Cuando se hace la masa de la hallaca, se le pone un puntico de un ingrediente dulce para equilibrar el sabor salado del guiso. ¿Qué es?",
+    "opciones": [
+      "Miel",
+      "Papelón o Azúcar",
+      "Leche condensada",
+      "Sirope"
+    ],
+    "respuestaCorrecta": "Papelón o Azúcar"
+  },
+  {
+    "id": "354",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En la 'Paradura del Niño' andina, hay un momento donde se prenden velas y se hace una procesión por la casa o el vecindario. ¿Cómo se le llama a los músicos que acompañan ese momento?",
+    "opciones": [
+      "Los Gaiteros",
+      "Los Violines",
+      "Los Cantores del Niño",
+      "La Banda Show"
+    ],
+    "respuestaCorrecta": "Los Violines"
+  },
+  {
+    "id": "355",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "General",
+    "pregunta": "En los intercambios de regalo de la oficina, siempre hay uno que regala la vaina más pirata y barata. ¿Qué es lo típico que regala esa persona?",
+    "opciones": [
+      "Un iPhone",
+      "Unas medias o una taza fea",
+      "Una botella de whisky 18 años",
+      "Un jamón planchado"
+    ],
+    "respuestaCorrecta": "Unas medias o una taza fea"
+  },
+  {
+    "id": "356",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "El 5 de enero en la noche, los niños dejan los zapatos en la ventana o la puerta. ¿Pa' qué es esa tradición?",
+    "opciones": [
+      "Para que se ventilen porque huelen mal",
+      "Para que los Reyes Magos dejen los regalos ahí o cerca",
+      "Para que el perro no los muerda",
+      "Para limpiarlos"
+    ],
+    "respuestaCorrecta": "Para que los Reyes Magos dejen los regalos ahí o cerca"
+  },
+  {
+    "id": "357",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La gaita 'Aquel Zuliano' de Ricardo Aguirre es profunda. ¿Qué representa el 'Zuliano' del que habla la canción?",
+    "opciones": [
+      "A su abuelo",
+      "A la Maracaibo de antaño, la ciudad que se fue perdiendo con la modernidad",
+      "A un gobernador",
+      "Al santo patrón"
+    ],
+    "respuestaCorrecta": "A la Maracaibo de antaño, la ciudad que se fue perdiendo con la modernidad"
+  },
+  {
+    "id": "358",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "Si la abuela dice que va a 'aliñar el pernil', ¿qué está haciendo?",
+    "opciones": [
+      "Poniéndole adornos de navidad al cochino",
+      "Echándole los condimentos, el adobo y el vino para que agarre gusto",
+      "Picándolo en rodajas",
+      "Comiéndoselo"
+    ],
+    "respuestaCorrecta": "Echándole los condimentos, el adobo y el vino para que agarre gusto"
+  },
+  {
+    "id": "359",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué agrupación popularizó la gaita 'Amparito', esa que tiene un ritmo medio colombiano al principio?",
+    "opciones": [
+      "Guaco",
+      "Maracaibo 15",
+      "Los Melódicos",
+      "Billo's"
+    ],
+    "respuestaCorrecta": "Maracaibo 15"
+  },
+  {
+    "id": "360",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "En el estado Sucre y zonas de oriente, se prepara un 'Carato' diferente en navidad. ¿Qué ingrediente principal usan que le da un color morado?",
+    "opciones": [
+      "Maíz Morado",
+      "Remolacha",
+      "Batata (Chaco)",
+      "Uva"
+    ],
+    "respuestaCorrecta": "Batata (Chaco)"
+  },
+  {
+    "id": "361",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "¿Qué elemento del Pesebre representa el lugar donde nació el Niño Jesús?",
+    "opciones": [
+      "El Portal o el establo",
+      "El castillo de Herodes",
+      "El lago de espejos",
+      "La montaña de papel marrón"
+    ],
+    "respuestaCorrecta": "El Portal o el establo"
+  },
+  {
+    "id": "362",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Completa el verso del aguinaldo: 'Si la virgen fuera andina y San José de los Llanos, el niño Jesús sería...'",
+    "opciones": [
+      "...un niño muy sano",
+      "...un niño venezolano",
+      "...un niño gocho",
+      "...un niño llanero"
+    ],
+    "respuestaCorrecta": "...un niño venezolano"
+  },
+  {
+    "id": "363",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Historia",
+    "pregunta": "El Pan de Jamón original de 1905 no llevaba pasas ni aceitunas. ¿En qué década se estandarizó agregarle esos ingredientes para que quedara como el de hoy?",
+    "opciones": [
+      "En los años 20",
+      "En los años 40 o 50",
+      "En los años 80",
+      "En el 2000"
+    ],
+    "respuestaCorrecta": "En los años 40 o 50"
+  },
+  {
+    "id": "364",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "Cuando se hace la 'Ensalada de Gallina', ¿qué tipo de papa es la mejor para que no se deshaga al sancocharla?",
+    "opciones": [
+      "Cualquier papa sirve",
+      "Papa pastusa o papa blanca firme",
+      "Papa amarilla arenosa",
+      "Puré de papa instantáneo"
+    ],
+    "respuestaCorrecta": "Papa pastusa o papa blanca firme"
+  },
+  {
+    "id": "365",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "Si el 31 de diciembre a medianoche agarras un anillo de oro y lo metes en la copa de champaña antes de brindar, ¿qué estás pidiendo?",
+    "opciones": [
+      "Que no te ahogues",
+      "Prosperidad económica y dinero",
+      "Casarte pronto (si eres soltero) o estabilidad en el matrimonio",
+      "Buena salud"
+    ],
+    "respuestaCorrecta": "Casarte pronto (si eres soltero) o estabilidad en el matrimonio"
+  },
+  {
+    "id": "366",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La 'Gaita Perijanera' tiene una estructura de baile diferente. ¿Cómo se colocan los hombres y las mujeres para bailarla?",
+    "opciones": [
+      "En dos filas, frente a frente",
+      "En un círculo intercalados, agarrados de la mano",
+      "Sueltos como en la discoteca",
+      "Solo bailan los hombres"
+    ],
+    "respuestaCorrecta": "En un círculo intercalados, agarrados de la mano"
+  },
+  {
+    "id": "367",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué objeto usan los parranderos para pedir aguinaldo de casa en casa y meter la plata?",
+    "opciones": [
+      "Una caja de zapatos",
+      "Una gorra o un sombrero volteado",
+      "Un saco de papas",
+      "La mano pelada"
+    ],
+    "respuestaCorrecta": "Una gorra o un sombrero volteado"
+  },
+  {
+    "id": "368",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Gastronomía",
+    "pregunta": "Hay una bebida caliente que venden en las madrugadas de diciembre después de las fiestas, hecha de chocolate. ¿Con qué la acompañan típicamente para 'mojar'?",
+    "opciones": [
+      "Con pan duro",
+      "Con churros o queso blanco picado adentro",
+      "Con hallaca",
+      "Con galletas soda"
+    ],
+    "respuestaCorrecta": "Con churros o queso blanco picado adentro"
+  },
+  {
+    "id": "369",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Folclore Regional",
+    "pregunta": "En la tradición de los 'Pastores de San Joaquín', ¿qué representa el 'Cachero', el personaje que lleva unos cuernos de venado?",
+    "opciones": [
+      "Al diablo",
+      "Al buey del pesebre",
+      "Al guía del rebaño o caporal que pone orden",
+      "A un cazador"
+    ],
+    "respuestaCorrecta": "Al guía del rebaño o caporal que pone orden"
+  },
+  {
+    "id": "370",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "General",
+    "pregunta": "¿Qué es lo primero que dice un venezolano cuando prueba una hallaca que está muy buena?",
+    "opciones": [
+      "Está mala",
+      "Le faltó sal",
+      "¡La mejor hallaca la hace mi mamá! (aunque esta esté buena)",
+      "¿Quién hizo esto?"
+    ],
+    "respuestaCorrecta": "¡La mejor hallaca la hace mi mamá! (aunque esta esté buena)"
+  },
+  {
+    "id": "371",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "En la gaita 'La Grey Zuliana', Ricardo Aguirre le pide a la virgen que ayude al pueblo porque...",
+    "opciones": [
+      "...tienen mucha plata",
+      "...el pueblo está sin suerte y marginado",
+      "...quieren ganar el béisbol",
+      "...quieren más cerveza"
+    ],
+    "respuestaCorrecta": "...el pueblo está sin suerte y marginado"
+  },
+  {
+    "id": "372",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "La 'Torta de Navidad' o Torta Negra venezolana tiene una influencia directa de un postre europeo. ¿De cuál?",
+    "opciones": [
+      "Del Tiramisú italiano",
+      "Del Christmas Pudding o Plum Cake inglés",
+      "Del Strudel alemán",
+      "De la Torta Tres Leches"
+    ],
+    "respuestaCorrecta": "Del Christmas Pudding o Plum Cake inglés"
+  },
+  {
+    "id": "373",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Música y Parrandas",
+    "pregunta": "Completa el villancico: 'Niño Lindo, ante ti me rindo, Niño Lindo...'",
+    "opciones": [
+      "...eres tú mi Dios",
+      "...dame un abrazo",
+      "...vamos a jugar",
+      "...ya me voy a dormir"
+    ],
+    "respuestaCorrecta": "...eres tú mi Dios"
+  },
+  {
+    "id": "374",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "El 28 de diciembre, Día de los Inocentes, ¿cuál es la broma más clásica que sale en las noticias de televisión?",
+    "opciones": [
+      "Que se acabó la gasolina",
+      "Una noticia falsa y exagerada sobre un artista o político (La inocentada)",
+      "Que suspendieron la navidad",
+      "Que el dólar bajó a cero"
+    ],
+    "respuestaCorrecta": "Una noticia falsa y exagerada sobre un artista o político (La inocentada)"
+  },
+  {
+    "id": "375",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La agrupación 'VHG' (Venezuela Habla Gaiteando) tiene una gaita famosa llamada 'La Voy a Tocar a Pie'. ¿Qué significa 'tocarla a pie' según la canción?",
+    "opciones": [
+      "Tocarla sin zapatos",
+      "Tocarla tradicional, sin instrumentos eléctricos ni piano, solo percusión y cuatro",
+      "Tocarla caminando por la calle",
+      "Tocarla mal"
+    ],
+    "respuestaCorrecta": "Tocarla tradicional, sin instrumentos eléctricos ni piano, solo percusión y cuatro"
+  },
+  {
+    "id": "376",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "Cuando la familia se reúne a hacer hallacas, siempre hay una persona encargada solo de una cosa importantísima al final. ¿Qué hace esa persona?",
+    "opciones": [
+      "Comerse el guiso",
+      "Amarrar las hallacas",
+      "Poner música",
+      "Mirar"
+    ],
+    "respuestaCorrecta": "Amarrar las hallacas"
+  },
+  {
+    "id": "377",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué canción dice: 'Año nuevo, vida nueva, más alegres los días serán...'?",
+    "opciones": [
+      "Faltan cinco pa' las doce",
+      "Año Nuevo",
+      "El Año Viejo",
+      "Navidad sin ti"
+    ],
+    "respuestaCorrecta": "Año Nuevo"
+  },
+  {
+    "id": "378",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Gastronomía",
+    "pregunta": "Hay un ingrediente secreto que algunas abuelas le ponen al guiso de la hallaca para darle un toque de acidez y dulzor a la vez, que son unas fruticas chiquitas. ¿Cuáles son?",
+    "opciones": [
+      "Frambuesas",
+      "Alcaparras bebé (Nonpareilles)",
+      "Arándanos secos",
+      "Uvas frescas"
+    ],
+    "respuestaCorrecta": "Alcaparras bebé (Nonpareilles)"
+  },
+  {
+    "id": "379",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "General",
+    "pregunta": "Si te invitan a una casa el 24 de diciembre y llegas con las manos vacías, ¿qué eres?",
+    "opciones": [
+      "Un invitado de honor",
+      "Un 'arrocero' o pichirre (tacaño)",
+      "El alma de la fiesta",
+      "El que sirve los tragos"
+    ],
+    "respuestaCorrecta": "Un 'arrocero' o pichirre (tacaño)"
+  },
+  {
+    "id": "380",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "En el 'Intercambio de Regalos' de la familia, siempre hay un tío que regala la misma vaina todos los años. ¿Qué es?",
+    "opciones": [
+      "Un carro",
+      "Un par de medias o un pañuelo",
+      "Un viaje a Margarita",
+      "Un jamón serrano"
+    ],
+    "respuestaCorrecta": "Un par de medias o un pañuelo"
+  },
+  {
+    "id": "381",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Música y Parrandas",
+    "pregunta": "La gaita 'La Cabra Mocha' es un clásico del humor zuliano. Pero, ¿quién fue el compositor original de la letra en los años 20 antes de que Próspero Palmiero la adaptara?",
+    "opciones": [
+      "Es de origen anónimo popular del Saladillo",
+      "Ricardo Aguirre",
+      "Abdenago 'Neguito' Borjas",
+      "Simón Díaz"
+    ],
+    "respuestaCorrecta": "Es de origen anónimo popular del Saladillo"
+  },
+  {
+    "id": "382",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Gastronomía",
+    "pregunta": "¿Qué se toma para brindar el 31 que hace '¡Pum!' cuando lo abres?",
+    "opciones": [
+      "Agua",
+      "Champaña o Sidra",
+      "Jugo de Naranja",
+      "Café"
+    ],
+    "respuestaCorrecta": "Champaña o Sidra"
+  },
+  {
+    "id": "383",
+    "dificultad": "Palo 'e Ron",
+    "nivel": "Medio",
+    "categoria": "Música y Parrandas",
+    "pregunta": "¿Qué canción de Billo's Caracas Boys dice 'Cantares de navidad, que alegran el corazón...'?",
+    "opciones": [
+      "Año Nuevo",
+      "Cantares de Navidad",
+      "Aguinaldo Venezolano",
+      "Fiesta en diciembre"
+    ],
+    "respuestaCorrecta": "Cantares de Navidad"
+  },
+  {
+    "id": "384",
+    "dificultad": "¡El Cañonazo!",
+    "nivel": "Experto",
+    "categoria": "Tradiciones y Costumbres",
+    "pregunta": "El 6 de enero se celebra la 'Bajada de los Reyes' en algunas zonas costeras (como La Guaira). ¿Cómo llegan los Reyes Magos en esa celebración moderna?",
+    "opciones": [
+      "En camello de verdad",
+      "A caballo o a veces en lancha por el mar",
+      "En helicóptero",
+      "En metro"
+    ],
+    "respuestaCorrecta": "A caballo o a veces en lancha por el mar"
+  },
+  {
+    "id": "385",
+    "dificultad": "Juguete de Niño",
+    "nivel": "Fácil",
+    "categoria": "Final",
+    "pregunta": "Cuando ya pasó el 31, el 1ero y Reyes, y todavía sigues comiendo hallacas en febrero, ¿qué dice la gente?",
+    "opciones": [
+      "Que eres un comelón",
+      "Que esa hallaca está 'invernada' (pasó el invierno)",
+      "Que está fresca",
+      "Que te va a dar dolor de barriga"
+    ],
+    "respuestaCorrecta": "Que esa hallaca está 'invernada' (pasó el invierno)"
   }
+  
 ]
