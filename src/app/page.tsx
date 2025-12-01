@@ -19,12 +19,12 @@ export default function Home() {
         </p>
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
-          <Link href="/solo" passHref>
-            <Card className="hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group">
+          <Link href="/solo" passHref className="flex">
+            <Card className="flex flex-col hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group">
                <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary origin-bottom-left rotate-45" />
                <div className="absolute top-1 right-5 w-px h-20 bg-accent/50" />
                <div className="absolute top-5 right-1 w-20 h-px bg-accent/50" />
-              <CardHeader>
+              <CardHeader className="flex-grow">
                 <div className="flex justify-center mb-4">
                   <GingerbreadManIcon className="w-20 h-20 text-primary" />
                 </div>
@@ -33,19 +33,19 @@ export default function Home() {
                   Compite contra el reloj y establece tu récord personal.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="flex justify-center">
+              <CardContent className="flex justify-center mt-auto">
                 <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow">
                   Modo Solitario
                 </Button>
               </CardContent>
             </Card>
           </Link>
-          <Link href="/group" passHref>
-            <Card className="hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group">
+          <Link href="/group" passHref className="flex">
+            <Card className="flex flex-col hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group">
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary origin-bottom-left rotate-45" />
                <div className="absolute top-1 right-5 w-px h-20 bg-accent/50" />
                <div className="absolute top-5 right-1 w-20 h-px bg-accent/50" />
-              <CardHeader>
+              <CardHeader className="flex-grow">
                 <div className="flex justify-center mb-4">
                   <CarolersIcon className="w-20 h-20 text-primary" />
                 </div>
@@ -54,19 +54,19 @@ export default function Home() {
                   Reta hasta 3 amigos y vean quién es el rey de la parranda.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="flex justify-center">
+              <CardContent className="flex justify-center mt-auto">
                 <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow">
                   Modo Grupal
                 </Button>
               </CardContent>
             </Card>
           </Link>
-          <Link href="/survival" passHref>
-            <Card className="hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group">
+          <Link href="/survival" passHref className="flex">
+            <Card className="flex flex-col hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group">
                <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary origin-bottom-left rotate-45" />
                <div className="absolute top-1 right-5 w-px h-20 bg-accent/50" />
                <div className="absolute top-5 right-1 w-20 h-px bg-accent/50" />
-              <CardHeader>
+              <CardHeader className="flex-grow">
                 <div className="flex justify-center mb-4">
                   <HallacaIcon className="w-20 h-20 text-primary" />
                 </div>
@@ -75,7 +75,7 @@ export default function Home() {
                   ¿Cuánto puedes resistir? Una vida, una pregunta.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="flex justify-center">
+              <CardContent className="flex justify-center mt-auto">
                 <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow">
                   Modo Supervivencia
                 </Button>
