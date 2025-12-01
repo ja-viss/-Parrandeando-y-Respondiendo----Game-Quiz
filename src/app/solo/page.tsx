@@ -11,6 +11,7 @@ import Link from "next/link";
 import { MaracaIcon } from "@/components/icons/maraca-icon";
 import { CuatroIcon } from "@/components/icons/cuatro-icon";
 import { HallacaIcon } from "@/components/icons/hallaca-icon";
+import { cn } from "@/lib/utils";
 
 const difficulties: {
   value: Difficulty;
@@ -72,12 +73,15 @@ export default function SoloPage() {
               <Button
                 key={d.value}
                 variant={difficulty === d.value ? "default" : "outline"}
-                className={`h-auto p-4 flex flex-col items-center justify-start text-left transition-all duration-300 transform hover:scale-105 ${difficulty === d.value ? 'ring-2 ring-accent shadow-lg' : ''}`}
+                className={cn(
+                  `h-auto p-4 flex flex-col items-center justify-start text-left transition-all duration-300 transform hover:scale-105`,
+                  difficulty === d.value ? 'ring-2 ring-accent shadow-lg text-primary-foreground' : ''
+                )}
                 onClick={() => setDifficulty(d.value)}
               >
-                <d.icon className="w-12 h-12 mb-3 text-primary" />
+                <d.icon className={cn("w-12 h-12 mb-3", difficulty === d.value ? 'text-primary-foreground' : 'text-primary')} />
                 <p className="font-headline text-xl font-bold">{d.label}</p>
-                <p className="font-body text-xs text-muted-foreground mt-1 whitespace-normal">{d.description}</p>
+                <p className={cn("font-body text-xs mt-1 whitespace-normal", difficulty === d.value ? 'text-primary-foreground/80' : 'text-muted-foreground')}>{d.description}</p>
               </Button>
             ))}
           </div>
