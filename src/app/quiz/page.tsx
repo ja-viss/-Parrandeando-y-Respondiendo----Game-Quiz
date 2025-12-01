@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState, useMemo, useCallback, memo } from 'react';
@@ -178,21 +177,20 @@ const SurvivalPowerUpBar = memo(({ powerUps, onUse }: { powerUps: Partial<Record
 });
 SurvivalPowerUpBar.displayName = 'SurvivalPowerUpBar';
 
+type GameState = 'loading' | 'playing' | 'answered' | 'finished';
 
 export default function QuizPage() {
   const router = useRouter();
   const { toast } = useToast();
   const [settings, setSettings] = useState<GameSettings | null>(null);
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(-1);
+  const [gameState, setGameState] = useState<GameState>('loading');
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [isAnswered, setIsAnswered] = useState(false);
   const [players, setPlayers] = useState<Player[]>([]);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState<number>(70);
   const [lives, setLives] = useState(3);
-  const [isGameOver, setIsGameOver] = useState(false);
   const [shake, setShake] = useState<string | null>(null);
   const [currentStreak, setCurrentStreak] = useState(0);
   const [highestStreak, setHighestStreak] = useState(0);
@@ -215,6 +213,7 @@ export default function QuizPage() {
 
   const finishGame = useCallback(() => {
      if (!settings) return;
+     setGameState('finished');
      const results: GameResults = {
         scores: players,
         category: settings.category,
@@ -225,60 +224,63 @@ export default function QuizPage() {
     router.push('/results');
   }, [players, settings, router, highestStreak]);
 
- const fetchNextQuestion = useCallback(async () => {
+  const handleNext = useCallback(async () => {
     if (!settings) return;
 
-    if (settings.mode !== 'survival' && currentQuestionIndex +1 >= settings.numQuestions) {
-      finishGame();
-      return;
+    if (settings.mode === 'survival' && lives <= 1) { // Will be 0 after a wrong answer
+        const isCorrect = selectedAnswer === currentQuestion?.respuestaCorrecta;
+        if (!isCorrect && !usedMilagro) {
+            setGameState('finished');
+            finishGame();
+            return;
+        }
     }
-    
-    setLoading(true);
-    setIsAnswered(false);
-    setSelectedAnswer(null);
-    setRevealedAnswer(null);
-    setHiddenOptions([]);
-    setSlowTime(false);
-    setUsedMilagro(false);
+  
+    // Determine if it's a new round for group/solo mode
+    const isNewRound = (settings.mode === 'group' || settings.mode === 'solo') && (currentPlayerIndex + 1) >= players.length;
 
-    try {
+    if (settings.mode === 'survival' || isNewRound) {
+      if (settings.mode !== 'survival' && currentQuestionIndex + 1 >= settings.numQuestions) {
+          finishGame();
+          return;
+      }
+      // Fetch new question for survival or new round in other modes
+      setGameState('loading');
+      try {
         const existingIds = questions.map(q => q.id);
         const difficultyName = settings.mode === 'survival' ? difficultyInfo.name : settings.difficulty || 'Juguete de Niño';
         const newQuestions = await getQuizQuestions(difficultyName, 1, settings.category, shouldUseAI, existingIds);
-        
         setShouldUseAI(prev => !prev);
         
         if (newQuestions.length > 0) {
             const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
-             setQuestions(prev => [...prev, polishedQuestion]);
-             setCurrentQuestionIndex(prev => prev + 1);
+            setQuestions(prev => [...prev, polishedQuestion]);
+            setCurrentQuestionIndex(prev => prev + 1);
         } else {
              throw new Error("No more questions available.");
         }
-    } catch (error) {
-        toast({ title: "Error de red", description: "No se pudo cargar la siguiente pregunta.", variant: "destructive" });
-        finishGame();
-    } finally {
-        setLoading(false);
-        setTimeLeft(isRapidFire ? 3 : 70);
+      } catch (error) {
+          toast({ title: "Error de red", description: "No se pudo cargar la siguiente pregunta.", variant: "destructive" });
+          finishGame();
+          return;
+      }
     }
-  }, [settings, finishGame, toast, questions, shouldUseAI, currentQuestionIndex, isRapidFire, difficultyInfo.name]);
-
-
-  const handleNextTurn = useCallback(async () => {
-    if (!settings) return;
 
     // Reset turn-specific states
-    setIsAnswered(false);
-    setSelectedAnswer(null);
-    setUsingHallacaDeOro(null);
-    setActiveMalus({});
     setSlowTime(false);
     setRevealedAnswer(null);
     setHiddenOptions([]);
     setUsedMilagro(false);
+    setSelectedAnswer(null);
+    setUsingHallacaDeOro(null);
+    setActiveMalus({});
+    
+    // Set next player
+     if (settings.mode === 'group') {
+        setCurrentPlayerIndex(prev => (prev + 1) % players.length);
+    }
 
-    // Determine rapid fire round for group mode
+    // Rapid fire check
     if (Math.random() < 0.15 && settings.mode === 'group') {
       setIsRapidFire(true);
       toast({ title: "¡RONDA RÁFAGA!", description: "¡3 segundos para responder! ¡El más rápido gana más!", duration: 3000 });
@@ -287,23 +289,14 @@ export default function QuizPage() {
       setIsRapidFire(false);
       setTimeLeft(70);
     }
-    
-    const isNewRoundForGroupOrSolo = (settings.mode === 'group' || settings.mode === 'solo') && (currentPlayerIndex + 1) >= players.length;
-
-    if (settings.mode === 'survival' || isNewRoundForGroupOrSolo) {
-      await fetchNextQuestion();
-    }
-
-    if (settings.mode === 'group' || settings.mode === 'solo') {
-        setCurrentPlayerIndex(prev => (prev + 1) % players.length);
-    }
-
-  }, [settings, currentPlayerIndex, players.length, fetchNextQuestion, toast]);
+    setGameState('playing');
+  }, [settings, lives, selectedAnswer, currentQuestion, usedMilagro, finishGame, currentPlayerIndex, players.length, currentQuestionIndex, questions, difficultyInfo.name, shouldUseAI, toast]);
   
 
   const handleAnswer = useCallback((answer: string) => {
-    if (isAnswered || !currentQuestion) return;
-    setIsAnswered(true);
+    if (gameState !== 'playing' || !currentQuestion) return;
+    
+    setGameState('answered');
     setSelectedAnswer(answer);
 
     const isCorrect = answer === currentQuestion.respuestaCorrecta;
@@ -387,7 +380,8 @@ export default function QuizPage() {
                 const newLives = lives - 1;
                 setLives(newLives);
                 if(newLives <= 0) {
-                    setIsGameOver(true);
+                    setGameState('finished');
+                    finishGame();
                     return;
                 }
             }
@@ -395,9 +389,9 @@ export default function QuizPage() {
     }
 
     setTimeout(() => {
-       handleNextTurn();
+       handleNext();
     }, 1500);
-  }, [isAnswered, currentQuestion, isRapidFire, settings, timeLeft, usingHallacaDeOro, players, currentPlayerIndex, currentStreak, difficultyInfo.label, highestStreak, usedMilagro, lives, handleNextTurn, toast]);
+  }, [gameState, currentQuestion, isRapidFire, settings, timeLeft, usingHallacaDeOro, players, currentPlayerIndex, currentStreak, difficultyInfo.label, highestStreak, usedMilagro, lives, handleNext, toast, finishGame]);
   
   // Initial setup effect
   useEffect(() => {
@@ -409,6 +403,7 @@ export default function QuizPage() {
     }
     
     const parsedSettings: GameSettings = JSON.parse(storedSettings);
+    setSettings(parsedSettings);
     setShouldUseAI(false); // Start with a bank question
     
     if (parsedSettings.mode === 'group' && parsedSettings.players) {
@@ -420,22 +415,31 @@ export default function QuizPage() {
       setPlayers([{ id: 'solo-player', name: 'Tú', score: 0, powerUps: [], survivalPowerUps: {} }]);
     }
 
-    setSettings(parsedSettings);
+    // This fetches the very first question.
+    (async () => {
+        try {
+            const difficultyName = parsedSettings.mode === 'survival' ? 'Juguete de Niño' : parsedSettings.difficulty || 'Juguete de Niño';
+            const newQuestions = await getQuizQuestions(difficultyName, 1, parsedSettings.category, false, []);
+            if (newQuestions.length > 0) {
+                const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
+                setQuestions([polishedQuestion]);
+                setCurrentQuestionIndex(0);
+                setTimeLeft(70);
+                setGameState('playing');
+            } else {
+                throw new Error("Could not load first question.");
+            }
+        } catch(e) {
+            toast({ title: "Error de Carga", description: "No se pudo iniciar el juego. Inténtalo de nuevo."});
+            router.push('/');
+        }
+    })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, toast]);
 
 
-  // Initial fetch effect, runs only when settings are available
-  useEffect(() => {
-    // This effect ensures the first question is fetched only once.
-    if (settings && currentQuestionIndex === -1) {
-        fetchNextQuestion();
-    }
-  }, [settings, currentQuestionIndex, fetchNextQuestion]);
-
-
    useEffect(() => {
-    if (isAnswered || loading || !currentQuestion) {
+    if (gameState !== 'playing') {
         return;
     }
 
@@ -454,13 +458,11 @@ export default function QuizPage() {
         handleAnswer(""); // Time's up, count as wrong
     }
     return () => clearInterval(timer);
-  }, [timeLeft, isAnswered, loading, currentQuestion, activeMalus, players, currentPlayerIndex, slowTime, handleAnswer]);
+  }, [timeLeft, gameState, activeMalus, players, currentPlayerIndex, slowTime, handleAnswer]);
 
   const shuffledOptions = useMemo(() => {
     if (!currentQuestion?.opciones) return [];
-    // The options are already shuffled in the fetching process if needed,
-    // so here we just ensure we have a stable array for rendering.
-    return [...currentQuestion.opciones];
+    return [...currentQuestion.opciones].sort(() => Math.random() - 0.5);
   }, [currentQuestion]);
 
    const handleUseGroupPowerUp = (powerUp: GroupPowerUp) => {
@@ -475,7 +477,7 @@ export default function QuizPage() {
   
     const handleUseSurvivalPowerUp = (powerUp: SurvivalPowerUp) => {
         const currentPlayer = players[0];
-        if (!currentPlayer || (currentPlayer.survivalPowerUps?.[powerUp] || 0) <= 0 || isAnswered || !currentQuestion) {
+        if (!currentPlayer || (currentPlayer.survivalPowerUps?.[powerUp] || 0) <= 0 || gameState !== 'playing' || !currentQuestion) {
             return;
         }
 
@@ -499,8 +501,7 @@ export default function QuizPage() {
                 break;
             case 'media-hallaca':
                 const wrongOptions = currentQuestion.opciones.filter(opt => opt !== currentQuestion.respuestaCorrecta);
-                const shuffledWrongOptions = wrongOptions.sort(() => 0.5 - Math.random());
-                const optionsToHide = shuffledWrongOptions.slice(0, 2);
+                const optionsToHide = wrongOptions.sort(() => 0.5 - Math.random()).slice(0, 2);
                 setHiddenOptions(optionsToHide);
                 break;
             case 'milagro-santo':
@@ -550,7 +551,7 @@ export default function QuizPage() {
   }
 
 
-  if (!currentQuestion) {
+  if (gameState === 'loading' || !currentQuestion) {
      return (
       <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-center min-h-screen p-4">
         <div className="w-full">
@@ -619,6 +620,7 @@ export default function QuizPage() {
                       const isCorrectAnswer = option === currentQuestion.respuestaCorrecta;
                       const isSelected = option === selectedAnswer;
                       const isRevealed = option === revealedAnswer;
+                      const isAnswered = gameState === 'answered';
                       
                       return (
                         <div
@@ -717,29 +719,23 @@ export default function QuizPage() {
        {settings?.mode === 'survival' && players[0] && (
           <SurvivalPowerUpBar powerUps={players[0].survivalPowerUps || {}} onUse={handleUseSurvivalPowerUp} />
       )}
+      <AlertDialog open={gameState === 'finished' && settings?.mode === 'survival' && lives <= 0}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="font-headline text-3xl">¡Fin de la Parranda!</AlertDialogTitle>
+            <AlertDialogDescription className="font-body">
+              ¡Te has quedado sin vidas! Pero no te preocupes, siempre puedes intentarlo de nuevo.
+              Tu puntuación final fue de <span className="font-bold text-primary">{players[0]?.score}</span> puntos y tu mejor racha fue de <span className="font-bold text-primary">{highestStreak}</span>.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={finishGame}>Ver Resultados</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
-    <AlertDialog open={isGameOver}>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle className="font-headline text-3xl">¡Fin de la Parranda!</AlertDialogTitle>
-          <AlertDialogDescription className="font-body">
-            ¡Te has quedado sin vidas! Pero no te preocupes, siempre puedes intentarlo de nuevo.
-            Tu puntuación final fue de <span className="font-bold text-primary">{players[0]?.score}</span> puntos y tu mejor racha fue de <span className="font-bold text-primary">{highestStreak}</span>.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogAction onClick={finishGame}>Ver Resultados</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
     </>
   );
 }
-
-    
-
-    
-
-    
 
     
