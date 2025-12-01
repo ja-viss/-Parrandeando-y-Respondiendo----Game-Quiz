@@ -34,7 +34,7 @@ export default function Home() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex justify-center mt-auto">
-                <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow">
+                <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow pulse">
                   Modo Solitario
                 </Button>
               </CardContent>
@@ -55,7 +55,7 @@ export default function Home() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex justify-center mt-auto">
-                <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow">
+                <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow pulse">
                   Modo Grupal
                 </Button>
               </CardContent>
@@ -76,7 +76,7 @@ export default function Home() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex justify-center mt-auto">
-                <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow">
+                <Button variant="default" size="lg" className="font-bold text-lg bg-primary text-accent hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow pulse">
                   Modo Supervivencia
                 </Button>
               </CardContent>
