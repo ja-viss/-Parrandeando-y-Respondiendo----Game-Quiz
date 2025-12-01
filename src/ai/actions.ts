@@ -7,10 +7,17 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'zod';
 
-// Schema for the polishing prompt
+// Schema for the polishing prompt input
 const PolishPromptInputSchema = z.object({
   question: z.string().describe('The original question text.'),
 });
+
+// Schema for the polishing prompt output
+const PolishPromptOutputSchema = z.object({
+    pregunta_final: z.string().optional(),
+    status: z.string().optional()
+});
+
 
 /**
  * Defines a Genkit prompt to refine a given text into authentic Venezuelan dialect.
@@ -18,14 +25,19 @@ const PolishPromptInputSchema = z.object({
 const polishDialectPrompt = ai.definePrompt({
   name: 'polishDialectPrompt',
   input: {schema: PolishPromptInputSchema},
+  output: {schema: PolishPromptOutputSchema},
   prompt: `
-    Your Role: You are an expert editor specializing in Venezuelan culture and dialect.
-    Your Task: Take the following trivia question and rewrite it to sound completely natural and authentic to how a Venezuelan would speak. Inject colloquialisms, slang ("vaina", "chamo", "pana"), and the typical friendly, informal tone. Do NOT change the factual core of the question, the options, or the answer. Only enhance the style.
+    Tu Rol: Eres un Filtrador Coloquial Venezolano. Tu trabajo es extremadamente eficiente: analizar una frase o pregunta de trivia, verificar si pertenece a la temática central Navidad/Tradiciones Venezolanas (hallaca, gaita, pernil, aguinaldos, costumbres decembrinas), y reescribirla con jerga venezolana, o rechazarla.
 
-    Original Question:
+    Reglas de Token y Salida (Mandatorio):
+    1.  Filtro Temático: Si la pregunta no es 100% sobre la Navidad venezolana, la rechazas.
+    2.  Jerga: Si la apruebas, reescribe la pregunta de la forma más natural posible con jerga ("chamo", "pana", "vaina", "coroto", "pues", etc.).
+    3.  Formato Estricto: DEBES responder con un objeto JSON simple.
+
+    Analiza y procesa la siguiente pregunta. Si aplica, reescríbela en dialecto venezolano. Devuelve solo el objeto JSON solicitado.
+
+    Pregunta Original:
     "{{{question}}}"
-
-    Return ONLY the rewritten question text, without any additional explanations.
   `,
   config: {
     temperature: 0.5, // Be creative but not wildly so.
@@ -40,5 +52,9 @@ const polishDialectPrompt = ai.definePrompt({
  */
 export async function polishQuestionDialect(questionText: string): Promise<string> {
   const {output} = await polishDialectPrompt({ question: questionText });
-  return output!;
+  if (output?.pregunta_final) {
+    return output.pregunta_final;
+  }
+  // If rejected or failed, return original text
+  return questionText;
 }
