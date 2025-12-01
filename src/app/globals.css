@@ -166,4 +166,29 @@
       transform: translateY(0);
     }
   }
+
+  .christmas-garland {
+    position: absolute;
+    top: 0;
+    z-index: 20;
+    width: 250px;
+    height: 250px;
+    pointer-events: none;
+  }
+
+  .garland-left {
+    left: 0;
+  }
+  
+  .garland-right {
+    right: 0;
+    transform: scaleX(-1);
+  }
+
+  @media (max-width: 768px) {
+    .christmas-garland {
+      width: 150px;
+      height: 150px;
+    }
+  }
 }

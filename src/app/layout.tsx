@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import { Snow } from '@/components/snow';
+import { ChristmasDecorations } from '@/components/decorations';
 
 export const metadata: Metadata = {
   title: '¡Parrandeando y Respondiendo!',
@@ -21,6 +22,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased min-h-screen bg-background relative overflow-hidden">
+        <ChristmasDecorations />
         <Snow />
         <div className="relative z-10">
           {children}
