@@ -13,6 +13,7 @@ import { Trophy, Clock, Users, User, ArrowLeft, Heart, Zap } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -44,9 +45,24 @@ const Leaderboard = ({ players }: { players: Player[] }) => (
 );
 
 const LivesIndicator = ({ lives }: { lives: number }) => (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-1">
+      <AnimatePresence>
         {[...Array(3)].map((_, i) => (
-            <Heart key={i} className={cn("h-6 w-6 text-red-500 transition-all", i < lives ? 'fill-current' : 'opacity-25')} />
+           i < lives ? (
+            <motion.div
+              key={i}
+              initial={{ scale: 0, rotate: -90 }}
+              animate={{ scale: 1, rotate: 0 }}
+              exit={{ scale: 0.5, opacity: 0, rotate: 90, transition: { duration: 0.3 } }}
+              transition={{ type: 'spring', stiffness: 500, damping: 20 }}
+            >
+              <Heart className="h-6 w-6 text-red-500 fill-current" />
+            </motion.div>
+           ) : null
+        ))}
+       </AnimatePresence>
+       {[...Array(3 - lives)].map((_, i) => (
+            <Heart key={`empty-${i}`} className="h-6 w-6 text-red-500 opacity-25" />
         ))}
     </div>
 );
@@ -72,7 +88,6 @@ export default function QuizPage() {
   const [lives, setLives] = useState(3);
   const [isGameOver, setIsGameOver] = useState(false);
   const [shake, setShake] = useState(false);
-  const [confetti, setConfetti] = useState(false);
   const [currentStreak, setCurrentStreak] = useState(0);
   const [highestStreak, setHighestStreak] = useState(0);
   const [levelUp, setLevelUp] = useState(false);
@@ -204,8 +219,6 @@ export default function QuizPage() {
     const isCorrect = answer === currentQuestion.respuestaCorrecta;
     
     if (isCorrect) {
-        setConfetti(true);
-        setTimeout(() => setConfetti(false), 2000);
         let scoreToAdd = 10;
         
         if (settings?.mode === 'solo' && settings.difficulty) {
@@ -274,7 +287,7 @@ export default function QuizPage() {
 
   return (
     <>
-    <div className={cn("container mx-auto p-4 min-h-screen flex flex-col items-center justify-center transition-all duration-500", shake && 'shake', confetti && 'confetti-pop')}>
+    <div className={cn("container mx-auto p-4 min-h-screen flex flex-col items-center justify-center transition-all duration-500", shake && 'shake')}>
        <Button variant="ghost" className="absolute top-4 left-4" asChild>
         <Link href="/">
           <ArrowLeft className="mr-2 h-4 w-4" /> Salir del Juego
@@ -282,41 +295,57 @@ export default function QuizPage() {
       </Button>
       <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-8 items-start animate-fade-in-up">
         <div className="md:col-span-2 order-2 md:order-1 w-full">
-          <Card className="bg-card/80 backdrop-blur-sm w-full">
-            <CardHeader>
-              {settings.mode !== 'survival' && <Progress value={((currentQuestionIndex + 1) / settings.numQuestions) * 100} className="mb-4" />}
-              <CardDescription>
-                {settings.mode === 'survival' ? `Racha actual: ${currentStreak}` : `Pregunta ${currentQuestionIndex + 1}`}
-              </CardDescription>
-              <CardTitle className="font-headline text-2xl md:text-3xl !mt-2">{currentQuestion.pregunta}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {shuffledOptions.map((option, index) => {
-                  const isCorrectAnswer = option === currentQuestion.respuestaCorrecta;
-                  const isSelected = option === selectedAnswer;
-                  
-                  return (
-                    <Button
-                      key={index}
-                      variant="outline"
-                      size="lg"
-                      className={cn(
-                        "h-auto py-4 text-base whitespace-normal justify-start text-left transition-all duration-300 transform hover:scale-105",
-                        isAnswered && isCorrectAnswer && "bg-green-500/80 border-green-500 text-white confetti-pop",
-                        isAnswered && isSelected && !isCorrectAnswer && "bg-red-500/80 border-red-500 text-white shake",
-                        isAnswered && !isSelected && "opacity-60"
-                      )}
-                      onClick={() => handleAnswer(option)}
-                      disabled={isAnswered}
-                    >
-                      {option}
-                    </Button>
-                  );
-                })}
-              </div>
-            </CardContent>
-          </Card>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentQuestionIndex}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Card className="bg-card/80 backdrop-blur-sm w-full">
+                <CardHeader>
+                  {settings.mode !== 'survival' && <Progress value={((currentQuestionIndex + 1) / settings.numQuestions) * 100} className="mb-4" />}
+                  <CardDescription>
+                    {settings.mode === 'survival' ? `Racha actual: ${currentStreak}` : `Pregunta ${currentQuestionIndex + 1}`}
+                  </CardDescription>
+                  <CardTitle className="font-headline text-2xl md:text-3xl !mt-2">{currentQuestion.pregunta}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {shuffledOptions.map((option, index) => {
+                      const isCorrectAnswer = option === currentQuestion.respuestaCorrecta;
+                      const isSelected = option === selectedAnswer;
+                      
+                      return (
+                        <motion.div
+                          key={index}
+                          whileHover={{ scale: 1.05, boxShadow: "0px 5px 15px hsla(var(--ring), 0.2)" }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <Button
+                            variant="outline"
+                            size="lg"
+                            className={cn(
+                              "h-auto py-4 text-base whitespace-normal justify-start text-left w-full",
+                              "transition-all duration-300 transform",
+                              isAnswered && isCorrectAnswer && "bg-green-500/80 border-green-500 text-white",
+                              isAnswered && isSelected && !isCorrectAnswer && "bg-red-500/80 border-red-500 text-white",
+                              isAnswered && !isSelected && "opacity-60"
+                            )}
+                            onClick={() => handleAnswer(option)}
+                            disabled={isAnswered}
+                          >
+                            {option}
+                          </Button>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </AnimatePresence>
         </div>
         <div className="w-full space-y-4 order-1 md:order-2">
             {settings.mode === 'group' ? (
@@ -332,7 +361,7 @@ export default function QuizPage() {
                  <>
                     <Alert>
                         <LivesIndicator lives={lives} />
-                        <AlertTitle className="font-bold ml-10">Vidas Restantes</AlertTitle>
+                        <AlertTitle className="font-bold ml-10 -mt-5">Vidas Restantes</AlertTitle>
                     </Alert>
                      <Alert className={cn("relative overflow-hidden transition-all duration-300", levelUp && "ring-2 ring-accent confetti-pop")}>
                         <Zap className="h-4 w-4" />
@@ -350,20 +379,26 @@ export default function QuizPage() {
                 </>
             ) : (
                 <>
-                     <div className="md:hidden sticky top-4 z-20">
+                     <motion.div 
+                        className="md:hidden sticky top-4 z-20"
+                        animate={timeLeft && timeLeft <= 5 ? { scale: [1, 1.1, 1], transition: { duration: 0.5, repeat: Infinity } } : {}}
+                      >
                       <Alert className="bg-background/80 backdrop-blur-sm">
                           <Clock className="h-4 w-4" />
                           <AlertTitle className="font-bold">Tiempo:</AlertTitle>
                           <AlertDescription className="text-2xl text-primary font-mono">{timeLeft}s</AlertDescription>
                       </Alert>
-                    </div>
-                    <div className="hidden md:block">
+                    </motion.div>
+                    <motion.div 
+                      className="hidden md:block"
+                      animate={timeLeft && timeLeft <= 5 ? { scale: [1, 1.05, 1], transition: { duration: 0.5, repeat: Infinity } } : {}}
+                    >
                       <Alert>
                           <Clock className="h-4 w-4" />
                           <AlertTitle className="font-bold">Tiempo Restante</AlertTitle>
                           <AlertDescription className="text-2xl text-primary font-mono">{timeLeft}s</AlertDescription>
                       </Alert>
-                    </div>
+                    </motion.div>
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2 font-headline text-2xl"><User className="text-accent" />Puntuación</CardTitle>
