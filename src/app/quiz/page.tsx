@@ -223,61 +223,65 @@ export default function QuizPage() {
     sessionStorage.setItem('quizResults', JSON.stringify(results));
     router.push('/results');
   }, [players, settings, router, highestStreak]);
+  
+  const fetchNextQuestion = useCallback(async () => {
+    if (!settings) return;
+
+    setGameState('loading');
+    try {
+      const existingIds = questions.map(q => q.id);
+      const difficultyName = settings.mode === 'survival' ? difficultyInfo.name : settings.difficulty || 'Juguete de Niño';
+      
+      const newQuestions = await getQuizQuestions(difficultyName, 1, settings.category, shouldUseAI, existingIds);
+      setShouldUseAI(prev => !prev);
+      
+      if (newQuestions.length > 0) {
+          const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
+          setQuestions(prev => [...prev, polishedQuestion]);
+          setCurrentQuestionIndex(prev => prev + 1);
+          setGameState('playing');
+      } else {
+           throw new Error("No more questions available.");
+      }
+    } catch (error) {
+        toast({ title: "Error de red", description: "No se pudo cargar la siguiente pregunta.", variant: "destructive" });
+        finishGame();
+    }
+  }, [settings, questions, difficultyInfo.name, shouldUseAI, toast, finishGame]);
+
 
   const handleNext = useCallback(async () => {
     if (!settings) return;
 
-    if (settings.mode === 'survival' && lives <= 1) { // Will be 0 after a wrong answer
-        const isCorrect = selectedAnswer === currentQuestion?.respuestaCorrecta;
-        if (!isCorrect && !usedMilagro) {
-            setGameState('finished');
-            finishGame();
-            return;
-        }
-    }
-  
-    // Determine if it's a new round for group/solo mode
-    const isNewRound = (settings.mode === 'group' || settings.mode === 'solo') && (currentPlayerIndex + 1) >= players.length;
-
-    if (settings.mode === 'survival' || isNewRound) {
-      if (settings.mode !== 'survival' && currentQuestionIndex + 1 >= settings.numQuestions) {
-          finishGame();
-          return;
-      }
-      // Fetch new question for survival or new round in other modes
-      setGameState('loading');
-      try {
-        const existingIds = questions.map(q => q.id);
-        const difficultyName = settings.mode === 'survival' ? difficultyInfo.name : settings.difficulty || 'Juguete de Niño';
-        const newQuestions = await getQuizQuestions(difficultyName, 1, settings.category, shouldUseAI, existingIds);
-        setShouldUseAI(prev => !prev);
-        
-        if (newQuestions.length > 0) {
-            const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
-            setQuestions(prev => [...prev, polishedQuestion]);
-            setCurrentQuestionIndex(prev => prev + 1);
-        } else {
-             throw new Error("No more questions available.");
-        }
-      } catch (error) {
-          toast({ title: "Error de red", description: "No se pudo cargar la siguiente pregunta.", variant: "destructive" });
-          finishGame();
-          return;
-      }
-    }
-
     // Reset turn-specific states
+    setSelectedAnswer(null);
     setSlowTime(false);
     setRevealedAnswer(null);
     setHiddenOptions([]);
     setUsedMilagro(false);
-    setSelectedAnswer(null);
     setUsingHallacaDeOro(null);
     setActiveMalus({});
     
-    // Set next player
-     if (settings.mode === 'group') {
-        setCurrentPlayerIndex(prev => (prev + 1) % players.length);
+    // Set next player for group mode
+    if (settings.mode === 'group') {
+        const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
+        setCurrentPlayerIndex(nextPlayerIndex);
+        // If it's the start of a new round, fetch a new question
+        if (nextPlayerIndex === 0) {
+             if (currentQuestionIndex + 1 >= settings.numQuestions) {
+                finishGame();
+                return;
+            }
+            await fetchNextQuestion();
+        } else {
+            setGameState('playing'); // Just switch player, don't fetch new question
+        }
+    } else { // Solo or Survival
+        if (settings.mode !== 'survival' && currentQuestionIndex + 1 >= settings.numQuestions) {
+            finishGame();
+            return;
+        }
+        await fetchNextQuestion();
     }
 
     // Rapid fire check
@@ -289,8 +293,7 @@ export default function QuizPage() {
       setIsRapidFire(false);
       setTimeLeft(70);
     }
-    setGameState('playing');
-  }, [settings, lives, selectedAnswer, currentQuestion, usedMilagro, finishGame, currentPlayerIndex, players.length, currentQuestionIndex, questions, difficultyInfo.name, shouldUseAI, toast]);
+  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, fetchNextQuestion, finishGame, toast]);
   
 
   const handleAnswer = useCallback((answer: string) => {
@@ -311,7 +314,7 @@ export default function QuizPage() {
 
         if (settings?.mode === 'survival') {
             const newStreak = currentStreak + 1;
-            const prevDifficulty = difficultyInfo.label;
+            const prevDifficulty = getDifficulty(currentStreak).label;
             const newDifficultyInfo = getDifficulty(newStreak);
             
             if (newDifficultyInfo.label !== prevDifficulty) {
@@ -380,7 +383,6 @@ export default function QuizPage() {
                 const newLives = lives - 1;
                 setLives(newLives);
                 if(newLives <= 0) {
-                    setGameState('finished');
                     finishGame();
                     return;
                 }
@@ -391,7 +393,7 @@ export default function QuizPage() {
     setTimeout(() => {
        handleNext();
     }, 1500);
-  }, [gameState, currentQuestion, isRapidFire, settings, timeLeft, usingHallacaDeOro, players, currentPlayerIndex, currentStreak, difficultyInfo.label, highestStreak, usedMilagro, lives, handleNext, toast, finishGame]);
+  }, [gameState, currentQuestion, isRapidFire, settings, timeLeft, usingHallacaDeOro, players, currentPlayerIndex, currentStreak, highestStreak, usedMilagro, lives, handleNext, toast, finishGame]);
   
   // Initial setup effect
   useEffect(() => {
@@ -414,12 +416,19 @@ export default function QuizPage() {
     } else {
       setPlayers([{ id: 'solo-player', name: 'Tú', score: 0, powerUps: [], survivalPowerUps: {} }]);
     }
+    
+    setCurrentQuestionIndex(-1); // Sentinel value to trigger initial fetch
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router, toast]);
 
-    // This fetches the very first question.
-    (async () => {
+  // Initial question fetch effect
+  useEffect(() => {
+    if(settings && currentQuestionIndex === -1){
+      (async () => {
+        setGameState('loading');
         try {
-            const difficultyName = parsedSettings.mode === 'survival' ? 'Juguete de Niño' : parsedSettings.difficulty || 'Juguete de Niño';
-            const newQuestions = await getQuizQuestions(difficultyName, 1, parsedSettings.category, false, []);
+            const difficultyName = settings.mode === 'survival' ? 'Juguete de Niño' : settings.difficulty || 'Juguete de Niño';
+            const newQuestions = await getQuizQuestions(difficultyName, 1, settings.category, false, []);
             if (newQuestions.length > 0) {
                 const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
                 setQuestions([polishedQuestion]);
@@ -434,8 +443,9 @@ export default function QuizPage() {
             router.push('/');
         }
     })();
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router, toast]);
+  }, [settings, currentQuestionIndex]);
 
 
    useEffect(() => {
@@ -454,7 +464,7 @@ export default function QuizPage() {
         timer = setInterval(() => {
             setTimeLeft(prev => (prev > 0 ? prev - 1 : 0));
         }, interval);
-    } else if (timeLeft === 0) {
+    } else if (timeLeft === 0 && gameState === 'playing') {
         handleAnswer(""); // Time's up, count as wrong
     }
     return () => clearInterval(timer);
@@ -462,8 +472,10 @@ export default function QuizPage() {
 
   const shuffledOptions = useMemo(() => {
     if (!currentQuestion?.opciones) return [];
+    // This will re-shuffle every time the question changes
     return [...currentQuestion.opciones].sort(() => Math.random() - 0.5);
   }, [currentQuestion]);
+
 
    const handleUseGroupPowerUp = (powerUp: GroupPowerUp) => {
     if (groupPowerUpConfig[powerUp].malus) {
@@ -737,5 +749,3 @@ export default function QuizPage() {
     </>
   );
 }
-
-    
