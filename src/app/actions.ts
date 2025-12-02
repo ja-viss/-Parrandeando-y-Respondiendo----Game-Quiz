@@ -14,6 +14,26 @@ function shuffleArray<T>(array: T[]): T[] {
   return array;
 }
 
+async function getFallbackQuestion(difficulty: Difficulty, category: GameCategory | 'all', existingQuestionIds: string[]): Promise<QuizQuestion[]> {
+    console.warn(`AI generation failed. Falling back to local question bank.`);
+    let questionsPool = (allQuestions as QuizQuestion[]).filter(q => !existingQuestionIds.includes(q.id));
+    
+    if (category !== 'all') {
+      questionsPool = questionsPool.filter(q => q.categoria === category);
+    }
+    
+    let filteredQuestions = questionsPool.filter(q => q.dificultad === difficulty);
+    
+    if (filteredQuestions.length < 1) {
+        const fallbackPool = (allQuestions as QuizQuestion[]).filter(q => q.dificultad === difficulty && !existingQuestionIds.includes(q.id));
+        const shuffledFallback = shuffleArray(fallbackPool);
+        return shuffledFallback.slice(0, 1);
+    }
+
+    const shuffledQuestions = shuffleArray(filteredQuestions);
+    return shuffledQuestions.slice(0, 1);
+}
+
 export async function getQuizQuestions(
     difficulty: Difficulty, 
     numQuestions: number, 
@@ -22,19 +42,28 @@ export async function getQuizQuestions(
     existingQuestionIds: string[] = []
 ): Promise<QuizQuestion[]> {
   try {
-
     if (useAI) {
-      const allCategories: GameCategory[] = ['Gastronomía', 'Música y Parrandas', 'Tradiciones y Costumbres', 'Folclore Regional'];
-      const targetCategory = category === 'all' ? allCategories[Math.floor(Math.random() * allCategories.length)] : category;
-      
-      const existingQuestionsText = (allQuestions as QuizQuestion[])
-            .filter(q => existingQuestionIds.includes(q.id))
-            .map(q => q.pregunta);
+      try {
+        const allCategories: GameCategory[] = ['Gastronomía', 'Música y Parrandas', 'Tradiciones y Costumbres', 'Folclore Regional'];
+        const targetCategory = category === 'all' ? allCategories[Math.floor(Math.random() * allCategories.length)] : category;
+        
+        const existingQuestionsText = (allQuestions as QuizQuestion[])
+              .filter(q => existingQuestionIds.includes(q.id))
+              .map(q => q.pregunta);
 
-      const aiQuestion = await createVenezuelanQuizQuestion(difficulty, targetCategory, existingQuestionsText);
-      return [aiQuestion];
+        const aiQuestion = await createVenezuelanQuizQuestion(difficulty, targetCategory, existingQuestionsText);
+
+        // Check if the AI returned the error-fallback question
+        if (aiQuestion.id.startsWith('error-ai')) {
+          throw new Error("AI returned fallback error question.");
+        }
+        
+        return [aiQuestion];
+      } catch (aiError) {
+        console.error("AI question generation failed, getting fallback.", aiError);
+        return await getFallbackQuestion(difficulty, category, existingQuestionIds);
+      }
     }
-
 
     let questionsPool = allQuestions as QuizQuestion[];
 
