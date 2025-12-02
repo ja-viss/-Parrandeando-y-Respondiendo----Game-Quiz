@@ -226,7 +226,6 @@ export default function QuizPage() {
   
   const fetchNextQuestion = useCallback(async () => {
     if (!settings) return;
-
     setGameState('loading');
     try {
       const existingIds = questions.map(q => q.id);
@@ -240,6 +239,7 @@ export default function QuizPage() {
           setQuestions(prev => [...prev, polishedQuestion]);
           setCurrentQuestionIndex(prev => prev + 1);
           setGameState('playing');
+          setTimeLeft(70);
       } else {
            throw new Error("No more questions available.");
       }
@@ -275,6 +275,7 @@ export default function QuizPage() {
             await fetchNextQuestion();
         } else {
             setGameState('playing'); // Just switch player, don't fetch new question
+            setTimeLeft(70);
         }
     } else { // Solo or Survival
         if (settings.mode !== 'survival' && currentQuestionIndex + 1 >= settings.numQuestions) {
@@ -291,7 +292,7 @@ export default function QuizPage() {
       setTimeLeft(3);
     } else {
       setIsRapidFire(false);
-      setTimeLeft(70);
+      // Time is set in fetchNextQuestion or when player is switched
     }
   }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, fetchNextQuestion, finishGame, toast]);
   
@@ -393,7 +394,7 @@ export default function QuizPage() {
     setTimeout(() => {
        handleNext();
     }, 1500);
-  }, [gameState, currentQuestion, isRapidFire, settings, timeLeft, usingHallacaDeOro, players, currentPlayerIndex, currentStreak, highestStreak, usedMilagro, lives, handleNext, toast, finishGame]);
+  }, [gameState, currentQuestion, isRapidFire, settings, timeLeft, usingHallacaDeOro, players, currentPlayerIndex, currentStreak, highestStreak, usedMilagro, lives, handleNext, toast, finishGame, difficultyInfo.multiplier]);
   
   // Initial setup effect
   useEffect(() => {
@@ -417,13 +418,12 @@ export default function QuizPage() {
       setPlayers([{ id: 'solo-player', name: 'Tú', score: 0, powerUps: [], survivalPowerUps: {} }]);
     }
     
-    setCurrentQuestionIndex(-1); // Sentinel value to trigger initial fetch
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, toast]);
 
   // Initial question fetch effect
   useEffect(() => {
-    if(settings && currentQuestionIndex === -1){
+    if(settings && questions.length === 0){
       (async () => {
         setGameState('loading');
         try {
@@ -445,7 +445,7 @@ export default function QuizPage() {
     })();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [settings, currentQuestionIndex]);
+  }, [settings]);
 
 
    useEffect(() => {
@@ -617,11 +617,16 @@ export default function QuizPage() {
                 <CardHeader>
                   {settings?.mode !== 'survival' && <Progress value={((currentQuestionIndex + 1) / settings.numQuestions) * 100} className="mb-4" />}
                     <div className="flex justify-between items-center text-sm text-muted-foreground font-body">
-                        <span>
-                            {settings?.mode === 'survival' 
-                                ? `Racha actual: ${currentStreak}` 
-                                : `Pregunta ${currentQuestionIndex + 1} de ${settings?.numQuestions || 10}`}
-                        </span>
+                       {settings?.mode === 'survival' ? (
+                          <div className='flex gap-4'>
+                            <span>Ronda: <span className='font-bold text-foreground'>{currentQuestionIndex + 1}</span></span>
+                            <span>Racha: <span className='font-bold text-foreground'>{currentStreak}</span></span>
+                          </div>
+                        ) : (
+                          <span>
+                            Pregunta {currentQuestionIndex + 1} de {settings?.numQuestions || 10}
+                          </span>
+                        )}
                         {currentQuestion.categoria !== "Error" && <span className='font-bold'>Categoría: {currentQuestion.categoria}</span>}
                     </div>
                   <CardTitle className="font-body text-2xl md:text-3xl lg:text-4xl !mt-2">{currentQuestion.pregunta}</CardTitle>
@@ -749,3 +754,5 @@ export default function QuizPage() {
     </>
   );
 }
+
+    
