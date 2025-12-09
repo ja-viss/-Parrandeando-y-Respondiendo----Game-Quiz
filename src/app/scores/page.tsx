@@ -82,6 +82,7 @@ const ScoreTable = ({ title, players, isStreak = false }: { title: string, playe
 export default function ScoresPage() {
     const [leaderboards, setLeaderboards] = useState<Leaderboards | null>(null);
     const [loading, setLoading] = useState(true);
+    const router = useRouter();
 
     useEffect(() => {
         getLeaderboards()
@@ -99,7 +100,7 @@ export default function ScoresPage() {
         <div className="flex flex-col items-center justify-center min-h-screen p-4">
             <div className="w-full max-w-4xl mx-auto">
                 <div className="relative flex justify-center items-center mb-6">
-                     <Button variant="ghost" onClick={() => window.history.back()} className="absolute top-1/2 -translate-y-1/2 left-0 flex items-center gap-2">
+                     <Button variant="ghost" onClick={() => router.back()} className="absolute top-1/2 -translate-y-1/2 left-0 flex items-center gap-2">
                         <ArrowLeft className="h-4 w-4" /> Volver
                     </Button>
                     <h1 className="font-brand text-4xl md:text-6xl text-primary title-pulse">Salón de la Fama</h1>
@@ -154,10 +155,10 @@ export default function ScoresPage() {
                                 <ScoreTable title="Mejores Puntajes: Grupal" players={leaderboards.group} />
                             </div>
                             <div className="space-y-8">
-                                <ScoreTable title="La Galería de los Verdugos (Supervivencia)" players={leaderboards.survival} />
+                                <ScoreTable title="Salón de la Lacrería (Supervivencia)" players={leaderboards.survival} />
                                 <Card>
                                     <CardHeader>
-                                        <CardTitle className='font-headline text-xl flex items-center gap-2'><Star className='text-accent'/>Rachas de los Verdugos</CardTitle>
+                                        <CardTitle className='font-headline text-xl flex items-center gap-2'><Star className='text-accent'/>Rachas de Lacreo</CardTitle>
                                     </CardHeader>
                                     <CardContent>
                                         <Table>
