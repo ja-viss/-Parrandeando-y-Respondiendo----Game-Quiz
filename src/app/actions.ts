@@ -34,7 +34,9 @@ async function getFallbackQuestion(difficulty: Difficulty, category: GameCategor
     
     let filteredQuestions = questionsPool.filter(q => q.dificultad === difficulty);
     
+    // If there aren't enough for the category/difficulty, use any from that difficulty
     if (filteredQuestions.length < 1) {
+        console.warn(`Not enough fallback questions for category '${category}' and difficulty '${difficulty}'. Using any question of difficulty '${difficulty}'.`);
         const fallbackPool = (allQuestions as QuizQuestion[]).filter(q => q.dificultad === difficulty && !existingQuestionIds.includes(q.id));
         const shuffledFallback = shuffleArray(fallbackPool);
         return shuffledFallback.slice(0, 1);
@@ -54,7 +56,7 @@ export async function getQuizQuestions(
   try {
     if (useAI) {
       try {
-        const allCategories: GameCategory[] = ['Gastronomía', 'Música y Parrandas', 'Tradiciones y Costumbres', 'Folclore Regional'];
+        const allCategories: GameCategory[] = [GameCategory.GASTRONOMIA, GameCategory.MUSICA, GameCategory.TRADICIONES, GameCategory.FOLCLORE];
         const targetCategory = category === 'all' ? allCategories[Math.floor(Math.random() * allCategories.length)] : category;
         
         const existingQuestionsText = (allQuestions as QuizQuestion[])
@@ -65,7 +67,7 @@ export async function getQuizQuestions(
 
         // Check if the AI returned the error-fallback question
         if (aiQuestion.id.startsWith('error-ai')) {
-          throw new Error("AI returned fallback error question.");
+          throw new Error("AI returned its own fallback error question.");
         }
         
         return [aiQuestion];
@@ -75,6 +77,7 @@ export async function getQuizQuestions(
       }
     }
 
+    // --- Local bank logic ---
     let questionsPool = allQuestions as QuizQuestion[];
 
     // 0. Filter out existing questions
@@ -106,15 +109,15 @@ export async function getQuizQuestions(
     return shuffledQuestions.slice(0, numQuestions);
 
   } catch (error) {
-    console.error("Error reading quiz questions from local file:", error);
-    // Return a fallback question in case of an error
+    console.error("Error reading quiz questions:", error);
+    // Return a generic fallback question in case of any catastrophic error
     return [
       {
         id: "error-1",
-        pregunta: "No se pudo cargar la pregunta desde el archivo local. Por favor, intenta de nuevo.",
+        pregunta: "No se pudo cargar una pregunta. ¡Vaya beta! Por favor, intenta de nuevo.",
         respuestaCorrecta: "Error",
         opciones: ["Error", "Intentar de nuevo", "Volver", "Ayuda"],
-        dificultad: "Juguete de Niño" as Difficulty,
+        dificultad: Difficulty.NINO,
         nivel: "Fácil",
         categoria: "Error"
       },

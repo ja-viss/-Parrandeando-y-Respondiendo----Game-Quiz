@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState, useMemo, useCallback, memo } from 'react';
@@ -120,9 +121,9 @@ const LivesIndicator = ({ lives }: { lives: number }) => (
 
 
 const getDifficulty = (streak: number): { name: Difficulty; multiplier: number; label: string } => {
-    if (streak < 6) return { name: 'Juguete de Niño', multiplier: 1.0, label: "Juguete de Niño" };
-    if (streak < 16) return { name: "Palo 'e Ron", multiplier: 1.2, label: "Palo 'e Ron" };
-    return { name: "¡El Cañonazo!", multiplier: 1.5, label: "¡El Cañonazo!" };
+    if (streak < 6) return { name: Difficulty.NINO, multiplier: 1.0, label: "Juguete de Niño" };
+    if (streak < 16) return { name: Difficulty.RON, multiplier: 1.2, label: "Palo 'e Ron" };
+    return { name: Difficulty.CANONAZO, multiplier: 1.5, label: "¡El Cañonazo!" };
 };
 
 const paloERonPhrases = [
@@ -185,7 +186,7 @@ export default function QuizPage() {
   const [settings, setSettings] = useState<GameSettings | null>(null);
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [gameState, setGameState] = useState<GameState>('loading');
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(-1);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [players, setPlayers] = useState<Player[]>([]);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
@@ -230,12 +231,12 @@ export default function QuizPage() {
     setGameState('loading');
     try {
       const existingIds = questions.map(q => q.id);
-      const difficultyName = settings.mode === 'survival' ? difficultyInfo.name : settings.difficulty || 'Juguete de Niño';
+      const difficultyName = settings.mode === 'survival' ? difficultyInfo.name : settings.difficulty || Difficulty.NINO;
       
       const newQuestions = await getQuizQuestions(difficultyName, 1, settings.category, shouldUseAI, existingIds);
       setShouldUseAI(prev => !prev);
       
-      if (newQuestions.length > 0 && newQuestions[0].id !== 'error-ai-1') {
+      if (newQuestions.length > 0 && !newQuestions[0].id.startsWith('error')) {
           const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
           setQuestions(prev => [...prev, polishedQuestion]);
           setCurrentQuestionIndex(prev => prev + 1);
@@ -245,7 +246,7 @@ export default function QuizPage() {
            throw new Error("No more questions available.");
       }
     } catch (error) {
-        toast({ title: "Error de red", description: "No se pudo cargar la siguiente pregunta.", variant: "destructive" });
+        toast({ title: "Error de Red", description: "No se pudo cargar la siguiente pregunta. Revisa tu conexión.", variant: "destructive" });
         finishGame();
     }
   }, [settings, questions, difficultyInfo.name, shouldUseAI, toast, finishGame]);
@@ -310,8 +311,8 @@ export default function QuizPage() {
         let scoreToAdd = isRapidFire ? 20 : 10;
         
         if (settings?.mode === 'solo' && settings.difficulty) {
-            if (settings.difficulty === "Palo 'e Ron") scoreToAdd *= 1.2;
-            if (settings.difficulty === "¡El Cañonazo!") scoreToAdd *= 1.5;
+            if (settings.difficulty === Difficulty.RON) scoreToAdd *= 1.2;
+            if (settings.difficulty === Difficulty.CANONAZO) scoreToAdd *= 1.5;
         }
 
         if (settings?.mode === 'survival') {
@@ -360,7 +361,7 @@ export default function QuizPage() {
           index === currentPlayerIndex ? { ...p, score: p.score + Math.round(scoreToAdd) } : p
         ));
 
-        if (settings?.mode === 'group' && (settings.difficulty === "Palo 'e Ron" || settings.difficulty === "¡El Cañonazo!")) {
+        if (settings?.mode === 'group' && (settings.difficulty === Difficulty.RON || settings.difficulty === Difficulty.CANONAZO)) {
             if (Math.random() < 0.3) { 
                 const allPowerUps: GroupPowerUp[] = ['hallaca-de-oro', 'palo-de-ciego', 'la-ladilla', 'el-estruendo'];
                 const randomPowerUp = allPowerUps[Math.floor(Math.random() * allPowerUps.length)];
@@ -423,17 +424,9 @@ export default function QuizPage() {
         setPlayers(prev => prev.map(p => ({...p, survivalPowerUps: { 'chiguire-lento': 1, 'soplon': 1, 'media-hallaca': 1, 'milagro-santo': 1 }})))
     }
     
-    setCurrentQuestionIndex(-1); // IMPORTANT: This triggers the initial question fetch
+    fetchNextQuestion();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, toast]);
-
-  // Initial question fetch effect
-  useEffect(() => {
-    if(settings && currentQuestionIndex === -1){
-        fetchNextQuestion();
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [settings, currentQuestionIndex]);
 
 
    useEffect(() => {
@@ -513,7 +506,7 @@ export default function QuizPage() {
                    setPlayers(prev => prev.map(p => ({
                      ...p,
                      survivalPowerUps: {
-                         ...p.survivalPowerups,
+                         ...p.survivalPowerUps,
                          [powerUp]: (p.survivalPowerUps?.[powerUp] || 0) + 1,
                      }
                    })));
@@ -603,16 +596,16 @@ export default function QuizPage() {
             >
               <Card className="bg-card/80 backdrop-blur-sm w-full">
                 <CardHeader>
-                  {settings?.mode !== 'survival' && <Progress value={((currentQuestionIndex + 1) / settings.numQuestions) * 100} className="mb-4" />}
+                  {settings?.mode !== 'survival' && <Progress value={((currentQuestionIndex) / settings.numQuestions) * 100} className="mb-4" />}
                     <div className="flex justify-between items-center text-sm text-muted-foreground font-body">
                        {settings?.mode === 'survival' ? (
                           <div className='flex gap-4'>
-                            <span>Ronda: <span className='font-bold text-foreground'>{currentQuestionIndex + 1}</span></span>
+                            <span>Ronda: <span className='font-bold text-foreground'>{currentQuestionIndex}</span></span>
                             <span>Racha: <span className='font-bold text-foreground'>{currentStreak}</span></span>
                           </div>
                         ) : (
                           <span>
-                            Pregunta {currentQuestionIndex + 1} de {settings?.numQuestions || 10}
+                            Pregunta {currentQuestionIndex} de {settings?.numQuestions || 10}
                           </span>
                         )}
                         {currentQuestion.categoria !== "Error" && <span className='font-bold'>Categoría: {currentQuestion.categoria}</span>}

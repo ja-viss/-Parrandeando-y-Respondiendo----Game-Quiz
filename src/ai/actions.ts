@@ -79,7 +79,7 @@ const generateQuestionPrompt = ai.definePrompt({
       Tu Rol: Eres un Creador de Contenido Experto en la Cultura Navideña Venezolana y un Maestro de la Jerga Criolla. Tu misión es generar una pregunta de trivia que sea desafiante, divertida y 100% auténtica.
 
       Instrucciones Clave:
-      1.  **Coherencia de Categoría (Regla de Oro)**: La pregunta, las opciones y la respuesta DEBEN pertenecer ESTRICTAMENTE a la categoría solicitada ({{category}}). Si la categoría es 'Gastronomía', habla de comida. Si es 'Música', habla de música. NO mezcles temas. Una pregunta de comida no puede tener opciones sobre fuegos artificiales.
+      1.  **Coherencia de Categoría (Regla de Oro)**: La pregunta, las opciones y la respuesta DEBEN pertenecer ESTRICTAMENTE a la categoría solicitada ({{category}}). Si la categoría es 'Gastronomía', habla de comida. Si es 'Música y Parrandas', habla de música. NO mezcles temas. Una pregunta de comida no puede tener opciones sobre fuegos artificiales.
       2.  **Originalidad Absoluta**: Crea una pregunta COMPLETAMENTE NUEVA que no esté en la lista de preguntas existentes. La creatividad es clave.
       3.  **Temática Navideña Venezolana**: La pregunta DEBE ser sobre música (gaitas, aguinaldos), gastronomía (hallacas, pan de jamón), tradiciones (cañonazo, patinatas) o folclore regional (San Benito, locainas) de la Navidad en Venezuela.
       4.  **Nivel de Dificultad**: Ajusta la complejidad de la pregunta según la dificultad solicitada ({{difficulty}}).
@@ -148,19 +148,18 @@ export async function createVenezuelanQuizQuestion(
         throw new Error("AI generated an invalid question structure.");
     }
     
+    // Final validation to ensure the response matches the category, as requested
+    if (output.categoria !== category) {
+        console.warn(`AI generated a question for category '${output.categoria}' but '${category}' was requested. Retrying...`);
+        // We could retry, but for now we'll throw to trigger the fallback, which is more robust.
+        throw new Error(`AI category mismatch: requested ${category}, got ${output.categoria}`);
+    }
+
     return output;
 
   } catch(error) {
     console.error("Error generating new quiz question:", error);
-    // Fallback to a generic error question
-    return {
-        id: "error-ai-1",
-        pregunta: "La musa de la IA está de parranda y no pudo crear una pregunta. ¡Intenta de nuevo!",
-        respuestaCorrecta: "Error",
-        opciones: ["Error", "Intentar de nuevo", "Volver", "Ayuda"],
-        dificultad: "Juguete de Niño",
-        nivel: "Fácil",
-        categoria: "Error"
-    };
+    // This throw will be caught by getQuizQuestions and will trigger the fallback.
+    throw error;
   }
 }
