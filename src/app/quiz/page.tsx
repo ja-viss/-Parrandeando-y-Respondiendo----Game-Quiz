@@ -644,7 +644,8 @@ export default function QuizPage() {
                               "transition-all duration-300 transform",
                               isAnswered && isCorrectAnswer && "bg-green-500/80 border-green-700 ring-2 ring-white text-white font-bold",
                               isAnswered && isSelected && !isCorrectAnswer && "bg-red-500/80 border-red-700 ring-2 ring-white text-white font-bold",
-                              (isAnswered && !isSelected && !isCorrectAnswer) || (hiddenOptions.includes(option)) && "opacity-50 pointer-events-none",
+                              isAnswered && !isSelected && "opacity-50 pointer-events-none",
+                              hiddenOptions.includes(option) && "opacity-50 pointer-events-none",
                               !isAnswered && isRevealed && "bg-yellow-500/80 border-yellow-700 ring-2 ring-white text-white font-bold"
                             )}
                             onClick={() => handleAnswer(option)}
