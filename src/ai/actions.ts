@@ -52,12 +52,13 @@ const polishDialectPrompt = ai.definePrompt({
     1.  Validación Temática: Antes que nada, analiza si la pregunta original es sobre la Navidad, las gaitas, la comida o las tradiciones decembrinas de Venezuela.
         - Si SÍ es temática: Púlela para que suene más criolla y festiva.
         - Si NO es temática: Tu misión es crear una pregunta COMPLETAMENTE NUEVA que SÍ sea sobre la Navidad venezolana. La nueva pregunta debe tener un nivel de dificultad y una estructura similar a la original (una pregunta con 4 opciones y una respuesta correcta), pero el tema debe ser navideño.
-    2.  Exclusión Estricta de Jerga Extranjera: DEBES evitar términos que son muy comunes en otros países y que los venezolanos no usan cotidianamente (ej. güey, chido, bacán, parce, bacano, chamba en el contexto de la jerga).
-    3.  Énfasis Criollo: Prioriza el uso fluido y natural de jerga genuinamente venezolana y regional:
-        -   Exclamaciones: ¡Na' Guará!, ¡Qué Molleja!, ¡Fino!
-        -   Sustantivos/Verbos: Vaina, Coroto, Pana, Chamo/a, Curda, Ladilla, Mamarracho, Pavita, Pelar bola, Estar pelando, Pepiao, Sifrino.
+    2.  Regla de Oro de Localización: CADA PALABRA DEBE TENER "CÉDULA VENEZOLANA". Esto significa que cualquier fruta, objeto, comida o expresión debe ser de uso común en Venezuela. Por ejemplo: se dice "fresa", no "frutilla"; "durazno", no "melocotón"; "cambur", no "banana" o "plátano" (a menos que se refiera al plátano macho); "parchita", no "maracuyá".
+    3.  Exclusión Estricta de Jerga Extranjera: DEBES evitar términos que son muy comunes en otros países y que los venezolanos no usan cotidianamente (ej. güey, chido, bacán, parce, bacano, chamba, currar, molar).
+    4.  Énfasis Criollo: Prioriza el uso fluido y natural de jerga genuinamente venezolana y regional:
+        -   Exclamaciones: ¡Na' Guará!, ¡Qué Molleja!, ¡Epa!, ¡Coño!, ¡Verga!
+        -   Sustantivos/Verbos: Vaina, coroto, pana, chamo/a, curda, ladilla, mamarracho, pavita, pelar bola, estar pelando, pepiao, sifrino, jodedera.
         -   Frases: Usar el sufijo "pues" al final de las preguntas de forma fluida.
-    4.  Formato Estricto de Salida: DEBES responder únicamente con un objeto JSON simple que contenga la "pregunta_final".
+    5.  Formato Estricto de Salida: DEBES responder únicamente con un objeto JSON simple que contenga la "pregunta_final".
         -   Si la pregunta original fue pulida, "pregunta_final" contendrá el texto mejorado.
         -   Si creaste una nueva pregunta, "pregunta_final" contendrá el texto de la nueva pregunta.
 
@@ -86,9 +87,10 @@ const generateQuestionPrompt = ai.definePrompt({
           -   **Juguete de Niño (Fácil)**: Conocimiento general que casi cualquier venezolano debería saber.
           -   **Palo 'e Ron (Medio)**: Requiere un poco más de detalle o conocimiento específico.
           -   **¡El Cañonazo! (Experto)**: Preguntas para los "eruditos" de la cultura venezolana, con detalles históricos, técnicos o regionales muy específicos.
-      5.  **Estilo y Tono**:
-          -   **Lenguaje Coloquial**: Usa jerga venezolana de forma natural y fluida. ¡Que suene como un pana echando un cuento! (ej. "chamo", "vaina", "chévere", "arrecho", "pelúa").
-          -   **Evita Extranjerismos**: No uses jerga de otros países hispanohablantes.
+      5.  **Estilo, Tono y Localización**:
+          -   **Autenticidad Venezolana**: CADA PALABRA DEBE SER 100% VENEZOLANA. Usa solo frutas, comidas, objetos y expresiones comunes en Venezuela. Por ejemplo, "cambur" no "banana", "fresa" no "frutilla", "parchita" no "maracuyá".
+          -   **Lenguaje Coloquial**: Usa jerga venezolana de forma natural y fluida. ¡Que suene como un pana echando un cuento! (ej. "chamo", "vaina", "chévere", "arrecho", "pelúo", "na' guará", "qué molleja").
+          -   **Evita Extranjerismos**: No uses jerga de otros países hispanohablantes (nada de "parce", "güey", "chamba", etc.).
       6.  **Estructura de la Salida (JSON Obligatorio)**:
           -   **id**: Un ID único, como 'ai-gen-' seguido de números aleatorios.
           -   **dificultad**: El nivel de dificultad solicitado ({{difficulty}}).
