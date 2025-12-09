@@ -4,12 +4,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { GameSettings, Difficulty } from "@/lib/types";
+import { GameSettings, Difficulty, Player } from "@/lib/types";
 import { ArrowLeft } from "lucide-react";
 import { MaracaIcon } from "@/components/icons/maraca-icon";
 import { CuatroIcon } from "@/components/icons/cuatro-icon";
 import { HallacaIcon } from "@/components/icons/hallaca-icon";
 import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const difficulties: {
   value: Difficulty;
@@ -40,14 +42,23 @@ const difficulties: {
 export default function SoloPage() {
   const router = useRouter();
   const [difficulty, setDifficulty] = useState<Difficulty>("Juguete de Niño");
+  const [nickname, setNickname] = useState("Parrandero/a");
   
   const handleStart = () => {
+    const player: Player = {
+        id: 'solo-player',
+        name: nickname.trim() === '' ? 'Parrandero/a' : nickname,
+        score: 0,
+        powerUps: [],
+    };
+    
     const settings: GameSettings = {
       mode: "solo",
       category: "all",
       numQuestions: 10,
       difficulty: difficulty,
       timeLimit: 35,
+      players: [player]
     };
     sessionStorage.setItem("quizSettings", JSON.stringify(settings));
     router.push("/quiz");
@@ -61,9 +72,19 @@ export default function SoloPage() {
       <Card className="w-full max-w-md md:max-w-4xl bg-card/80 backdrop-blur-sm">
         <CardHeader>
           <CardTitle className="font-headline text-3xl md:text-4xl text-center text-primary">Modo Solitario</CardTitle>
-          <CardDescription className="text-center font-body">Elige el nivel de picante para tus preguntas.</CardDescription>
+          <CardDescription className="text-center font-body">Elige tu apodo y el nivel de picante para tus preguntas.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
+          <div className="space-y-2">
+            <Label htmlFor="nickname" className="text-lg font-semibold font-body">Tu Apodo</Label>
+            <Input 
+              id="nickname"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              placeholder="Escribe tu apodo aquí"
+              className="font-body text-center text-lg"
+            />
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {difficulties.map((d) => (
                <div

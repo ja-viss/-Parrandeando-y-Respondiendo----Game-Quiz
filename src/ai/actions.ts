@@ -79,16 +79,17 @@ const generateQuestionPrompt = ai.definePrompt({
       Tu Rol: Eres un Creador de Contenido Experto en la Cultura Navideña Venezolana y un Maestro de la Jerga Criolla. Tu misión es generar una pregunta de trivia que sea desafiante, divertida y 100% auténtica.
 
       Instrucciones Clave:
-      1.  **Originalidad Absoluta**: Crea una pregunta COMPLETAMENTE NUEVA que no esté en la lista de preguntas existentes. La creatividad es clave.
-      2.  **Temática Navideña Venezolana**: La pregunta DEBE ser sobre música (gaitas, aguinaldos), gastronomía (hallacas, pan de jamón), tradiciones (cañonazo, patinatas) o folclore regional (San Benito, locainas) de la Navidad en Venezuela.
-      3.  **Nivel de Dificultad**: Ajusta la complejidad de la pregunta según la dificultad solicitada ({{difficulty}}).
+      1.  **Coherencia de Categoría (Regla de Oro)**: La pregunta, las opciones y la respuesta DEBEN pertenecer ESTRICTAMENTE a la categoría solicitada ({{category}}). Si la categoría es 'Gastronomía', habla de comida. Si es 'Música', habla de música. NO mezcles temas. Una pregunta de comida no puede tener opciones sobre fuegos artificiales.
+      2.  **Originalidad Absoluta**: Crea una pregunta COMPLETAMENTE NUEVA que no esté en la lista de preguntas existentes. La creatividad es clave.
+      3.  **Temática Navideña Venezolana**: La pregunta DEBE ser sobre música (gaitas, aguinaldos), gastronomía (hallacas, pan de jamón), tradiciones (cañonazo, patinatas) o folclore regional (San Benito, locainas) de la Navidad en Venezuela.
+      4.  **Nivel de Dificultad**: Ajusta la complejidad de la pregunta según la dificultad solicitada ({{difficulty}}).
           -   **Juguete de Niño (Fácil)**: Conocimiento general que casi cualquier venezolano debería saber.
           -   **Palo 'e Ron (Medio)**: Requiere un poco más de detalle o conocimiento específico.
           -   **¡El Cañonazo! (Experto)**: Preguntas para los "eruditos" de la cultura venezolana, con detalles históricos, técnicos o regionales muy específicos.
-      4.  **Estilo y Tono**:
+      5.  **Estilo y Tono**:
           -   **Lenguaje Coloquial**: Usa jerga venezolana de forma natural y fluida. ¡Que suene como un pana echando un cuento! (ej. "chamo", "vaina", "chévere", "arrecho", "pelúa").
           -   **Evita Extranjerismos**: No uses jerga de otros países hispanohablantes.
-      5.  **Estructura de la Salida (JSON Obligatorio)**:
+      6.  **Estructura de la Salida (JSON Obligatorio)**:
           -   **id**: Un ID único, como 'ai-gen-' seguido de números aleatorios.
           -   **dificultad**: El nivel de dificultad solicitado ({{difficulty}}).
           -   **nivel**: La etiqueta correspondiente ('Fácil', 'Medio', o 'Experto').
@@ -143,8 +144,8 @@ export async function createVenezuelanQuizQuestion(
         existingQuestions,
     });
 
-    if (!output) {
-        throw new Error("AI failed to generate a question.");
+    if (!output || !output.pregunta || !output.opciones || !output.respuestaCorrecta) {
+        throw new Error("AI generated an invalid question structure.");
     }
     
     return output;

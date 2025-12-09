@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "scores": [
+      {
+        "id": "survival-player",
+        "name": "Valiente",
+        "score": 80,
+        "powerUps": [],
+        "survivalPowerUps": {
+          "chiguire-lento": 2,
+          "soplon": 0,
+          "media-hallaca": 1,
+          "milagro-santo": 1
+        }
+      }
+    ],
+    "category": "all",
+    "mode": "survival",
+    "survivalStreak": 5,
+    "date": "2025-12-09T20:49:11.030Z"
+  },
+  {
+    "scores": [
+      {
+        "id": "survival-player",
+        "name": "Valiente",
+        "score": 80,
+        "powerUps": [],
+        "survivalPowerUps": {
+          "chiguire-lento": 2,
+          "soplon": 0,
+          "media-hallaca": 1,
+          "milagro-santo": 1
+        }
+      }
+    ],
+    "category": "all",
+    "mode": "survival",
+    "survivalStreak": 5,
+    "date": "2025-12-09T20:49:10.724Z"
+  }
+]

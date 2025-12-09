@@ -1,20 +1,32 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { GameSettings } from "@/lib/types";
+import { GameSettings, Player } from "@/lib/types";
 import { ArrowLeft, Zap } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 export default function SurvivalPage() {
   const router = useRouter();
+  const [nickname, setNickname] = useState("Valiente");
 
   const handleStartSurvival = () => {
+    const player: Player = {
+        id: 'survival-player',
+        name: nickname.trim() === '' ? 'Valiente' : nickname,
+        score: 0,
+        powerUps: [],
+    };
+      
     const settings: GameSettings = {
       mode: "survival",
       category: "all",
       numQuestions: 99, // A high number for endless play
-      lives: 3
+      lives: 3,
+      players: [player]
     };
     sessionStorage.setItem("quizSettings", JSON.stringify(settings));
     router.push("/quiz");
@@ -35,7 +47,17 @@ export default function SurvivalPage() {
             Responde preguntas sin parar. La dificultad aumenta, pero solo tienes 3 vidas. ¡A ver hasta dónde llegas!
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
+             <div className="space-y-2">
+                <Label htmlFor="nickname" className="text-lg font-semibold font-body text-center block">Tu Apodo de Leyenda</Label>
+                <Input 
+                id="nickname"
+                value={nickname}
+                onChange={(e) => setNickname(e.target.value)}
+                placeholder="Escribe tu apodo aquí"
+                className="font-body text-center text-lg"
+                />
+            </div>
             <p className="text-center text-muted-foreground font-body">
                 Cada respuesta correcta aumenta tu puntuación. <br/>
                 ¡No te equivoques o perderás una vida!

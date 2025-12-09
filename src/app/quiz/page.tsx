@@ -185,7 +185,7 @@ export default function QuizPage() {
   const [settings, setSettings] = useState<GameSettings | null>(null);
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [gameState, setGameState] = useState<GameState>('loading');
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(-1);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [players, setPlayers] = useState<Player[]>([]);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
@@ -212,17 +212,18 @@ export default function QuizPage() {
   const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
 
   const finishGame = useCallback(() => {
-     if (!settings) return;
+     if (!settings || gameState === 'finished') return;
      setGameState('finished');
+     const finalPlayers = settings.mode === 'solo' || settings.mode === 'survival' ? players : [...players];
      const results: GameResults = {
-        scores: players,
+        scores: finalPlayers,
         category: settings.category,
         mode: settings.mode,
         survivalStreak: highestStreak
     };
     sessionStorage.setItem('quizResults', JSON.stringify(results));
     router.push('/results');
-  }, [players, settings, router, highestStreak]);
+  }, [players, settings, router, highestStreak, gameState]);
   
   const fetchNextQuestion = useCallback(async () => {
     if (!settings) return;
@@ -234,7 +235,7 @@ export default function QuizPage() {
       const newQuestions = await getQuizQuestions(difficultyName, 1, settings.category, shouldUseAI, existingIds);
       setShouldUseAI(prev => !prev);
       
-      if (newQuestions.length > 0) {
+      if (newQuestions.length > 0 && newQuestions[0].id !== 'error-ai-1') {
           const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
           setQuestions(prev => [...prev, polishedQuestion]);
           setCurrentQuestionIndex(prev => prev + 1);
@@ -251,7 +252,7 @@ export default function QuizPage() {
 
 
   const handleNext = useCallback(async () => {
-    if (!settings) return;
+    if (!settings || gameState === 'finished') return;
 
     // Reset turn-specific states
     setSelectedAnswer(null);
@@ -292,9 +293,9 @@ export default function QuizPage() {
       setTimeLeft(3);
     } else {
       setIsRapidFire(false);
-      // Time is set in fetchNextQuestion or when player is switched
+      setTimeLeft(70);
     }
-  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, fetchNextQuestion, finishGame, toast]);
+  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, fetchNextQuestion, finishGame, toast, gameState]);
   
 
   const handleAnswer = useCallback((answer: string) => {
@@ -384,7 +385,7 @@ export default function QuizPage() {
                 const newLives = lives - 1;
                 setLives(newLives);
                 if(newLives <= 0) {
-                    finishGame();
+                    setTimeout(() => finishGame(), 1500);
                     return;
                 }
             }
@@ -394,7 +395,7 @@ export default function QuizPage() {
     setTimeout(() => {
        handleNext();
     }, 1500);
-  }, [gameState, currentQuestion, isRapidFire, settings, timeLeft, usingHallacaDeOro, players, currentPlayerIndex, currentStreak, highestStreak, usedMilagro, lives, handleNext, toast, finishGame, difficultyInfo.multiplier]);
+  }, [gameState, currentQuestion, isRapidFire, settings, timeLeft, usingHallacaDeOro, players, currentPlayerIndex, currentStreak, highestStreak, usedMilagro, lives, handleNext, toast, finishGame]);
   
   // Initial setup effect
   useEffect(() => {
@@ -409,43 +410,30 @@ export default function QuizPage() {
     setSettings(parsedSettings);
     setShouldUseAI(false); // Start with a bank question
     
-    if (parsedSettings.mode === 'group' && parsedSettings.players) {
-      setPlayers(parsedSettings.players.map(p => ({...p, survivalPowerUps: {}})));
-    } else if (parsedSettings.mode === 'survival') {
-      setPlayers([{ id: 'survival-player', name: 'Valiente', score: 0, powerUps: [], survivalPowerUps: { 'chiguire-lento': 1, 'soplon': 1, 'media-hallaca': 1, 'milagro-santo': 1 } }]);
-      setLives(parsedSettings.lives || 3);
-    } else {
-      setPlayers([{ id: 'solo-player', name: 'Tú', score: 0, powerUps: [], survivalPowerUps: {} }]);
+    if (parsedSettings.players && parsedSettings.players.length > 0) {
+        setPlayers(parsedSettings.players.map(p => ({...p, survivalPowerUps: p.survivalPowerUps || {}})));
+    } else if (parsedSettings.mode === 'solo' || parsedSettings.mode === 'survival') {
+        // Fallback if players array is missing for some reason
+        const name = parsedSettings.mode === 'survival' ? 'Valiente' : 'Tú';
+        setPlayers([{ id: `${parsedSettings.mode}-player`, name, score: 0, powerUps: [], survivalPowerUps: {} }]);
     }
     
+    if (parsedSettings.mode === 'survival') {
+        setLives(parsedSettings.lives || 3);
+        setPlayers(prev => prev.map(p => ({...p, survivalPowerUps: { 'chiguire-lento': 1, 'soplon': 1, 'media-hallaca': 1, 'milagro-santo': 1 }})))
+    }
+    
+    setCurrentQuestionIndex(-1); // IMPORTANT: This triggers the initial question fetch
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, toast]);
 
   // Initial question fetch effect
   useEffect(() => {
-    if(settings && questions.length === 0){
-      (async () => {
-        setGameState('loading');
-        try {
-            const difficultyName = settings.mode === 'survival' ? 'Juguete de Niño' : settings.difficulty || 'Juguete de Niño';
-            const newQuestions = await getQuizQuestions(difficultyName, 1, settings.category, false, []);
-            if (newQuestions.length > 0) {
-                const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
-                setQuestions([polishedQuestion]);
-                setCurrentQuestionIndex(0);
-                setTimeLeft(70);
-                setGameState('playing');
-            } else {
-                throw new Error("Could not load first question.");
-            }
-        } catch(e) {
-            toast({ title: "Error de Carga", description: "No se pudo iniciar el juego. Inténtalo de nuevo."});
-            router.push('/');
-        }
-    })();
+    if(settings && currentQuestionIndex === -1){
+        fetchNextQuestion();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [settings]);
+  }, [settings, currentQuestionIndex]);
 
 
    useEffect(() => {
@@ -525,7 +513,7 @@ export default function QuizPage() {
                    setPlayers(prev => prev.map(p => ({
                      ...p,
                      survivalPowerUps: {
-                         ...p.survivalPowerUps,
+                         ...p.survivalPowerups,
                          [powerUp]: (p.survivalPowerUps?.[powerUp] || 0) + 1,
                      }
                    })));
@@ -714,7 +702,7 @@ export default function QuizPage() {
                  <div className="space-y-4 md:sticky md:top-20">
                     <Card>
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2 font-headline text-xl"><User className="text-accent" />Puntuación</CardTitle>
+                            <CardTitle className="flex items-center gap-2 font-headline text-xl"><User className="text-accent" />{players[0].name}</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <p className="text-4xl font-bold text-primary font-body">{players[0].score} <span className="text-lg font-normal text-foreground/80">pts</span></p>
