@@ -73,32 +73,50 @@ export async function saveScore(result: GameResults): Promise<void> {
 
 export async function getLeaderboards() {
     const scores = await getScores();
-    
-    // Sort all players from all games by score for the all-time leaderboard
-    const allTimeTopPlayers = scores
-        .flatMap(game => game.scores.map(player => ({ ...player, date: game.date, mode: game.mode })))
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 10);
-        
-    const getTopForMode = (mode: 'solo' | 'group' | 'survival') => {
-        return scores
-            .filter(game => game.mode === mode)
-            .flatMap(game => game.scores.map(player => ({ ...player, date: game.date, mode: game.mode })))
+
+    // Helper to get unique top players for a given list
+    const getUniqueTopPlayers = (playersList: (GameResults["scores"][0] & { date: string, mode: string})[], limit: number) => {
+        const uniquePlayers = new Map<string, typeof playersList[0]>();
+        for (const player of playersList) {
+            const existingPlayer = uniquePlayers.get(player.name);
+            if (!existingPlayer || player.score > existingPlayer.score) {
+                uniquePlayers.set(player.name, player);
+            }
+        }
+        return Array.from(uniquePlayers.values())
             .sort((a, b) => b.score - a.score)
-            .slice(0, 5);
-    }
-    
+            .slice(0, limit);
+    };
+
+    const allPlayers = scores.flatMap(game => game.scores.map(player => ({ ...player, date: game.date, mode: game.mode })));
+    const allTimeTopPlayers = getUniqueTopPlayers(allPlayers, 10);
+
+    const getTopForMode = (mode: 'solo' | 'group' | 'survival') => {
+        const modePlayers = allPlayers.filter(p => p.mode === mode);
+        return getUniqueTopPlayers(modePlayers, 5);
+    };
+
     const getTopStreaks = () => {
-        return scores
+        const streakPlayers = scores
             .filter(game => game.mode === 'survival' && game.survivalStreak && game.survivalStreak > 0)
-            .sort((a, b) => (b.survivalStreak || 0) - (a.survivalStreak || 0))
             .map(game => ({
                 name: game.scores[0]?.name || 'Anónimo',
                 streak: game.survivalStreak || 0,
-                date: game.date
-            }))
+                date: game.date,
+            }));
+
+        const uniqueStreaks = new Map<string, typeof streakPlayers[0]>();
+        for (const player of streakPlayers) {
+            const existingPlayer = uniqueStreaks.get(player.name);
+            if (!existingPlayer || player.streak > existingPlayer.streak) {
+                uniqueStreaks.set(player.name, player);
+            }
+        }
+
+        return Array.from(uniqueStreaks.values())
+            .sort((a, b) => b.streak - a.streak)
             .slice(0, 5);
-    }
+    };
 
     return {
         allTime: allTimeTopPlayers,

@@ -349,23 +349,8 @@ export default function QuizPage() {
               toast({ title: `¡Subiste a ${newDifficultyInfo.label}!`, description: phrase });
               setTimeout(() => setLevelUp(false), 1000);
             }
-            if (newStreak % 5 === 0 && newStreak > 0) {
-                 const allPowerUps: SurvivalPowerUp[] = ['chiguire-lento', 'soplon', 'media-hallaca', 'milagro-santo'];
-                 const randomPowerUp = allPowerUps[Math.floor(Math.random() * allPowerUps.length)];
-                 setPlayers(prev => prev.map(p => ({
-                     ...p,
-                     survivalPowerUps: {
-                         ...p.survivalPowerUps,
-                         [randomPowerUp]: (p.survivalPowerUps?.[randomPowerUp] || 0) + 1
-                     }
-                 })));
-                 toast({ title: "¡Ganaste un Comodín!", description: `¡Recibiste: ${survivalPowerUpConfig[randomPowerUp].name}!` });
-            }
-
+            
             setCurrentStreak(newStreak);
-            if (newStreak > highestStreak) {
-                setHighestStreak(newStreak);
-            }
             scoreToAdd *= newDifficultyInfo.multiplier;
         } else {
             scoreToAdd += Math.floor(timeLeft / 70 * 5); // Bonus time
@@ -400,6 +385,9 @@ export default function QuizPage() {
                 toast({ title: "¡Salvado por el Santo!", description: "Has conservado tu vida, pero pierdes la racha.", duration: 2000 });
                 setCurrentStreak(0);
             } else {
+                if (currentStreak > highestStreak) {
+                    setHighestStreak(currentStreak);
+                }
                 setCurrentStreak(0); 
                 const newLives = lives - 1;
                 setLives(newLives);
@@ -415,6 +403,12 @@ export default function QuizPage() {
        handleNext();
     }, 1500);
   }, [gameState, currentQuestion, isRapidFire, settings, timeLeft, usingHallacaDeOro, players, currentPlayerIndex, currentStreak, highestStreak, usedMilagro, lives, handleNext, toast, finishGame]);
+  
+  useEffect(() => {
+    if (settings?.mode === 'survival' && currentStreak > highestStreak) {
+        setHighestStreak(currentStreak);
+    }
+  }, [currentStreak, highestStreak, settings?.mode]);
   
   useEffect(() => {
     const storedSettings = sessionStorage.getItem('quizSettings');

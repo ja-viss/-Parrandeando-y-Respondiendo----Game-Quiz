@@ -200,16 +200,16 @@ export default function ResultsPage() {
           {results.mode === 'survival' && (
              <div className="space-y-4">
                 <div className="p-4 rounded-lg bg-muted/80">
-                    <p className="text-lg font-body">Mejor racha de tu vida</p>
-                    <p className="text-3xl font-bold text-primary my-1 font-body">{bestStreak}</p>
+                    <p className="text-lg font-body">Tu mejor racha</p>
+                    <p className="text-3xl font-bold text-primary my-1 font-body">{results.survivalStreak || 0}</p>
                     <p className="text-muted-foreground font-body">respuestas correctas</p>
                 </div>
                 <div>
                   <h3 className="text-lg font-bold mb-2 font-headline">Insignias de Racha</h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                     {streakAchievements.map(ach => (
-                      <div key={ach.name} className={cn("flex flex-col items-center justify-start p-2 rounded-lg border-2 text-center", bestStreak >= ach.threshold ? 'border-accent bg-accent/10' : 'border-muted bg-muted/50 opacity-60')}>
-                          <div className={cn("mb-1", bestStreak >= ach.threshold ? 'text-accent' : 'text-muted-foreground')}>
+                      <div key={ach.name} className={cn("flex flex-col items-center justify-start p-2 rounded-lg border-2 text-center", (results.survivalStreak || 0) >= ach.threshold ? 'border-accent bg-accent/10' : 'border-muted bg-muted/50 opacity-60')}>
+                          <div className={cn("mb-1", (results.survivalStreak || 0) >= ach.threshold ? 'text-accent' : 'text-muted-foreground')}>
                             {ach.icon}
                           </div>
                           <p className="font-bold text-xs leading-tight font-body">{ach.name}</p>
