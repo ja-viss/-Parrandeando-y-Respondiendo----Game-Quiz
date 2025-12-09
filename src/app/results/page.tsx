@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { GameResults } from '@/lib/types';
@@ -17,6 +18,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
+import { saveScore } from '@/app/scores/actions';
 
 
 const HIGH_SCORE_KEY = 'parrandeando-highscore';
@@ -44,6 +46,12 @@ export default function ResultsPage() {
     if (storedResults) {
       const parsedResults: GameResults = JSON.parse(storedResults);
       setResults(parsedResults);
+
+      // Save score to server
+      saveScore(parsedResults).catch(err => {
+        console.error("Failed to save score:", err);
+        // Silently fail, user doesn't need to know
+      });
       
       const storedHighScore = parseInt(localStorage.getItem(HIGH_SCORE_KEY) || '0', 10);
       setHighScore(storedHighScore);
@@ -214,12 +222,17 @@ export default function ResultsPage() {
           )}
 
         </CardContent>
-        <CardFooter className="flex-col sm:flex-row gap-2">
-          <Button onClick={handlePlayAgain} size="lg" variant="outline" className="w-full font-bold text-lg">
+        <CardFooter className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <Button onClick={handlePlayAgain} size="lg" variant="outline" className="w-full font-bold text-lg sm:col-span-1">
             <Repeat className="mr-2 h-4 w-4" /> Volver a Jugar
           </Button>
-           <Button onClick={handleShare} size="lg" className="w-full font-bold text-lg">
-            <Share2 className="mr-2 h-4 w-4" /> ¡Presume tu Título!
+           <Button asChild size="lg" className="w-full font-bold text-lg sm:col-span-1">
+             <Link href="/scores">
+                <Trophy className="mr-2 h-4 w-4" /> Ver Puntajes
+             </Link>
+          </Button>
+           <Button onClick={handleShare} size="lg" className="w-full font-bold text-lg sm:col-span-1">
+            <Share2 className="mr-2 h-4 w-4" /> ¡Presume!
           </Button>
         </CardFooter>
       </Card>

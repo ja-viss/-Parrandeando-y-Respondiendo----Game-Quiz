@@ -1,0 +1,200 @@
+"use client";
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { getLeaderboards } from '@/app/scores/actions';
+import { Player } from '@/lib/types';
+import { ArrowLeft, Crown, Medal, Star, Trophy } from 'lucide-react';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
+
+type LeaderboardPlayer = Player & { date: string; mode: string; };
+type StreakRecord = { name: string; streak: number; date: string; };
+
+type Leaderboards = {
+    allTime: LeaderboardPlayer[];
+    solo: LeaderboardPlayer[];
+    group: LeaderboardPlayer[];
+    survival: LeaderboardPlayer[];
+    survivalStreaks: StreakRecord[];
+}
+
+const getModeLabel = (mode: string) => {
+    switch (mode) {
+        case 'solo': return 'Solitario';
+        case 'group': return 'Grupal';
+        case 'survival': return 'Supervivencia';
+        default: return 'N/A';
+    }
+}
+
+const getMedal = (index: number) => {
+    if (index === 0) return <Medal className="w-5 h-5 text-yellow-500" />;
+    if (index === 1) return <Medal className="w-5 h-5 text-gray-400" />;
+    if (index === 2) return <Medal className="w-5 h-5 text-yellow-700" />;
+    return <span className="font-bold w-5 text-center">{index + 1}</span>;
+}
+
+
+const ScoreTable = ({ title, players, isStreak = false }: { title: string, players: (LeaderboardPlayer[] | StreakRecord[]), isStreak?: boolean }) => (
+    <Card>
+        <CardHeader>
+            <CardTitle className='font-headline text-xl'>{title}</CardTitle>
+        </CardHeader>
+        <CardContent>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead className="w-[50px]">Pos.</TableHead>
+                        <TableHead>Jugador</TableHead>
+                        <TableHead className="text-right">{isStreak ? 'Racha' : 'Puntaje'}</TableHead>
+                        <TableHead className="text-right hidden sm:table-cell">Fecha</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {players.length === 0 ? (
+                        <TableRow>
+                            <TableCell colSpan={4} className="text-center text-muted-foreground">
+                                Aún no hay puntajes registrados. ¡Sé el primero!
+                            </TableCell>
+                        </TableRow>
+                    ) : (
+                        players.map((player, index) => (
+                            <TableRow key={`${title}-${index}`}>
+                                <TableCell className="font-medium">{getMedal(index)}</TableCell>
+                                <TableCell>{(player as LeaderboardPlayer).name}</TableCell>
+                                <TableCell className="text-right font-bold text-primary">
+                                    {isStreak ? (player as StreakRecord).streak : (player as LeaderboardPlayer).score}
+                                </TableCell>
+                                <TableCell className="text-right hidden sm:table-cell">{format(new Date(player.date), "d MMM yyyy", { locale: es })}</TableCell>
+                            </TableRow>
+                        ))
+                    )}
+                </TableBody>
+            </Table>
+        </CardContent>
+    </Card>
+);
+
+export default function ScoresPage() {
+    const [leaderboards, setLeaderboards] = useState<Leaderboards | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        getLeaderboards()
+            .then(data => {
+                setLeaderboards(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("Failed to load leaderboards:", err);
+                setLoading(false);
+            });
+    }, []);
+
+    return (
+        <div className="flex flex-col items-center justify-center min-h-screen p-4">
+            <div className="w-full max-w-4xl mx-auto">
+                <div className="relative flex justify-center items-center mb-6">
+                    <Link href="/" passHref legacyBehavior>
+                        <Button variant="ghost" className="absolute top-1/2 -translate-y-1/2 left-0">
+                            <ArrowLeft className="mr-2 h-4 w-4" /> Volver
+                        </Button>
+                    </Link>
+                    <h1 className="font-brand text-4xl md:text-6xl text-primary title-pulse">Salón de la Fama</h1>
+                </div>
+
+                {loading ? (
+                    <div className="text-center">Cargando puntajes...</div>
+                ) : !leaderboards ? (
+                    <div className="text-center text-destructive">No se pudieron cargar los puntajes.</div>
+                ) : (
+                    <div className="space-y-8">
+                        <Card className="bg-primary text-primary-foreground border-accent">
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2 font-headline text-2xl"><Trophy className="text-accent"/> ¡Los Parranderos Supremos!</CardTitle>
+                                <CardDescription className="text-primary-foreground/80">El top 10 de todos los tiempos. La crema y nata de la parranda.</CardDescription>
+                            </CardHeader>
+                             <CardContent>
+                                <Table>
+                                    <TableHeader>
+                                        <TableRow className='border-primary-foreground/50'>
+                                            <TableHead className="w-[50px] text-primary-foreground">Pos.</TableHead>
+                                            <TableHead className='text-primary-foreground'>Jugador</TableHead>
+                                            <TableHead className="hidden sm:table-cell text-primary-foreground">Modo</TableHead>
+                                            <TableHead className="text-right text-primary-foreground">Puntaje</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {leaderboards.allTime.length === 0 ? (
+                                            <TableRow>
+                                                <TableCell colSpan={4} className="text-center text-primary-foreground/80">
+                                                    Aún no hay puntajes registrados.
+                                                </TableCell>
+                                            </TableRow>
+                                        ) : (
+                                            leaderboards.allTime.map((player, index) => (
+                                                <TableRow key={`all-time-${index}`} className='border-primary-foreground/50'>
+                                                    <TableCell className="font-medium">{getMedal(index)}</TableCell>
+                                                    <TableCell>{player.name}</TableCell>
+                                                    <TableCell className="hidden sm:table-cell">{getModeLabel(player.mode)}</TableCell>
+                                                    <TableCell className="text-right font-bold text-accent">{player.score}</TableCell>
+                                                </TableRow>
+                                            ))
+                                        )}
+                                    </TableBody>
+                                </Table>
+                            </CardContent>
+                        </Card>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                             <div className="space-y-8">
+                                <ScoreTable title="Mejores Puntajes: Solitario" players={leaderboards.solo} />
+                                <ScoreTable title="Mejores Puntajes: Grupal" players={leaderboards.group} />
+                            </div>
+                            <div className="space-y-8">
+                                <ScoreTable title="Mejores Puntajes: Supervivencia" players={leaderboards.survival} />
+                                <Card>
+                                    <CardHeader>
+                                        <CardTitle className='font-headline text-xl flex items-center gap-2'><Star className='text-accent'/>Rachas de Supervivencia</CardTitle>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <Table>
+                                            <TableHeader>
+                                                <TableRow>
+                                                    <TableHead className="w-[50px]">Pos.</TableHead>
+                                                    <TableHead>Jugador</TableHead>
+                                                    <TableHead className="text-right">Racha</TableHead>
+                                                </TableRow>
+                                            </TableHeader>
+                                            <TableBody>
+                                                {leaderboards.survivalStreaks.length === 0 ? (
+                                                    <TableRow>
+                                                        <TableCell colSpan={3} className="text-center text-muted-foreground">
+                                                            No hay rachas registradas.
+                                                        </TableCell>
+                                                    </TableRow>
+                                                ) : (
+                                                    leaderboards.survivalStreaks.map((record, index) => (
+                                                         <TableRow key={`streak-${index}`}>
+                                                            <TableCell className="font-medium">{getMedal(index)}</TableCell>
+                                                            <TableCell>{record.name}</TableCell>
+                                                            <TableCell className="text-right font-bold text-primary">{record.streak}</TableCell>
+                                                        </TableRow>
+                                                    ))
+                                                )}
+                                            </TableBody>
+                                        </Table>
+                                    </CardContent>
+                                </Card>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}

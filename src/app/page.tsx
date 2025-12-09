@@ -6,6 +6,7 @@ import Link from "next/link";
 import { MaracaIcon } from "@/components/icons/maraca-icon";
 import { CuatroIcon } from "@/components/icons/cuatro-icon";
 import { HallacaIcon } from "@/components/icons/hallaca-icon";
+import { Trophy } from "lucide-react";
 
 export default function Home() {
   return (
@@ -25,7 +26,7 @@ export default function Home() {
         </p>
 
         <div 
-          className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 w-full animate-fade-in-up"
+          className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full animate-fade-in-up"
         >
           <Link href="/solo" passHref className="flex">
             <div
@@ -93,6 +94,30 @@ export default function Home() {
                   <div className="w-full">
                     <Button variant="default" size="lg" className="w-full font-bold text-lg bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_0_15px_hsl(var(--accent))] transition-shadow button-pulse">
                       Supervivencia
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </Link>
+          <Link href="/scores" passHref className="flex">
+            <div
+              className="w-full transition-transform transform hover:scale-105"
+            >
+              <Card className="flex flex-col h-full cursor-pointer bg-card border-2 border-primary/50 relative overflow-hidden group hover:shadow-lg hover:shadow-accent/30">
+                <CardHeader className="flex-grow">
+                  <div className="flex justify-center mb-4">
+                    <Trophy className="w-16 h-16 text-primary" />
+                  </div>
+                  <CardTitle className="font-headline text-2xl text-center text-foreground font-bold">Puntajes</CardTitle>
+                  <CardDescription className="text-center text-foreground/80 font-body min-h-[40px] px-2">
+                    Revisa los récords y mira quién es el verdadero parrandero.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="flex justify-center mt-auto p-4 pt-0">
+                  <div className="w-full">
+                    <Button variant="secondary" size="lg" className="w-full font-bold text-lg bg-accent text-accent-foreground hover:bg-accent/90 hover:shadow-[0_0_15px_hsl(var(--primary))] transition-shadow">
+                      Ver Puntajes
                     </Button>
                   </div>
                 </CardContent>
