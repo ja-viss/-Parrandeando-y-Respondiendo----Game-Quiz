@@ -2570,11 +2570,11 @@
     "pregunta": "En 1965 se grabó una gaita icónica llamada 'La Cabra'. ¿De qué agrupación era originalmente antes de ser versionada mil veces?",
     "opciones": [
       "Barrio Obrero",
-      "Saladilllo",
+      "Saladillo",
       "Cardenales del Éxito",
       "Estrellas del Zulia"
     ],
-    "respuestaCorrecta": "Saladilllo"
+    "respuestaCorrecta": "Saladillo"
   },
   {
     "id": "225",
@@ -2861,7 +2861,7 @@
     "dificultad": "Palo 'e Ron",
     "nivel": "Medio",
     "categoria": "Música y Parrandas",
-    "pregunta": "¿Qué canción dice 'Llevo mi sonrisa y mi rostro alegre, la paz y la dicha...'?",
+    "pregunta": "¿Qué canción dice: 'Llevo mi sonrisa y mi rostro alegre, la paz y la dicha...'?",
     "opciones": [
       "La Jornada (Din Din Din)",
       "De Contento",

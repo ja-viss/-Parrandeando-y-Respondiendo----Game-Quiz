@@ -2,7 +2,7 @@
 "use server";
 
 import type { QuizQuestion, Difficulty, GameCategory } from "@/lib/types";
-import allQuestionsData from '@/data/banco_preguntas_venezuela.json';
+import allQuestionsData from '@/../data/banco_preguntas_venezuela.json';
 import { polishQuestionDialect as polishQuestionWithAI, createVenezuelanQuizQuestion } from "@/ai/actions";
 
 // Cache the questions in memory to avoid reading the file on every request
