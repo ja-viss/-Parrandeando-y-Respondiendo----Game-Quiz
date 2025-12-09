@@ -2245,14 +2245,14 @@
     "dificultad": "Juguete de Niño",
     "nivel": "Fácil",
     "categoria": "General",
-    "pregunta": "Si un vecino te trae un plato con hallacas y pan de jamón de regalo, ¿qué se supone que debes hacer tú después?",
+    "pregunta": "Cuando estás armando el arbolito, ¿qué es lo último que se pone en la punta?",
     "opciones": [
-      "Devolverle el plato sucio",
-      "Devolverle el plato con algo que tú cocinaste (nunca vacío)",
-      "Quedarte con el plato",
-      "Vender el plato"
+      "Un zapato",
+      "La Estrella o el Ángel",
+      "Una bambalina roja",
+      "El enchufe"
     ],
-    "respuestaCorrecta": "Devolverle el plato con algo que tú cocinaste (nunca vacío)"
+    "respuestaCorrecta": "La Estrella o el Ángel"
   },
   {
     "id": "202",
@@ -3071,7 +3071,7 @@
     "dificultad": "Palo 'e Ron",
     "nivel": "Medio",
     "categoria": "Música y Parrandas",
-    "pregunta": "¿Qué canción dice 'Esta bella noche, vamos a cenar, un plato de hallaca...'?",
+    "pregunta": "¿Qué canción dice: 'Esta bella noche, vamos a cenar, un plato de hallaca...'?",
     "opciones": [
       "Corre Caballito",
       "Esta Bella Noche",

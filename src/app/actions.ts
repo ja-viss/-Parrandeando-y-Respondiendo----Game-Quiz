@@ -2,8 +2,11 @@
 "use server";
 
 import type { QuizQuestion, Difficulty, GameCategory } from "@/lib/types";
-import allQuestions from '@/lib/banco_preguntas_venezuela.json';
+import allQuestionsData from '@/data/banco_preguntas_venezuela.json';
 import { polishQuestionDialect as polishQuestionWithAI, createVenezuelanQuizQuestion } from "@/ai/actions";
+
+// Cache the questions in memory to avoid reading the file on every request
+const allQuestions: QuizQuestion[] = allQuestionsData as QuizQuestion[];
 
 // Helper function to shuffle an array using Fisher-Yates algorithm for better randomness
 function shuffleArray<T>(array: T[]): T[] {
@@ -26,7 +29,7 @@ function shuffleArray<T>(array: T[]): T[] {
 
 async function getFallbackQuestion(difficulty: Difficulty, category: GameCategory | 'all', existingQuestionIds: string[]): Promise<QuizQuestion[]> {
     console.warn(`AI generation failed. Falling back to local question bank.`);
-    let questionsPool = (allQuestions as QuizQuestion[]).filter(q => !existingQuestionIds.includes(q.id));
+    let questionsPool = allQuestions.filter(q => !existingQuestionIds.includes(q.id));
     
     if (category !== 'all') {
       questionsPool = questionsPool.filter(q => q.categoria === category);
@@ -37,7 +40,7 @@ async function getFallbackQuestion(difficulty: Difficulty, category: GameCategor
     // If there aren't enough for the category/difficulty, use any from that difficulty
     if (filteredQuestions.length < 1) {
         console.warn(`Not enough fallback questions for category '${category}' and difficulty '${difficulty}'. Using any question of difficulty '${difficulty}'.`);
-        const fallbackPool = (allQuestions as QuizQuestion[]).filter(q => q.dificultad === difficulty && !existingQuestionIds.includes(q.id));
+        const fallbackPool = allQuestions.filter(q => q.dificultad === difficulty && !existingQuestionIds.includes(q.id));
         const shuffledFallback = shuffleArray(fallbackPool);
         return shuffledFallback.slice(0, 1);
     }
@@ -59,7 +62,7 @@ export async function getQuizQuestions(
         const allCategories: GameCategory[] = [GameCategory.GASTRONOMIA, GameCategory.MUSICA, GameCategory.TRADICIONES, GameCategory.FOLCLORE];
         const targetCategory = category === 'all' ? allCategories[Math.floor(Math.random() * allCategories.length)] : category;
         
-        const existingQuestionsText = (allQuestions as QuizQuestion[])
+        const existingQuestionsText = allQuestions
               .filter(q => existingQuestionIds.includes(q.id))
               .map(q => q.pregunta);
 
@@ -78,7 +81,7 @@ export async function getQuizQuestions(
     }
 
     // --- Local bank logic ---
-    let questionsPool = allQuestions as QuizQuestion[];
+    let questionsPool = allQuestions;
 
     // 0. Filter out existing questions
     if(existingQuestionIds.length > 0) {
@@ -97,7 +100,7 @@ export async function getQuizQuestions(
     // If there aren't enough questions in the selected category/difficulty, use all questions of that difficulty
     if (filteredQuestions.length < numQuestions) {
         console.warn(`Not enough questions for category '${category}' and difficulty '${difficulty}'. Falling back to all questions of difficulty '${difficulty}'.`);
-        const fallbackPool = (allQuestions as QuizQuestion[]).filter(q => q.dificultad === difficulty && !existingQuestionIds.includes(q.id));
+        const fallbackPool = allQuestions.filter(q => q.dificultad === difficulty && !existingQuestionIds.includes(q.id));
         const shuffledFallback = shuffleArray(fallbackPool);
         return shuffledFallback.slice(0, numQuestions);
     }

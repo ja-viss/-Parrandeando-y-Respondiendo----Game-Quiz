@@ -1,3 +1,4 @@
+
 "use server";
 
 import fs from "fs/promises";
@@ -8,19 +9,36 @@ export interface ScoreEntry extends GameResults {
     date: string;
 }
 
-const scoresFilePath = path.join(process.cwd(), 'src', 'data', 'scores.json');
+const scoresFilePath = path.join(process.cwd(), 'data', 'scores.json');
+const scoresDir = path.dirname(scoresFilePath);
+
+// In-memory cache for scores to avoid repeated file reads
+let scoresCache: ScoreEntry[] | null = null;
+
+async function ensureDirExists() {
+    try {
+        await fs.access(scoresDir);
+    } catch (error) {
+        await fs.mkdir(scoresDir, { recursive: true });
+    }
+}
+
 
 async function getScores(): Promise<ScoreEntry[]> {
+    if (scoresCache !== null) {
+        return scoresCache;
+    }
     try {
+        await ensureDirExists();
         const data = await fs.readFile(scoresFilePath, 'utf8');
-        if (!data) {
-            return [];
-        }
-        return JSON.parse(data) as ScoreEntry[];
+        scoresCache = JSON.parse(data) as ScoreEntry[];
+        return scoresCache;
     } catch (error: any) {
         if (error.code === 'ENOENT') {
-            // File doesn't exist, return empty array
-            return [];
+            // File doesn't exist, return empty array and create an empty file
+            await fs.writeFile(scoresFilePath, JSON.stringify([], null, 2), 'utf8');
+            scoresCache = [];
+            return scoresCache;
         }
         console.error("Error reading scores file:", error);
         throw new Error("Could not retrieve scores.");
@@ -34,13 +52,18 @@ export async function saveScore(result: GameResults): Promise<void> {
             ...result,
             date: new Date().toISOString(),
         };
-        scores.push(newScore);
+        
+        // Add new score to the beginning of the array
+        const newScores = [newScore, ...scores];
 
-        // Keep only the latest 1000 scores to prevent file from getting too large
-        const sortedScores = scores.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-        const trimmedScores = sortedScores.slice(0, 1000);
+        // Keep only the latest 1000 scores
+        const trimmedScores = newScores.slice(0, 1000);
 
         await fs.writeFile(scoresFilePath, JSON.stringify(trimmedScores, null, 2), 'utf8');
+        
+        // Update cache
+        scoresCache = trimmedScores;
+
     } catch (error) {
         console.error("Error saving score:", error);
         // We throw here so the calling function knows something went wrong, but we can choose to handle it silently there.

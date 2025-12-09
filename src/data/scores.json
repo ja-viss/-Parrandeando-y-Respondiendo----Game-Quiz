@@ -3,7 +3,47 @@
     "scores": [
       {
         "id": "survival-player",
-        "name": "Valiente",
+        "name": "rojas_club",
+        "score": 0,
+        "powerUps": [],
+        "survivalPowerUps": {
+          "chiguire-lento": 1,
+          "soplon": 1,
+          "media-hallaca": 1,
+          "milagro-santo": 1
+        }
+      }
+    ],
+    "category": "all",
+    "mode": "ivan5768",
+    "survivalStreak": 0,
+    "date": "2025-12-09T21:04:14.711Z"
+  },
+  {
+    "scores": [
+      {
+        "id": "survival-player",
+        "name": "rojas_club",
+        "score": 0,
+        "powerUps": [],
+        "survivalPowerUps": {
+          "chiguire-lento": 1,
+          "soplon": 1,
+          "media-hallaca": 1,
+          "milagro-santo": 1
+        }
+      }
+    ],
+    "category": "all",
+    "mode": "survival",
+    "survivalStreak": 0,
+    "date": "2025-12-09T21:04:14.455Z"
+  },
+  {
+    "scores": [
+      {
+        "id": "survival-player",
+        "name": "danielfoxy",
         "score": 80,
         "powerUps": [],
         "survivalPowerUps": {
@@ -43,7 +83,7 @@
     "scores": [
       {
         "id": "survival-player",
-        "name": "Valiente",
+        "name": "titosuarez",
         "score": 80,
         "powerUps": [],
         "survivalPowerUps": {
