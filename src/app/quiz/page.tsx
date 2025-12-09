@@ -4,7 +4,7 @@
 import { useEffect, useState, useMemo, useCallback, memo } from 'react';
 import { useRouter } from 'next/navigation';
 import { getQuizQuestions, polishQuestionDialect } from '@/app/actions';
-import type { GameSettings, QuizQuestion, Player, GameResults, Difficulty, PowerUp, GroupPowerUp, SurvivalPowerUp } from '@/lib/types';
+import { GameSettings, QuizQuestion, Player, GameResults, Difficulty, PowerUp, GroupPowerUp, SurvivalPowerUp } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
@@ -210,7 +210,7 @@ export default function QuizPage() {
   const [shouldUseAI, setShouldUseAI] = useState(false);
 
   const difficultyInfo = useMemo(() => getDifficulty(currentStreak), [currentStreak]);
-  const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
+  const currentQuestion = useMemo(() => questions[currentQuestionIndex-1], [questions, currentQuestionIndex]);
 
   const finishGame = useCallback(() => {
      if (!settings || gameState === 'finished') return;
@@ -226,6 +226,28 @@ export default function QuizPage() {
     router.push('/results');
   }, [players, settings, router, highestStreak, gameState]);
   
+  const fetchInitialQuestion = useCallback(async (settings: GameSettings) => {
+    setGameState('loading');
+    try {
+      const difficultyName = settings.mode === 'survival' ? difficultyInfo.name : settings.difficulty || Difficulty.NINO;
+      const newQuestions = await getQuizQuestions(difficultyName, 1, settings.category, false, []);
+      if (newQuestions.length > 0 && !newQuestions[0].id.startsWith('error')) {
+          const polishedQuestion = await polishQuestionDialect(newQuestions[0]);
+          setQuestions([polishedQuestion]);
+          setCurrentQuestionIndex(1);
+          setGameState('playing');
+          setTimeLeft(70);
+          setShouldUseAI(true);
+      } else {
+           throw new Error("No more questions available.");
+      }
+    } catch (error) {
+        toast({ title: "Error de Red", description: "No se pudo cargar la pregunta inicial. Revisa tu conexión.", variant: "destructive" });
+        router.push('/');
+    }
+  }, [difficultyInfo.name, toast, router]);
+
+
   const fetchNextQuestion = useCallback(async () => {
     if (!settings) return;
     setGameState('loading');
@@ -255,7 +277,6 @@ export default function QuizPage() {
   const handleNext = useCallback(async () => {
     if (!settings || gameState === 'finished') return;
 
-    // Reset turn-specific states
     setSelectedAnswer(null);
     setSlowTime(false);
     setRevealedAnswer(null);
@@ -264,30 +285,27 @@ export default function QuizPage() {
     setUsingHallacaDeOro(null);
     setActiveMalus({});
     
-    // Set next player for group mode
     if (settings.mode === 'group') {
         const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
         setCurrentPlayerIndex(nextPlayerIndex);
-        // If it's the start of a new round, fetch a new question
         if (nextPlayerIndex === 0) {
-             if (currentQuestionIndex + 1 >= settings.numQuestions) {
+             if (currentQuestionIndex >= settings.numQuestions) {
                 finishGame();
                 return;
             }
             await fetchNextQuestion();
         } else {
-            setGameState('playing'); // Just switch player, don't fetch new question
+            setGameState('playing');
             setTimeLeft(70);
         }
-    } else { // Solo or Survival
-        if (settings.mode !== 'survival' && currentQuestionIndex + 1 >= settings.numQuestions) {
+    } else { 
+        if (settings.mode !== 'survival' && currentQuestionIndex >= settings.numQuestions) {
             finishGame();
             return;
         }
         await fetchNextQuestion();
     }
 
-    // Rapid fire check
     if (Math.random() < 0.15 && settings.mode === 'group') {
       setIsRapidFire(true);
       toast({ title: "¡RONDA RÁFAGA!", description: "¡3 segundos para responder! ¡El más rápido gana más!", duration: 3000 });
@@ -296,7 +314,7 @@ export default function QuizPage() {
       setIsRapidFire(false);
       setTimeLeft(70);
     }
-  }, [settings, currentPlayerIndex, players.length, currentQuestionIndex, fetchNextQuestion, finishGame, toast, gameState]);
+  }, [settings, gameState, currentPlayerIndex, players.length, currentQuestionIndex, fetchNextQuestion, finishGame, toast]);
   
 
   const handleAnswer = useCallback((answer: string) => {
@@ -398,7 +416,6 @@ export default function QuizPage() {
     }, 1500);
   }, [gameState, currentQuestion, isRapidFire, settings, timeLeft, usingHallacaDeOro, players, currentPlayerIndex, currentStreak, highestStreak, usedMilagro, lives, handleNext, toast, finishGame]);
   
-  // Initial setup effect
   useEffect(() => {
     const storedSettings = sessionStorage.getItem('quizSettings');
     if (!storedSettings) {
@@ -409,12 +426,10 @@ export default function QuizPage() {
     
     const parsedSettings: GameSettings = JSON.parse(storedSettings);
     setSettings(parsedSettings);
-    setShouldUseAI(false); // Start with a bank question
     
     if (parsedSettings.players && parsedSettings.players.length > 0) {
         setPlayers(parsedSettings.players.map(p => ({...p, survivalPowerUps: p.survivalPowerUps || {}})));
     } else if (parsedSettings.mode === 'solo' || parsedSettings.mode === 'survival') {
-        // Fallback if players array is missing for some reason
         const name = parsedSettings.mode === 'survival' ? 'Valiente' : 'Tú';
         setPlayers([{ id: `${parsedSettings.mode}-player`, name, score: 0, powerUps: [], survivalPowerUps: {} }]);
     }
@@ -424,7 +439,7 @@ export default function QuizPage() {
         setPlayers(prev => prev.map(p => ({...p, survivalPowerUps: { 'chiguire-lento': 1, 'soplon': 1, 'media-hallaca': 1, 'milagro-santo': 1 }})))
     }
     
-    fetchNextQuestion();
+    fetchInitialQuestion(parsedSettings);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, toast]);
 
@@ -446,14 +461,13 @@ export default function QuizPage() {
             setTimeLeft(prev => (prev > 0 ? prev - 1 : 0));
         }, interval);
     } else if (timeLeft === 0 && gameState === 'playing') {
-        handleAnswer(""); // Time's up, count as wrong
+        handleAnswer("");
     }
     return () => clearInterval(timer);
   }, [timeLeft, gameState, activeMalus, players, currentPlayerIndex, slowTime, handleAnswer]);
 
   const shuffledOptions = useMemo(() => {
     if (!currentQuestion?.opciones) return [];
-    // This will re-shuffle every time the question changes
     return [...currentQuestion.opciones].sort(() => Math.random() - 0.5);
   }, [currentQuestion]);
 
@@ -474,7 +488,6 @@ export default function QuizPage() {
             return;
         }
 
-        // Consume power-up
         setPlayers(prev => prev.map(p => ({
             ...p,
             survivalPowerUps: {
@@ -527,7 +540,6 @@ export default function QuizPage() {
     const targetName = players.find(p => p.id === targetId)?.name;
     toast({ title: `¡Ataque a ${targetName}!`, description: `Has usado ${malusName}.`, variant: "destructive" });
 
-    // Handle 'el-estruendo' visual shake
     if (powerUpToUse === 'el-estruendo') {
         setShake(targetId);
         setTimeout(() => setShake(null), 1000);
@@ -545,7 +557,7 @@ export default function QuizPage() {
 
 
   if (gameState === 'loading' || !currentQuestion) {
-     return (
+    return (
       <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-center min-h-screen p-4">
         <div className="w-full">
            <Card className="bg-card/80 backdrop-blur-sm w-full">
@@ -589,7 +601,6 @@ export default function QuizPage() {
       )}
       <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-6 items-start animate-fade-in-up">
         
-        {/* Main Content */}
         <div className="md:col-span-2 order-2 md:order-1 w-full">
             <div
               className={cn(playerMalus === 'palo-de-ciego' && "blur-sm transition-all duration-300", "animate-fade-in-down")}
@@ -650,7 +661,6 @@ export default function QuizPage() {
             </div>
         </div>
 
-        {/* Sidebar */}
         <div className="w-full space-y-4 order-1 md:order-2">
            <div 
               className="sticky top-4 z-20"
@@ -735,5 +745,7 @@ export default function QuizPage() {
     </>
   );
 }
+
+    
 
     
