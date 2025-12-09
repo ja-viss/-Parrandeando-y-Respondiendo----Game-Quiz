@@ -8,3 +8,5 @@ services:
     envVars:
       - key: NODE_VERSION
         value: 20
+      - key: GEMINI_API_KEY
+        sync: false # To prevent the value from being stored in the YAML, for security.
