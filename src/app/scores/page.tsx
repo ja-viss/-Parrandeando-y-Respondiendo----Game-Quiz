@@ -99,10 +99,8 @@ export default function ScoresPage() {
         <div className="flex flex-col items-center justify-center min-h-screen p-4">
             <div className="w-full max-w-4xl mx-auto">
                 <div className="relative flex justify-center items-center mb-6">
-                    <Button variant="ghost" className="absolute top-1/2 -translate-y-1/2 left-0" asChild>
-                        <Link href="/">
-                            <ArrowLeft className="mr-2 h-4 w-4" /> Volver
-                        </Link>
+                     <Button variant="ghost" onClick={() => window.history.back()} className="absolute top-1/2 -translate-y-1/2 left-0 flex items-center gap-2">
+                        <ArrowLeft className="h-4 w-4" /> Volver
                     </Button>
                     <h1 className="font-brand text-4xl md:text-6xl text-primary title-pulse">Salón de la Fama</h1>
                 </div>
@@ -115,7 +113,7 @@ export default function ScoresPage() {
                     <div className="space-y-8">
                         <Card className="bg-primary text-primary-foreground border-accent">
                             <CardHeader>
-                                <CardTitle className="flex items-center gap-2 font-headline text-2xl"><Trophy className="text-accent"/> ¡Los Parranderos Supremos!</CardTitle>
+                                <CardTitle className="flex items-center gap-2 font-headline text-2xl"><Trophy className="text-accent"/> Salón de los Cuarto Bates</CardTitle>
                                 <CardDescription className="text-primary-foreground/80">El top 10 de todos los tiempos. La crema y nata de la parranda.</CardDescription>
                             </CardHeader>
                              <CardContent>
@@ -152,14 +150,14 @@ export default function ScoresPage() {
 
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                              <div className="space-y-8">
-                                <ScoreTable title="Mejores Puntajes: Solitario" players={leaderboards.solo} />
+                                <ScoreTable title='El Muro de los Duros (Solitario)' players={leaderboards.solo} />
                                 <ScoreTable title="Mejores Puntajes: Grupal" players={leaderboards.group} />
                             </div>
                             <div className="space-y-8">
-                                <ScoreTable title="Mejores Puntajes: Supervivencia" players={leaderboards.survival} />
+                                <ScoreTable title="La Galería de los Verdugos (Supervivencia)" players={leaderboards.survival} />
                                 <Card>
                                     <CardHeader>
-                                        <CardTitle className='font-headline text-xl flex items-center gap-2'><Star className='text-accent'/>Rachas de Supervivencia</CardTitle>
+                                        <CardTitle className='font-headline text-xl flex items-center gap-2'><Star className='text-accent'/>Rachas de los Verdugos</CardTitle>
                                     </CardHeader>
                                     <CardContent>
                                         <Table>
