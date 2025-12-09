@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { GameSettings } from "@/lib/types";
 import { ArrowLeft, Zap } from "lucide-react";
-import Link from "next/link";
 
 export default function SurvivalPage() {
   const router = useRouter();
@@ -23,11 +22,9 @@ export default function SurvivalPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 animate-fade-in-down">
-       <Button variant="ghost" className="absolute top-4 left-4" asChild>
-        <Link href="/">
-          <ArrowLeft className="mr-2 h-4 w-4" /> Volver
-        </Link>
-      </Button>
+       <Button variant="ghost" onClick={() => router.back()} className="absolute top-4 left-4 z-10 flex items-center gap-2">
+          <ArrowLeft className="h-4 w-4" /> Volver
+        </Button>
       <Card className="w-full max-w-md bg-card/80 backdrop-blur-sm">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4 text-primary">

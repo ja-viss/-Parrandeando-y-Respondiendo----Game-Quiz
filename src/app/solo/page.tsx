@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { GameSettings, Difficulty } from "@/lib/types";
 import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 import { MaracaIcon } from "@/components/icons/maraca-icon";
 import { CuatroIcon } from "@/components/icons/cuatro-icon";
 import { HallacaIcon } from "@/components/icons/hallaca-icon";
@@ -56,11 +55,9 @@ export default function SoloPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
-      <Button variant="ghost" className="absolute top-4 left-4" asChild>
-        <Link href="/">
-          <ArrowLeft className="mr-2 h-4 w-4" /> Volver
-        </Link>
-      </Button>
+      <Button variant="ghost" onClick={() => router.back()} className="absolute top-4 left-4 z-10 flex items-center gap-2">
+          <ArrowLeft className="h-4 w-4" /> Volver
+        </Button>
       <Card className="w-full max-w-md md:max-w-4xl bg-card/80 backdrop-blur-sm">
         <CardHeader>
           <CardTitle className="font-headline text-3xl md:text-4xl text-center text-primary">Modo Solitario</CardTitle>

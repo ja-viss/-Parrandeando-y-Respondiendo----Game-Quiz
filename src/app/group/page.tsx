@@ -10,7 +10,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { GameSettings, Player, Difficulty, GameCategory } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Music, Utensils, Gift, X, PlusCircle, Globe } from "lucide-react";
-import Link from "next/link";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
@@ -87,11 +86,9 @@ export default function GroupPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
-       <Button variant="ghost" className="absolute top-4 left-4" asChild>
-        <Link href="/">
-          <ArrowLeft className="mr-2 h-4 w-4" /> Volver
-        </Link>
-      </Button>
+       <Button variant="ghost" onClick={() => router.back()} className="absolute top-4 left-4 z-10 flex items-center gap-2">
+          <ArrowLeft className="h-4 w-4" /> Volver
+        </Button>
       <Card className="w-full max-w-md md:max-w-2xl bg-card/80 backdrop-blur-sm">
         <CardHeader>
           <CardTitle className="font-headline text-3xl md:text-4xl text-center text-primary">Competencia Grupal</CardTitle>

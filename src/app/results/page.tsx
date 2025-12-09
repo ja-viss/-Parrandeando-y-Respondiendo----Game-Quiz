@@ -142,7 +142,7 @@ export default function ResultsPage() {
   return (
     <>
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
-      <Card className="w-full max-w-md md:max-w-2xl text-center bg-card/80 backdrop-blur-sm">
+      <Card className="w-full max-w-md md:max-w-2xl text-center bg-card/80 backdrop-blur-sm animate-fade-in-down">
         <CardHeader>
           <div className="flex justify-center mb-4">
             <Trophy className="w-16 h-16 text-accent" />
