@@ -99,11 +99,11 @@ export default function ScoresPage() {
         <div className="flex flex-col items-center justify-center min-h-screen p-4">
             <div className="w-full max-w-4xl mx-auto">
                 <div className="relative flex justify-center items-center mb-6">
-                    <Link href="/" passHref legacyBehavior>
-                        <Button variant="ghost" className="absolute top-1/2 -translate-y-1/2 left-0">
+                    <Button variant="ghost" className="absolute top-1/2 -translate-y-1/2 left-0" asChild>
+                        <Link href="/">
                             <ArrowLeft className="mr-2 h-4 w-4" /> Volver
-                        </Button>
-                    </Link>
+                        </Link>
+                    </Button>
                     <h1 className="font-brand text-4xl md:text-6xl text-primary title-pulse">Salón de la Fama</h1>
                 </div>
 
