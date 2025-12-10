@@ -1,16 +1,30 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { getLeaderboards } from '@/app/scores/actions';
 import { Player } from '@/lib/types';
-import { ArrowLeft, Crown, Medal, Star, Trophy } from 'lucide-react';
+import { ArrowLeft, Medal, Star, Trophy, PlusCircle } from 'lucide-react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { AddScoreDialog } from '@/components/scores/add-score-dialog';
+import { useScoreStore } from '@/lib/store/use-score-store';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+
 
 type LeaderboardPlayer = Player & { date: string; mode: string; };
 type StreakRecord = { name: string; streak: number; date: string; };
@@ -84,20 +98,51 @@ export default function ScoresPage() {
     const [leaderboards, setLeaderboards] = useState<Leaderboards | null>(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
+    const { openModal, isAdmin, setAdmin, authError } = useScoreStore();
+    const [showAuthDialog, setShowAuthDialog] = useState(false);
+    const [password, setPassword] = useState("");
+    const { toast } = useToast();
+
+    const fetchLeaderboards = async () => {
+        setLoading(true);
+        try {
+            const data = await getLeaderboards();
+            setLeaderboards(data);
+        } catch (err) {
+            console.error("Failed to load leaderboards:", err);
+            toast({ title: "Error", description: "No se pudieron cargar los puntajes.", variant: "destructive" });
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        getLeaderboards()
-            .then(data => {
-                setLeaderboards(data);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error("Failed to load leaderboards:", err);
-                setLoading(false);
-            });
-    }, []);
+        fetchLeaderboards();
+    }, [toast]);
+
+    const handleAddScoreClick = () => {
+        if (isAdmin) {
+            openModal();
+        } else {
+            setShowAuthDialog(true);
+        }
+    };
+    
+    const handleAdminAccess = () => {
+        if (password === "Jojoxto2420**") {
+            setAdmin(true);
+            setShowAuthDialog(false);
+            openModal();
+            setPassword("");
+        } else {
+            authError();
+            setPassword("");
+        }
+    };
+
 
     return (
+        <>
         <div className="flex flex-col items-center justify-center min-h-screen p-4">
             <div className="w-full max-w-4xl mx-auto">
                 <div className="relative flex justify-center items-center mb-6">
@@ -115,8 +160,15 @@ export default function ScoresPage() {
                     <div className="space-y-8">
                         <Card className="bg-primary text-primary-foreground border-accent">
                             <CardHeader>
-                                <CardTitle className="flex items-center gap-2 font-headline text-2xl"><Trophy className="text-accent"/> Salón de los Cuarto Bates</CardTitle>
-                                <CardDescription className="text-primary-foreground/80">El top 10 de todos los tiempos. La crema y nata de la parranda.</CardDescription>
+                                <div className="flex justify-between items-center">
+                                    <div>
+                                        <CardTitle className="flex items-center gap-2 font-headline text-2xl"><Trophy className="text-accent"/> Salón de los Cuarto Bates</CardTitle>
+                                        <CardDescription className="text-primary-foreground/80">El top 10 de todos los tiempos. La crema y nata de la parranda.</CardDescription>
+                                    </div>
+                                     <Button onClick={handleAddScoreClick} variant="secondary" className="bg-accent text-accent-foreground hover:bg-accent/90">
+                                        <PlusCircle className="mr-2 h-4 w-4" /> Añadir Puntaje
+                                    </Button>
+                                </div>
                             </CardHeader>
                              <CardContent>
                                 <Table>
@@ -196,5 +248,28 @@ export default function ScoresPage() {
                 )}
             </div>
         </div>
+        <AddScoreDialog onScoreAdded={fetchLeaderboards} />
+        <AlertDialog open={showAuthDialog} onOpenChange={setShowAuthDialog}>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Acceso de Administrador</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Por favor, introduce la clave para añadir un puntaje manualmente.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <Input 
+                type="password"
+                placeholder="Clave de acceso"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleAdminAccess()}
+              />
+              <AlertDialogFooter>
+                <AlertDialogCancel onClick={() => setPassword("")}>Cancelar</AlertDialogCancel>
+                <AlertDialogAction onClick={handleAdminAccess}>Ingresar</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+        </>
     );
 }

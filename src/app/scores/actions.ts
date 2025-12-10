@@ -3,7 +3,7 @@
 
 import fs from "fs/promises";
 import path from "path";
-import { GameResults } from "@/lib/types";
+import { GameResults, Player } from "@/lib/types";
 
 export interface ScoreEntry extends GameResults {
     date: string;
@@ -52,6 +52,14 @@ async function getScores(): Promise<ScoreEntry[]> {
     }
 }
 
+async function writeScores(scores: ScoreEntry[]): Promise<void> {
+    await ensureDirExists();
+    const sortedScores = scores.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    const trimmedScores = sortedScores.slice(0, 1000);
+    await fs.writeFile(scoresFilePath, JSON.stringify(trimmedScores, null, 2), 'utf8');
+    scoresCache = trimmedScores;
+}
+
 export async function saveScore(result: GameResults): Promise<void> {
     try {
         const scores = await getScores();
@@ -60,48 +68,28 @@ export async function saveScore(result: GameResults): Promise<void> {
             date: new Date().toISOString(),
         };
         
-        // Add new score to the beginning of the array
-        const newScores = [newScore, ...scores];
-
-        // Keep only the latest 1000 scores
-        const trimmedScores = newScores.slice(0, 1000);
-
-        await fs.writeFile(scoresFilePath, JSON.stringify(trimmedScores, null, 2), 'utf8');
-        
-        // Update cache
-        scoresCache = trimmedScores;
+        await writeScores([newScore, ...scores]);
 
     } catch (error) {
         console.error("Error saving score:", error);
-        // We throw here so the calling function knows something went wrong, but we can choose to handle it silently there.
         throw new Error("Could not save score.");
     }
 }
 
-export async function overwriteScores(scoresJSON: string): Promise<{success: boolean; message: string}> {
-    try {
-        let newScores: ScoreEntry[];
-        try {
-            newScores = JSON.parse(scoresJSON);
-            // Basic validation
-            if (!Array.isArray(newScores)) {
-                 throw new Error("El JSON no es un array.");
-            }
-        } catch (e: any) {
-            return { success: false, message: `Error al procesar el JSON: ${e.message}` };
-        }
+export async function addScore(entry: Omit<ScoreEntry, 'category'>): Promise<{success: boolean, message: string}> {
+     try {
+        const scores = await getScores();
+        const newScore: ScoreEntry = {
+            ...entry,
+            category: 'all', // Or handle this as needed
+        };
 
-        await ensureDirExists();
-        await fs.writeFile(scoresFilePath, JSON.stringify(newScores, null, 2), 'utf8');
-        
-        // Invalidate and update cache
-        scoresCache = newScores;
-        
-        return { success: true, message: `¡${newScores.length} puntajes cargados exitosamente!` };
+        await writeScores([newScore, ...scores]);
+        return { success: true, message: 'Puntaje añadido exitosamente.' };
 
     } catch (error: any) {
-        console.error("Error overwriting scores:", error);
-        return { success: false, message: `Error al escribir el archivo: ${error.message}` };
+        console.error("Error adding score:", error);
+        return { success: false, message: `Error al añadir el puntaje: ${error.message}` };
     }
 }
 
@@ -110,7 +98,7 @@ export async function getLeaderboards() {
     const scores = await getScores();
 
     // Helper to get unique top players for a given list
-    const getUniqueTopPlayers = (playersList: (GameResults["scores"][0] & { date: string, mode: string})[], limit: number) => {
+    const getUniqueTopPlayers = (playersList: (Player & { date: string, mode: string})[], limit: number) => {
         const uniquePlayers = new Map<string, typeof playersList[0]>();
         for (const player of playersList) {
             if (!player.name) continue; // Skip players with no name
@@ -166,4 +154,27 @@ export async function getLeaderboards() {
         survival: getTopForMode('survival'),
         survivalStreaks: getTopStreaks(),
     };
+}
+
+// This function is no longer used but kept for potential future use or reference
+export async function overwriteScores(scoresJSON: string): Promise<{success: boolean; message: string}> {
+    try {
+        let newScores: ScoreEntry[];
+        try {
+            newScores = JSON.parse(scoresJSON);
+            if (!Array.isArray(newScores)) {
+                 throw new Error("El JSON no es un array.");
+            }
+        } catch (e: any) {
+            return { success: false, message: `Error al procesar el JSON: ${e.message}` };
+        }
+
+        await writeScores(newScores);
+        
+        return { success: true, message: `¡${newScores.length} puntajes cargados exitosamente!` };
+
+    } catch (error: any) {
+        console.error("Error overwriting scores:", error);
+        return { success: false, message: `Error al escribir el archivo: ${error.message}` };
+    }
 }
