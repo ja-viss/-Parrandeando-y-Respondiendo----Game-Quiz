@@ -121,7 +121,7 @@ export default function ScoresPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleAddScoreClick = () => {
+    const handleAdminClick = () => {
         if (isAdmin) {
             openModal();
         } else {
@@ -150,7 +150,12 @@ export default function ScoresPage() {
                      <Button variant="ghost" onClick={() => router.back()} className="absolute top-1/2 -translate-y-1/2 left-0 flex items-center gap-2">
                         <ArrowLeft className="h-4 w-4" /> Volver
                     </Button>
-                    <h1 className="font-brand text-4xl md:text-6xl text-primary title-pulse">Salón de la Fama</h1>
+                    <h1 
+                        className="font-brand text-4xl md:text-6xl text-primary title-pulse cursor-pointer"
+                        onClick={handleAdminClick}
+                    >
+                        Salón de la Fama
+                    </h1>
                 </div>
 
                 {loading ? (
@@ -166,9 +171,6 @@ export default function ScoresPage() {
                                         <CardTitle className="flex items-center gap-2 font-headline text-2xl"><Trophy className="text-accent"/> Salón de los Cuarto Bates</CardTitle>
                                         <CardDescription className="text-primary-foreground/80">El top 10 de todos los tiempos. La crema y nata de la parranda.</CardDescription>
                                     </div>
-                                     <Button onClick={handleAddScoreClick} variant="secondary" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                                        <PlusCircle className="mr-2 h-4 w-4" /> Añadir Puntaje
-                                    </Button>
                                 </div>
                             </CardHeader>
                              <CardContent>
@@ -255,7 +257,7 @@ export default function ScoresPage() {
               <AlertDialogHeader>
                 <AlertDialogTitle>Acceso de Administrador</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Por favor, introduce la clave para añadir un puntaje manually.
+                  Por favor, introduce la clave para añadir un puntaje manualmente.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <Input 
