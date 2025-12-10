@@ -106,14 +106,17 @@ export default function ResultsPage() {
       }
     }
     
+    const url = window.location.origin;
+    const fullShareText = `${shareText} Juega aquí: ${url}`;
+
     if (navigator.share) {
         navigator.share({
             title: '¡Parrandeando y Respondiendo!',
             text: shareText,
-            url: window.location.origin,
+            url: url,
         }).catch(err => console.error('Error sharing:', err));
     } else {
-        navigator.clipboard.writeText(shareText).then(() => {
+        navigator.clipboard.writeText(fullShareText).then(() => {
             toast({
                 title: "¡Logro Copiado!",
                 description: "¡Pega el mensaje en WhatsApp y presume tu título!",
@@ -222,17 +225,17 @@ export default function ResultsPage() {
           )}
 
         </CardContent>
-        <CardFooter className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-          <Button onClick={handlePlayAgain} size="lg" variant="outline" className="w-full font-bold text-lg sm:col-span-1">
+        <CardFooter className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <Button onClick={handlePlayAgain} size="lg" variant="outline" className="w-full font-bold text-lg">
             <Repeat className="mr-2 h-4 w-4" /> Volver a Jugar
           </Button>
-           <Button asChild size="lg" className="w-full font-bold text-lg sm:col-span-1">
+           <Button asChild size="lg" className="w-full font-bold text-lg">
              <Link href="/scores">
                 <Trophy className="mr-2 h-4 w-4" /> Ver Puntajes
              </Link>
           </Button>
-           <Button onClick={handleShare} size="lg" className="w-full font-bold text-lg sm:col-span-1">
-            <Share2 className="mr-2 h-4 w-4" /> ¡Presume!
+           <Button onClick={handleShare} size="lg" className="w-full font-bold text-lg col-span-1 sm:col-span-2 bg-accent text-accent-foreground">
+            <Share2 className="mr-2 h-4 w-4" /> ¡Presume tu Hazaña!
           </Button>
         </CardFooter>
       </Card>

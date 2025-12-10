@@ -22,22 +22,18 @@ let scoresCache: ScoreEntry[] | null = null;
 
 async function ensureDirExists() {
     try {
-        // In production, the mount path `/var/data` is guaranteed by Render's disk config.
-        // We just need to make sure the local `data` directory exists for development.
         if (!isProduction) {
             await fs.mkdir(dataDir, { recursive: true });
         } else {
-            // For Render, we just check access to the mount point.
+            // For production environments, we assume the mount point exists
+            // and we don't have permission to create it, so we just check access.
             await fs.access(dataDir);
         }
     } catch (error: any) {
-        // If the directory doesn't exist in dev, create it.
-        // If it fails in prod, something is wrong with the disk mount.
         if (error.code === 'ENOENT' && !isProduction) {
            await fs.mkdir(dataDir, { recursive: true });
         } else {
             console.error(`Critical error accessing data directory '${dataDir}':`, error);
-            // Re-throw a more specific error for production environments
             throw new Error(`Failed to access persistent storage at '${dataDir}'. Please check disk mount configuration.`);
         }
     }
@@ -65,12 +61,17 @@ async function getScores(): Promise<ScoreEntry[]> {
     }
 }
 
+export async function getScoresAsJsonString(): Promise<string> {
+    const scores = await getScores();
+    return JSON.stringify(scores, null, 2);
+}
+
 async function writeScores(scores: ScoreEntry[]): Promise<void> {
     await ensureDirExists();
     const sortedScores = scores.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    const trimmedScores = sortedScores.slice(0, 1000);
+    const trimmedScores = sortedScores.slice(0, 1000); // Keep max 1000 scores
     await fs.writeFile(scoresFilePath, JSON.stringify(trimmedScores, null, 2), 'utf8');
-    scoresCache = trimmedScores;
+    scoresCache = trimmedScores; // Update cache
 }
 
 export async function saveScore(result: GameResults): Promise<void> {
@@ -85,7 +86,8 @@ export async function saveScore(result: GameResults): Promise<void> {
 
     } catch (error) {
         console.error("Error saving score:", error);
-        throw new Error("Could not save score.");
+        // We fail silently on the client side, but log it on the server.
+        // throw new Error("Could not save score.");
     }
 }
 
@@ -169,7 +171,6 @@ export async function getLeaderboards() {
     };
 }
 
-// This function is no longer used but kept for potential future use or reference
 export async function overwriteScores(scoresJSON: string): Promise<{success: boolean; message: string}> {
     try {
         let newScores: ScoreEntry[];
@@ -178,6 +179,11 @@ export async function overwriteScores(scoresJSON: string): Promise<{success: boo
             if (!Array.isArray(newScores)) {
                  throw new Error("El JSON no es un array.");
             }
+             // Basic validation of the first object
+            if (newScores.length > 0 && (!newScores[0].date || !newScores[0].scores)) {
+                throw new Error("El formato del JSON parece incorrecto. Faltan propiedades como 'date' o 'scores'.")
+            }
+
         } catch (e: any) {
             return { success: false, message: `Error al procesar el JSON: ${e.message}` };
         }

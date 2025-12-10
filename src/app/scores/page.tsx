@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { getLeaderboards } from '@/app/scores/actions';
 import { Player } from '@/lib/types';
-import { ArrowLeft, Medal, Star, Trophy, PlusCircle } from 'lucide-react';
+import { ArrowLeft, Medal, Star, Trophy, ShieldCheck } from 'lucide-react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { AddScoreDialog } from '@/components/scores/add-score-dialog';
@@ -98,7 +98,7 @@ export default function ScoresPage() {
     const [leaderboards, setLeaderboards] = useState<Leaderboards | null>(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
-    const { openModal, isAdmin, setAdmin, authError } = useScoreStore();
+    const { openModal, isAdmin, setAdmin } = useScoreStore();
     const [showAuthDialog, setShowAuthDialog] = useState(false);
     const [password, setPassword] = useState("");
     const { toast } = useToast();
@@ -135,8 +135,9 @@ export default function ScoresPage() {
             setShowAuthDialog(false);
             openModal();
             setPassword("");
+             toast({ title: "Acceso concedido", description: "Panel de administrador desbloqueado.", variant: "default" });
         } else {
-            authError();
+            toast({ title: "Clave incorrecta", description: "La clave de acceso no es válida.", variant: "destructive" });
             setPassword("");
         }
     };
@@ -156,6 +157,12 @@ export default function ScoresPage() {
                     >
                         Salón de la Fama
                     </h1>
+                     {isAdmin && (
+                        <div className="absolute top-1/2 -translate-y-1/2 right-0 flex items-center gap-2 text-green-500">
+                           <ShieldCheck className="h-5 w-5"/>
+                           <span className='font-body text-sm font-bold'>Admin</span>
+                        </div>
+                    )}
                 </div>
 
                 {loading ? (
@@ -257,7 +264,7 @@ export default function ScoresPage() {
               <AlertDialogHeader>
                 <AlertDialogTitle>Acceso de Administrador</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Por favor, introduce la clave para añadir un puntaje manualmente.
+                  Por favor, introduce la clave para acceder al panel de gestión de puntajes.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <Input 
