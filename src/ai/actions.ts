@@ -96,7 +96,7 @@ const generateQuestionPrompt = ai.definePrompt({
           -   **dificultad**: El nivel de dificultad solicitado ({{difficulty}}).
           -   **nivel**: La etiqueta correspondiente ('Fácil', 'Medio', o 'Experto').
           -   **categoria**: La categoría solicitada ({{category}}).
-          -   **pregunta**: El texto de la pregunta.
+          -   **pregunta**: El texto de la pregunta. Debe ser concisa y directa, idealmente no más de 2 o 3 líneas.
           -   **opciones**: Un arreglo con CUATRO opciones. Tres deben ser incorrectas pero plausibles (¡para confundir al enemigo!).
           -   **respuestaCorrecta**: El texto exacto de la respuesta correcta.
 

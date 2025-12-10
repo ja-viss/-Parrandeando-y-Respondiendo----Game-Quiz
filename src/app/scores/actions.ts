@@ -78,9 +78,12 @@ export async function getLeaderboards() {
     const getUniqueTopPlayers = (playersList: (GameResults["scores"][0] & { date: string, mode: string})[], limit: number) => {
         const uniquePlayers = new Map<string, typeof playersList[0]>();
         for (const player of playersList) {
-            const existingPlayer = uniquePlayers.get(player.name);
+            // Normalize nickname to be case-insensitive for uniqueness check
+            const normalizedName = player.name.toLowerCase();
+            const existingPlayer = uniquePlayers.get(normalizedName);
             if (!existingPlayer || player.score > existingPlayer.score) {
-                uniquePlayers.set(player.name, player);
+                // Store with original casing
+                uniquePlayers.set(normalizedName, player);
             }
         }
         return Array.from(uniquePlayers.values())
@@ -107,9 +110,10 @@ export async function getLeaderboards() {
 
         const uniqueStreaks = new Map<string, typeof streakPlayers[0]>();
         for (const player of streakPlayers) {
-            const existingPlayer = uniqueStreaks.get(player.name);
+            const normalizedName = player.name.toLowerCase();
+            const existingPlayer = uniqueStreaks.get(normalizedName);
             if (!existingPlayer || player.streak > existingPlayer.streak) {
-                uniqueStreaks.set(player.name, player);
+                uniqueStreaks.set(normalizedName, player);
             }
         }
 
