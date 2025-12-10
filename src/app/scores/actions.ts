@@ -78,6 +78,34 @@ export async function saveScore(result: GameResults): Promise<void> {
     }
 }
 
+export async function overwriteScores(scoresJSON: string): Promise<{success: boolean; message: string}> {
+    try {
+        let newScores: ScoreEntry[];
+        try {
+            newScores = JSON.parse(scoresJSON);
+            // Basic validation
+            if (!Array.isArray(newScores)) {
+                 throw new Error("El JSON no es un array.");
+            }
+        } catch (e: any) {
+            return { success: false, message: `Error al procesar el JSON: ${e.message}` };
+        }
+
+        await ensureDirExists();
+        await fs.writeFile(scoresFilePath, JSON.stringify(newScores, null, 2), 'utf8');
+        
+        // Invalidate and update cache
+        scoresCache = newScores;
+        
+        return { success: true, message: `¡${newScores.length} puntajes cargados exitosamente!` };
+
+    } catch (error: any) {
+        console.error("Error overwriting scores:", error);
+        return { success: false, message: `Error al escribir el archivo: ${error.message}` };
+    }
+}
+
+
 export async function getLeaderboards() {
     const scores = await getScores();
 
@@ -91,7 +119,7 @@ export async function getLeaderboards() {
             const existingPlayer = uniquePlayers.get(normalizedName);
             if (!existingPlayer || player.score > existingPlayer.score) {
                 // Store with original casing
-                uniquePlayers.set(normalizedName, player);
+                uniquePlayers.set(normalizedName, { ...player, name: player.name });
             }
         }
         return Array.from(uniquePlayers.values())

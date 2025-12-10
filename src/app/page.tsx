@@ -1,14 +1,49 @@
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { MaracaIcon } from "@/components/icons/maraca-icon";
 import { CuatroIcon } from "@/components/icons/cuatro-icon";
 import { HallacaIcon } from "@/components/icons/hallaca-icon";
-import { Trophy } from "lucide-react";
+import { Trophy, Cog } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+
 
 export default function Home() {
+  const [showAdminDialog, setShowAdminDialog] = useState(false);
+  const [password, setPassword] = useState("");
+  const { toast } = useToast();
+  const router = useRouter();
+  
+  const handleAdminAccess = () => {
+    if (password === "Jojoxto2420**") {
+      sessionStorage.setItem("admin-auth", "true");
+      router.push("/admin/upload-scores");
+    } else {
+      toast({
+        title: "Clave incorrecta",
+        description: "La clave de acceso de administrador no es válida.",
+        variant: "destructive",
+      });
+      setPassword("");
+    }
+    setShowAdminDialog(false);
+  };
+
   return (
     <main className="relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 text-center overflow-x-hidden">
       <div 
@@ -126,6 +161,37 @@ export default function Home() {
           </Link>
         </div>
       </div>
+      
+       <Button 
+          variant="ghost" 
+          size="icon" 
+          className="fixed bottom-2 right-2 text-muted-foreground/30 hover:text-accent hover:bg-transparent"
+          onClick={() => setShowAdminDialog(true)}
+        >
+          <Cog className="w-4 h-4" />
+        </Button>
+        
+        <AlertDialog open={showAdminDialog} onOpenChange={setShowAdminDialog}>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Acceso de Administrador</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Por favor, introduce la clave para acceder a la carga de puntajes.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <Input 
+                type="password"
+                placeholder="Clave de acceso"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleAdminAccess()}
+              />
+              <AlertDialogFooter>
+                <AlertDialogCancel onClick={() => setPassword("")}>Cancelar</AlertDialogCancel>
+                <AlertDialogAction onClick={handleAdminAccess}>Ingresar</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
     </main>
   );
 }
