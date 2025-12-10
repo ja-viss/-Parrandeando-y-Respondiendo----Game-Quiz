@@ -12,6 +12,7 @@ import { HallacaIcon } from "@/components/icons/hallaca-icon";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
 
 const difficulties: {
   value: Difficulty;
@@ -41,13 +42,23 @@ const difficulties: {
 
 export default function SoloPage() {
   const router = useRouter();
+  const { toast } = useToast();
   const [difficulty, setDifficulty] = useState<Difficulty>("Juguete de Niño");
-  const [nickname, setNickname] = useState("Parrandero/a");
+  const [nickname, setNickname] = useState("");
   
   const handleStart = () => {
+    if (nickname.trim() === '') {
+      toast({
+        title: "¡Falta tu apodo!",
+        description: "Por favor, escribe un apodo para empezar a jugar.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     const player: Player = {
         id: 'solo-player',
-        name: nickname.trim() === '' ? 'Parrandero/a' : nickname,
+        name: nickname,
         score: 0,
         powerUps: [],
     };
@@ -83,6 +94,7 @@ export default function SoloPage() {
               onChange={(e) => setNickname(e.target.value)}
               placeholder="Escribe tu apodo aquí"
               className="font-body text-center text-lg"
+              required
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

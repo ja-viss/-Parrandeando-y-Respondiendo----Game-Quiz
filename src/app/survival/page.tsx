@@ -8,15 +8,26 @@ import { GameSettings, Player } from "@/lib/types";
 import { ArrowLeft, Zap } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 
 export default function SurvivalPage() {
   const router = useRouter();
-  const [nickname, setNickname] = useState("Valiente");
+  const { toast } = useToast();
+  const [nickname, setNickname] = useState("");
 
   const handleStartSurvival = () => {
+    if (nickname.trim() === '') {
+      toast({
+        title: "¡Falta tu apodo!",
+        description: "Escribe un apodo para empezar a medir tu racha.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     const player: Player = {
         id: 'survival-player',
-        name: nickname.trim() === '' ? 'Valiente' : nickname,
+        name: nickname,
         score: 0,
         powerUps: [],
     };
@@ -56,6 +67,7 @@ export default function SurvivalPage() {
                 onChange={(e) => setNickname(e.target.value)}
                 placeholder="Escribe tu apodo aquí"
                 className="font-body text-center text-lg"
+                required
                 />
             </div>
             <p className="text-center text-muted-foreground font-body">
