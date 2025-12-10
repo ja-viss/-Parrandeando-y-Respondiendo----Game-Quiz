@@ -5,6 +5,9 @@ services:
     plan: free
     buildCommand: "npm install && npm run build"
     startCommand: "npm start"
+    disks:
+      - name: data
+        mountPath: /var/data
     envVars:
       - key: NODE_VERSION
         value: 20
