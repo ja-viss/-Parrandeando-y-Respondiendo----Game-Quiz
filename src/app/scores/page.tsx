@@ -118,7 +118,8 @@ export default function ScoresPage() {
 
     useEffect(() => {
         fetchLeaderboards();
-    }, [toast]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleAddScoreClick = () => {
         if (isAdmin) {
@@ -254,7 +255,7 @@ export default function ScoresPage() {
               <AlertDialogHeader>
                 <AlertDialogTitle>Acceso de Administrador</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Por favor, introduce la clave para añadir un puntaje manualmente.
+                  Por favor, introduce la clave para añadir un puntaje manually.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <Input 
