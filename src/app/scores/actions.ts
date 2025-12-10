@@ -13,8 +13,8 @@ export interface ScoreEntry extends GameResults {
 // In production (like on Render), use a persistent storage path.
 // In development, use the local data directory.
 const isProduction = process.env.NODE_ENV === 'production';
-const scoresDir = isProduction ? '/var/data/scores' : path.join(process.cwd(), 'data');
-const scoresFilePath = path.join(scoresDir, 'scores.json');
+const dataDir = isProduction ? '/var/data' : path.join(process.cwd(), 'data');
+const scoresFilePath = path.join(dataDir, 'scores.json');
 
 
 // In-memory cache for scores to avoid repeated file reads
@@ -22,11 +22,24 @@ let scoresCache: ScoreEntry[] | null = null;
 
 async function ensureDirExists() {
     try {
-        await fs.access(scoresDir);
-    } catch (error) {
-        // If the directory doesn't exist, create it.
-        // This is crucial for the first run in a persistent environment.
-        await fs.mkdir(scoresDir, { recursive: true });
+        // In production, the mount path `/var/data` is guaranteed by Render's disk config.
+        // We just need to make sure the local `data` directory exists for development.
+        if (!isProduction) {
+            await fs.mkdir(dataDir, { recursive: true });
+        } else {
+            // For Render, we just check access to the mount point.
+            await fs.access(dataDir);
+        }
+    } catch (error: any) {
+        // If the directory doesn't exist in dev, create it.
+        // If it fails in prod, something is wrong with the disk mount.
+        if (error.code === 'ENOENT' && !isProduction) {
+           await fs.mkdir(dataDir, { recursive: true });
+        } else {
+            console.error(`Critical error accessing data directory '${dataDir}':`, error);
+            // Re-throw a more specific error for production environments
+            throw new Error(`Failed to access persistent storage at '${dataDir}'. Please check disk mount configuration.`);
+        }
     }
 }
 
