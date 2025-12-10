@@ -9,8 +9,13 @@ export interface ScoreEntry extends GameResults {
     date: string;
 }
 
-const scoresFilePath = path.join(process.cwd(), 'data', 'scores.json');
-const scoresDir = path.dirname(scoresFilePath);
+// Determine the correct path based on the environment
+// In production (like on Render), use a persistent storage path.
+// In development, use the local data directory.
+const isProduction = process.env.NODE_ENV === 'production';
+const scoresDir = isProduction ? '/var/data/scores' : path.join(process.cwd(), 'data');
+const scoresFilePath = path.join(scoresDir, 'scores.json');
+
 
 // In-memory cache for scores to avoid repeated file reads
 let scoresCache: ScoreEntry[] | null = null;
@@ -19,6 +24,8 @@ async function ensureDirExists() {
     try {
         await fs.access(scoresDir);
     } catch (error) {
+        // If the directory doesn't exist, create it.
+        // This is crucial for the first run in a persistent environment.
         await fs.mkdir(scoresDir, { recursive: true });
     }
 }
@@ -78,6 +85,7 @@ export async function getLeaderboards() {
     const getUniqueTopPlayers = (playersList: (GameResults["scores"][0] & { date: string, mode: string})[], limit: number) => {
         const uniquePlayers = new Map<string, typeof playersList[0]>();
         for (const player of playersList) {
+            if (!player.name) continue; // Skip players with no name
             // Normalize nickname to be case-insensitive for uniqueness check
             const normalizedName = player.name.toLowerCase();
             const existingPlayer = uniquePlayers.get(normalizedName);
@@ -110,6 +118,7 @@ export async function getLeaderboards() {
 
         const uniqueStreaks = new Map<string, typeof streakPlayers[0]>();
         for (const player of streakPlayers) {
+            if (!player.name) continue;
             const normalizedName = player.name.toLowerCase();
             const existingPlayer = uniqueStreaks.get(normalizedName);
             if (!existingPlayer || player.streak > existingPlayer.streak) {
