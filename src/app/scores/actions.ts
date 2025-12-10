@@ -9,43 +9,16 @@ export interface ScoreEntry extends GameResults {
     date: string;
 }
 
-// Determine the correct path based on the environment
-// In production (like on Render), use a persistent storage path.
-// In development, use the local data directory.
-const isProduction = process.env.NODE_ENV === 'production';
-const dataDir = isProduction ? '/var/data' : path.join(process.cwd(), 'data');
-const scoresFilePath = path.join(dataDir, 'scores.json');
-
+const scoresFilePath = path.join(process.cwd(), 'data', 'scores.json');
 
 // In-memory cache for scores to avoid repeated file reads
 let scoresCache: ScoreEntry[] | null = null;
-
-async function ensureDirExists() {
-    try {
-        if (!isProduction) {
-            await fs.mkdir(dataDir, { recursive: true });
-        } else {
-            // For production environments, we assume the mount point exists
-            // and we don't have permission to create it, so we just check access.
-            await fs.access(dataDir);
-        }
-    } catch (error: any) {
-        if (error.code === 'ENOENT' && !isProduction) {
-           await fs.mkdir(dataDir, { recursive: true });
-        } else {
-            console.error(`Critical error accessing data directory '${dataDir}':`, error);
-            throw new Error(`Failed to access persistent storage at '${dataDir}'. Please check disk mount configuration.`);
-        }
-    }
-}
-
 
 async function getScores(): Promise<ScoreEntry[]> {
     if (scoresCache !== null) {
         return scoresCache;
     }
     try {
-        await ensureDirExists();
         const data = await fs.readFile(scoresFilePath, 'utf8');
         scoresCache = JSON.parse(data) as ScoreEntry[];
         return scoresCache;
@@ -67,7 +40,6 @@ export async function getScoresAsJsonString(): Promise<string> {
 }
 
 async function writeScores(scores: ScoreEntry[]): Promise<void> {
-    await ensureDirExists();
     const sortedScores = scores.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     const trimmedScores = sortedScores.slice(0, 1000); // Keep max 1000 scores
     await fs.writeFile(scoresFilePath, JSON.stringify(trimmedScores, null, 2), 'utf8');
